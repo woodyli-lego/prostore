@@ -9,9 +9,9 @@ So let's create a new file in the root of our project at `email/index.tsx`. Don'
 Add the following code for now:
 
 ```tsx
-import { Resend } from 'resend';
-import { SENDER_EMAIL, APP_NAME } from '@/lib/constants';
-import { Order } from '@/types';
+import { Resend } from "resend";
+import { SENDER_EMAIL, APP_NAME } from "@/lib/constants";
+import { Order } from "@/types";
 
 const resend = new Resend(process.env.RESEND_API_KEY as string);
 
@@ -73,7 +73,6 @@ Since we are using environment variables outside of the main app folder, we need
 
 We also create a `dateFormatter` object to format the date.
 
-
 ## Apply the Email Template
 
 Now back in the `email/index.tsx` file, we need to apply the `PurchaseReceiptEmail` component to the `send` function.
@@ -81,7 +80,7 @@ Now back in the `email/index.tsx` file, we need to apply the `PurchaseReceiptEma
 Import it like this:
 
 ```tsx
-import PurchaseReceiptEmail from './purchase-receipt';
+import PurchaseReceiptEmail from "./purchase-receipt";
 ```
 
 Then pass it into the `react` property with the order as a prop:

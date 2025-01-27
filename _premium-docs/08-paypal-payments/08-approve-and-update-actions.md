@@ -117,17 +117,16 @@ This function takes in the order ID as well as data from the payment result that
 Now we have to call the `updateOrderToPaid` action from the `approvePayPalOrder` action. Replace the `@todo` comment with the following code:
 
 ```javascript
-  // Update order to paid
-  await updateOrderToPaid({
-    orderId,
-    paymentResult: {
-      id: captureData.id,
-      status: captureData.status,
-      email_address: captureData.payer.email_address,
-      pricePaid:
-        captureData.purchase_units[0]?.payments?.captures[0]?.amount?.value,
-    },
-  });
+// Update order to paid
+await updateOrderToPaid({
+  orderId,
+  paymentResult: {
+    id: captureData.id,
+    status: captureData.status,
+    email_address: captureData.payer.email_address,
+    pricePaid: captureData.purchase_units[0]?.payments?.captures[0]?.amount?.value,
+  },
+});
 ```
 
 We are passing the order ID and a payment result with data from the PayPal capture payment.

@@ -55,7 +55,7 @@ npm install -D dotenv
 Create a `jest.setup.ts` file in the root of your project and add the following:
 
 ```ts
-require('dotenv').config();
+require("dotenv").config();
 ```
 
 Now in the `jest.config.ts` file, add the following:
@@ -71,14 +71,14 @@ Where you put your tests is up to you. A common place is to create a test folder
 Let's create a test to make sure we can generate an access token. Create a file at `tests/paypal.test.ts` file and add the following:
 
 ```ts
-import { generateAccessToken } from '../lib/paypal';
+import { generateAccessToken } from "../lib/paypal";
 
 // Generate a PayPal access token
-test('generates a PayPal access token', async () => {
+test("generates a PayPal access token", async () => {
   const tokenResponse = await generateAccessToken();
   console.log(tokenResponse);
   // Should be a string that is not empty
-  expect(typeof tokenResponse).toBe('string');
+  expect(typeof tokenResponse).toBe("string");
   expect(tokenResponse.length).toBeGreaterThan(0);
 });
 ```
@@ -96,4 +96,3 @@ npm run test
 ```
 
 You should see the log with the token in the console and the test should pass.
-

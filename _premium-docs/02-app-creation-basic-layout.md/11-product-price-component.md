@@ -5,25 +5,19 @@ Next we will make the price look a bit better and create a component for it.
 Create a file at `components/product/product-price.tsx` and add the following:
 
 ```tsx
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
-const ProductPrice = ({
-  value,
-  className,
-}: {
-  value: number;
-  className?: string;
-}) => {
+const ProductPrice = ({ value, className }: { value: number; className?: string }) => {
   // Ensures two decimal places
-  const stringValue = value.toFixed(2); 
+  const stringValue = value.toFixed(2);
   // Split into integer and decimal parts
-  const [intValue, floatValue] = stringValue.split('.'); 
+  const [intValue, floatValue] = stringValue.split(".");
 
   return (
-    <p className={cn('text-2xl', className)}>
-      <span className='text-xs align-super'>$</span>
+    <p className={cn("text-2xl", className)}>
+      <span className="text-xs align-super">$</span>
       {intValue}
-      <span className='text-xs align-super'>.{floatValue}</span>
+      <span className="text-xs align-super">.{floatValue}</span>
     </p>
   );
 };

@@ -11,14 +11,11 @@ Let's open the `app/(root)/search/page.tsx` file.
 Let's bring in the imports we need:
 
 ```tsx
-import Pagination from '@/components/shared/pagination';
-import ProductCard from '@/components/shared/product/product-card';
-import { Button } from '@/components/ui/button';
-import {
-  getAllCategories,
-  getAllProducts,
-} from '@/lib/actions/product.actions';
-import Link from 'next/link';
+import Pagination from "@/components/shared/pagination";
+import ProductCard from "@/components/shared/product/product-card";
+import { Button } from "@/components/ui/button";
+import { getAllCategories, getAllProducts } from "@/lib/actions/product.actions";
+import Link from "next/link";
 ```
 
 We are using the `getAllCategories` and `getAllProducts` actions from the `product.actions` file.
@@ -37,12 +34,12 @@ const SearchPage = async (props: {
   }>;
 }) => {
   const {
-    q = 'all',
-    category = 'all',
-    price = 'all',
-    rating = 'all',
-    sort = 'newest',
-    page = '1',
+    q = "all",
+    category = "all",
+    price = "all",
+    rating = "all",
+    sort = "newest",
+    page = "1",
   } = await props.searchParams;
 
   console.log(q, category, price, rating, sort, page);
@@ -111,18 +108,16 @@ Let's add the following to the search page return statement:
 
 ```tsx
 return (
-  <div className='grid md:grid-cols-5 md:gap-5'>
-    <div className='filter-links'>{/* FILTERS */}</div>
-    <div className='md:col-span-4 space-y-4'>
-      <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
+  <div className="grid md:grid-cols-5 md:gap-5">
+    <div className="filter-links">{/* FILTERS */}</div>
+    <div className="md:col-span-4 space-y-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {products!.data.length === 0 && <div>No product found</div>}
         {products!.data.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      {products!.totalPages! > 1 && (
-        <Pagination page={page} totalPages={products!.totalPages} />
-      )}
+      {products!.totalPages! > 1 && <Pagination page={page} totalPages={products!.totalPages} />}
     </div>
   </div>
 );
@@ -137,20 +132,17 @@ This is essentially the products page. It uses pagination and will have all kind
 Create a new file at `components/view-all-products-button.tsx` and add the following code:
 
 ```tsx
-'use client';
+"use client";
 
-import { Button } from './ui/button';
-import { useRouter } from 'next/navigation';
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 const ViewAllProductsButton = () => {
   const router = useRouter();
 
   return (
-    <div className='flex justify-center items-center my-8'>
-      <Button
-        onClick={() => router.push('/search')}
-        className='px-8 py-4 text-lg font-semibold'
-      >
+    <div className="flex justify-center items-center my-8">
+      <Button onClick={() => router.push("/search")} className="px-8 py-4 text-lg font-semibold">
         View All Products
       </Button>
     </div>
@@ -163,7 +155,7 @@ export default ViewAllProductsButton;
 Now let's import it into the `app/page.tsx` file and import it:
 
 ```tsx
-import ViewAllProductsButton from '@/components/view-all-products-button';
+import ViewAllProductsButton from "@/components/view-all-products-button";
 ```
 
 Add it below the `ProductList` component:

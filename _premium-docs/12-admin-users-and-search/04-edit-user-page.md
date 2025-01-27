@@ -9,9 +9,9 @@ Let's start by adding the Zod schema for updating a user. Open the `lib/validato
 ```ts
 // Update User Schema
 export const updateUserSchema = updateProfileSchema.extend({
-  id: z.string().min(1, 'Id is required'),
-  name: z.string().min(3, 'Name must be at least 3 characters'),
-  role: z.string().min(1, 'Role is required'),
+  id: z.string().min(1, "Id is required"),
+  name: z.string().min(3, "Name must be at least 3 characters"),
+  role: z.string().min(1, "Role is required"),
 });
 ```
 
@@ -23,8 +23,8 @@ We are also going to create a constant for the role. Open the `lib/constants/ind
 
 ```ts
 export const USER_ROLES = process.env.USER_ROLES
-  ? process.env.USER_ROLES.split(', ')
-  : ['admin', 'user'];
+  ? process.env.USER_ROLES.split(", ")
+  : ["admin", "user"];
 ```
 
 We first check to see if the roles are set in the environment variables. If they are, we split them by a comma and space. If they are not, we set the roles to an array with the admin and user roles. This makes it easier to add or remove roles in the future.
@@ -48,12 +48,12 @@ npx shadcn@latest add select
 Let's create the update user form. Create a file at `app/admin/users/[id]/page.tsx` and add the following code:
 
 ```tsx
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { getUserById } from '@/lib/actions/user.actions';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getUserById } from "@/lib/actions/user.actions";
 
 export const metadata: Metadata = {
-  title: 'Update user',
+  title: "Update user",
 };
 
 const UpdateUserPage = async (props: {
@@ -70,8 +70,8 @@ const UpdateUserPage = async (props: {
   console.log(user);
 
   return (
-    <div className='space-y-8 max-w-lg mx-auto'>
-      <h1 className='h2-bold'>Update User</h1>
+    <div className="space-y-8 max-w-lg mx-auto">
+      <h1 className="h2-bold">Update User</h1>
       {/* FORM HERE */}
     </div>
   );

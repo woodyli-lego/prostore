@@ -10,22 +10,18 @@ if (!cart) {
   // ...
 } else {
   // Check for existing item in cart
-  const existItem = (cart.items as CartItem[]).find(
-    (x) => x.productId === item.productId
-  );
+  const existItem = (cart.items as CartItem[]).find((x) => x.productId === item.productId);
   // If not enough stock, throw error
   if (existItem) {
     if (product.stock < existItem.qty + 1) {
-      throw new Error('Not enough stock');
+      throw new Error("Not enough stock");
     }
 
     // Increase quantity of existing item
-    (cart.items as CartItem[]).find(
-      (x) => x.productId === item.productId
-    )!.qty = existItem.qty + 1;
+    (cart.items as CartItem[]).find((x) => x.productId === item.productId)!.qty = existItem.qty + 1;
   } else {
     // If stock, add item to cart
-    if (product.stock < 1) throw new Error('Not enough stock');
+    if (product.stock < 1) throw new Error("Not enough stock");
     cart.items.push(item);
   }
 
@@ -42,9 +38,7 @@ if (!cart) {
 
   return {
     success: true,
-    message: `${product.name} ${
-      existItem ? 'updated in' : 'added to'
-    } cart successfully`,
+    message: `${product.name} ${existItem ? "updated in" : "added to"} cart successfully`,
   };
 }
 ```

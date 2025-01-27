@@ -9,13 +9,13 @@ Go into the `lib/validators.ts` file and make sure you uncomment the `isFeatured
 ```ts
 // Schema for inserting a product
 export const insertProductSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters'),
-  slug: z.string().min(3, 'Name must be at least 3 characters'),
-  category: z.string().min(3, 'Name must be at least 3 characters'),
-  brand: z.string().min(3, 'Name must be at least 3 characters'),
-  description: z.string().min(3, 'Name must be at least 3 characters'),
+  name: z.string().min(3, "Name must be at least 3 characters"),
+  slug: z.string().min(3, "Name must be at least 3 characters"),
+  category: z.string().min(3, "Name must be at least 3 characters"),
+  brand: z.string().min(3, "Name must be at least 3 characters"),
+  description: z.string().min(3, "Name must be at least 3 characters"),
   stock: z.coerce.number(),
-  images: z.array(z.string()).min(1, 'Product must have at least one image'),
+  images: z.array(z.string()).min(1, "Product must have at least one image"),
   isFeatured: z.boolean(),
   banner: z.string().nullable(),
   price: currency,
@@ -25,8 +25,8 @@ export const insertProductSchema = z.object({
 Open the `components/shared/admin/product-form.tsx` file and add the following above the return statement:
 
 ```tsx
-const isFeatured = form.watch('isFeatured');
-const banner = form.watch('banner');
+const isFeatured = form.watch("isFeatured");
+const banner = form.watch("banner");
 ```
 
 Go to where you have the "isFeatured" comment. It should be below the image and above the description.
@@ -34,20 +34,17 @@ Go to where you have the "isFeatured" comment. It should be below the image and 
 Add the following `div` element:
 
 ```tsx
-<div className='upload-field'>
+<div className="upload-field">
   Featured Product
   <Card>
-    <CardContent className='space-y-2 mt-2  '>
+    <CardContent className="space-y-2 mt-2  ">
       <FormField
         control={form.control}
-        name='isFeatured'
+        name="isFeatured"
         render={({ field }) => (
-          <FormItem className='space-x-2 items-center'>
+          <FormItem className="space-x-2 items-center">
             <FormControl>
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
+              <Checkbox checked={field.value} onCheckedChange={field.onChange} />
             </FormControl>
             <FormLabel>Is Featured?</FormLabel>
           </FormItem>
@@ -56,21 +53,21 @@ Add the following `div` element:
       {isFeatured && banner && (
         <Image
           src={banner}
-          alt='banner image'
-          className=' w-full object-cover object-center rounded-sm'
+          alt="banner image"
+          className=" w-full object-cover object-center rounded-sm"
           width={1920}
           height={680}
         />
       )}
       {isFeatured && !banner && (
         <UploadButton
-          endpoint='imageUploader'
+          endpoint="imageUploader"
           onClientUploadComplete={(res: { url: string }[]) => {
-            form.setValue('banner', res[0].url);
+            form.setValue("banner", res[0].url);
           }}
           onUploadError={(error: Error) => {
             toast({
-              variant: 'destructive',
+              variant: "destructive",
               description: `ERROR! ${error.message}`,
             });
           }}

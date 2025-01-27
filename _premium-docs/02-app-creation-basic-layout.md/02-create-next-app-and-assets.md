@@ -43,34 +43,34 @@ Open the `app/layout.tsx` file.
 Change this line at the top:
 
 ```tsx
-import localFont from 'next/font/local';
+import localFont from "next/font/local";
 ```
 
 to the following:
 
 ```tsx
-import { Inter } from 'next/font/google';
+import { Inter } from "next/font/google";
 ```
 
 Replace the following code:
 
 ```tsx
 const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
 });
 const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
 });
 ```
 
 With this:
 
 ```tsx
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 ```
 
 And your body tag should look like this:
@@ -83,8 +83,8 @@ Also, change the title and description:
 
 ```tsx
 export const metadata: Metadata = {
-  title: 'Prostore',
-  description: 'A modern store built with Next.js, ShadCN, and Prisma.',
+  title: "Prostore",
+  description: "A modern store built with Next.js, ShadCN, and Prisma.",
 };
 ```
 
@@ -99,21 +99,21 @@ You can also delete the `fonts` folder.
 Replace the import in the `app/layout.tsx` file with this:
 
 ```tsx
-import '@/assets/styles/globals.css';
+import "@/assets/styles/globals.css";
 ```
 
 Here is the final code for `app/layout.tsx` so far:
 
 ```tsx
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import '@/assets/styles/globals.css';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "@/assets/styles/globals.css";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Prostore',
-  description: 'A modern store built with Next.js',
+  title: "Prostore",
+  description: "A modern store built with Next.js",
 };
 
 export default function RootLayout({
@@ -122,7 +122,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>{children}</body>
     </html>
   );

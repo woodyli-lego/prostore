@@ -5,10 +5,7 @@ Now we need to make it so that if the user already has a review, it will show in
 Open the `app/(root)/product/[slug]/review-form.tsx` file and import the `getReviewByProductId` action:
 
 ```tsx
-import {
-  createUpdateReview,
-  getReviewByProductId,
-} from '@/lib/actions/review.actions';
+import { createUpdateReview, getReviewByProductId } from "@/lib/actions/review.actions";
 ```
 
 Now, in the `handleOpenForm` function, add the following:
@@ -16,15 +13,15 @@ Now, in the `handleOpenForm` function, add the following:
 ```tsx
 // Open dialog on button click
 const handleOpenForm = async () => {
-  form.setValue('productId', productId);
-  form.setValue('userId', userId);
+  form.setValue("productId", productId);
+  form.setValue("userId", userId);
 
   const review = await getReviewByProductId({ productId });
 
   if (review) {
-    form.setValue('title', review.title);
-    form.setValue('description', review.description);
-    form.setValue('rating', review.rating);
+    form.setValue("title", review.title);
+    form.setValue("description", review.description);
+    form.setValue("rating", review.rating);
   }
   setOpen(true);
 };
@@ -47,8 +44,8 @@ const reload = async () => {
   } catch (err) {
     console.log(err);
     toast({
-      variant: 'destructive',
-      description: 'Error in fetching reviews',
+      variant: "destructive",
+      description: "Error in fetching reviews",
     });
   }
 };

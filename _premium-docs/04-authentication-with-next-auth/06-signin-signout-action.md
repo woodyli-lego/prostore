@@ -9,8 +9,8 @@ Remember, we are using Zod for form and type validation. Open the `lib/validator
 ```typescript
 // Schema for signing in a user
 export const signInFormSchema = z.object({
-  email: z.string().email('Invalid email address').min(3, 'Email must be at least 3 characters'),
-  password: z.string().min(3, 'Password must be at least 3 characters'),
+  email: z.string().email("Invalid email address").min(3, "Email must be at least 3 characters"),
+  password: z.string().min(3, "Password must be at least 3 characters"),
 });
 ```
 
@@ -21,11 +21,11 @@ Pretty simple. We are just setting email and password to a string that must be a
 Create a new file at `lib/actions/user.actions.ts` and add the following imports and mark as `use server`:
 
 ```typescript
-'use server';
+"use server";
 
-import { isRedirectError } from 'next/dist/client/components/redirect';
-import { signIn, signOut } from '@/auth';
-import { signInFormSchema } from '../validator';
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { signIn, signOut } from "@/auth";
+import { signInFormSchema } from "../validator";
 ```
 
 The `isRedirectError` function is used to check if the error is a redirect error. We are also importing the `signIn` and `signOut` functions from the `@/auth` module. Finally, we are importing the `signInFormSchema` from the `../validator` module that we created in the last lesson.
@@ -36,25 +36,22 @@ Create a new function called `signInWithCredentials` that takes in the `prevStat
 
 ```typescript
 // Sign in the user with credentials
-export async function signInWithCredentials(
-  prevState: unknown,
-  formData: FormData
-) {
+export async function signInWithCredentials(prevState: unknown, formData: FormData) {
   try {
     const user = signInFormSchema.parse({
-      email: formData.get('email'),
-      password: formData.get('password'),
+      email: formData.get("email"),
+      password: formData.get("password"),
     });
 
-    await signIn('credentials', user);
+    await signIn("credentials", user);
 
-    return { success: true, message: 'Signed in successfully' };
+    return { success: true, message: "Signed in successfully" };
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
     }
 
-    return { success: false, message: 'Invalid email or password' };
+    return { success: false, message: "Invalid email or password" };
   }
 }
 ```
@@ -75,33 +72,30 @@ export async function signOutUser() {
 Here is the full code:
 
 ```typescript
-'use server';
+"use server";
 
-import { isRedirectError } from 'next/dist/client/components/redirect';
-import { signIn, signOut } from '@/auth';
-import { signInFormSchema } from '../validator';
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { signIn, signOut } from "@/auth";
+import { signInFormSchema } from "../validator";
 
 // Sign in the user with credentials
-export async function signInWithCredentials(
-  prevState: unknown,
-  formData: FormData
-) {
+export async function signInWithCredentials(prevState: unknown, formData: FormData) {
   try {
     // Set user from form and validate it with Zod schema
     const user = signInFormSchema.parse({
-      email: formData.get('email'),
-      password: formData.get('password'),
+      email: formData.get("email"),
+      password: formData.get("password"),
     });
 
-    await signIn('credentials', user);
+    await signIn("credentials", user);
 
-    return { success: true, message: 'Signed in successfully' };
+    return { success: true, message: "Signed in successfully" };
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
     }
 
-    return { success: false, message: 'Invalid email or password' };
+    return { success: false, message: "Invalid email or password" };
   }
 }
 

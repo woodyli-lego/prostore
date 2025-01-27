@@ -5,17 +5,16 @@ Next, we will create the action to add a new order to the database. This action 
 We need to create a new file at `lib/actions/order.actions.ts` and add the following imports and add `use server`:
 
 ```typescript
-'use server';
+"use server";
 
-import { isRedirectError } from 'next/dist/client/components/redirect';
-import { formatError } from '../utils';
-import { auth } from '@/auth';
-import { getMyCart } from './cart.actions';
-import { getUserById } from './user.actions';
-import { insertOrderSchema } from '../validators';
-import { prisma } from '@/db/prisma';
-import { CartItem } from '@/types';
-
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { formatError } from "../utils";
+import { auth } from "@/auth";
+import { getMyCart } from "./cart.actions";
+import { getUserById } from "./user.actions";
+import { insertOrderSchema } from "../validators";
+import { prisma } from "@/db/prisma";
+import { CartItem } from "@/types";
 ```
 
 Now add the following function:
@@ -35,17 +34,16 @@ Let's go step by step and add to the try block:
 
 ```ts
 const session = await auth();
-if (!session) throw new Error('User is not authenticated');
+if (!session) throw new Error("User is not authenticated");
 
 const cart = await getMyCart();
 const userId = session?.user?.id;
-if (!userId) throw new Error('User not found');
+if (!userId) throw new Error("User not found");
 
 const user = await getUserById(userId);
 ```
 
-We get the session, the cart and the user. 
-
+We get the session, the cart and the user.
 
 We need to check if the cart is empty or if the user has not set an address or payment method. If any of these conditions are met, we are going to send a fail response with a `redirectTo` link:
 
@@ -53,24 +51,24 @@ We need to check if the cart is empty or if the user has not set an address or p
 if (!cart || cart.items.length === 0) {
   return {
     success: false,
-    message: 'Your cart is empty',
-    redirectTo: '/cart',
+    message: "Your cart is empty",
+    redirectTo: "/cart",
   };
 }
 
 if (!user.address) {
   return {
     success: false,
-    message: 'No shipping address',
-    redirectTo: '/shipping-address',
+    message: "No shipping address",
+    redirectTo: "/shipping-address",
   };
 }
 
 if (!user.paymentMethod) {
   return {
     success: false,
-    message: 'No payment method',
-    redirectTo: '/payment-method',
+    message: "No payment method",
+    redirectTo: "/payment-method",
   };
 }
 ```
@@ -138,50 +136,58 @@ So since we're adding multiple items to the order, if any of the operations fail
 Finally, we need to check for errors and send a success response:
 
 ```ts
- if (!insertedOrderId) throw new Error('Order not created');
+if (!insertedOrderId) throw new Error("Order not created");
 
-    return {
-      success: true,
-      message: 'Order created',
-      redirectTo: `/order/${insertedOrderId}`,
-    };
+return {
+  success: true,
+  message: "Order created",
+  redirectTo: `/order/${insertedOrderId}`,
+};
 ```
 
 Here is the entire code:
 
 ```typescript
-'use server';
+"use server";
 
-import { isRedirectError } from 'next/dist/client/components/redirect';
-import { formatError } from '../utils';
-import { auth } from '@/auth';
-import { getMyCart } from './cart.actions';
-import { getUserById } from './user.actions';
-import { redirect } from 'next/navigation';
-import { insertOrderSchema } from '../validators';
-import { prisma } from '@/db/prisma';
-import { CartItem } from '@/types';
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { formatError } from "../utils";
+import { auth } from "@/auth";
+import { getMyCart } from "./cart.actions";
+import { getUserById } from "./user.actions";
+import { redirect } from "next/navigation";
+import { insertOrderSchema } from "../validators";
+import { prisma } from "@/db/prisma";
+import { CartItem } from "@/types";
 
 // Create an order
 export async function createOrder() {
   try {
     const session = await auth();
-    if (!session) throw new Error('User is not authenticated');
+    if (!session) throw new Error("User is not authenticated");
 
     const cart = await getMyCart();
     const userId = session?.user?.id;
-    if (!userId) throw new Error('User not found');
+    if (!userId) throw new Error("User not found");
 
     const user = await getUserById(userId);
 
     if (!cart || cart.items.length === 0) {
-      return { success: false, message: 'Your cart is empty', redirectTo: '/cart' };
+      return { success: false, message: "Your cart is empty", redirectTo: "/cart" };
     }
     if (!user.address) {
-      return { success: false, message: 'Please add a shipping address', redirectTo: '/shipping-address' };
+      return {
+        success: false,
+        message: "Please add a shipping address",
+        redirectTo: "/shipping-address",
+      };
     }
     if (!user.paymentMethod) {
-      return { success: false, message: 'Please select a payment method', redirectTo: '/payment-method' };
+      return {
+        success: false,
+        message: "Please select a payment method",
+        redirectTo: "/payment-method",
+      };
     }
 
     const order = insertOrderSchema.parse({
@@ -219,13 +225,16 @@ export async function createOrder() {
       return insertedOrder.id;
     });
 
-    if (!insertedOrderId) throw new Error('Order not created');
+    if (!insertedOrderId) throw new Error("Order not created");
 
-    return { success: true, message: 'Order successfully created', redirectTo: `/order/${insertedOrderId}` };
+    return {
+      success: true,
+      message: "Order successfully created",
+      redirectTo: `/order/${insertedOrderId}`,
+    };
   } catch (error) {
     if (isRedirectError(error)) throw error;
     return { success: false, message: formatError(error) };
   }
 }
-
 ```

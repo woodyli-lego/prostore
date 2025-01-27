@@ -17,20 +17,20 @@ npm install slugify
 In the first div, we will have the name and the slug:
 
 ```tsx
-<div className='flex flex-col gap-5 md:flex-row'>
+<div className="flex flex-col gap-5 md:flex-row">
   {/* Name */}
   <FormField
     control={form.control}
-    name='name'
+    name="name"
     render={({
       field,
     }: {
-      field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'name'>;
+      field: ControllerRenderProps<z.infer<typeof insertProductSchema>, "name">;
     }) => (
-      <FormItem className='w-full'>
+      <FormItem className="w-full">
         <FormLabel>Name</FormLabel>
         <FormControl>
-          <Input placeholder='Enter product name' {...field} />
+          <Input placeholder="Enter product name" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -39,21 +39,17 @@ In the first div, we will have the name and the slug:
   {/* Slug */}
   <FormField
     control={form.control}
-    name='slug'
+    name="slug"
     render={({
       field,
     }: {
-      field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'slug'>;
+      field: ControllerRenderProps<z.infer<typeof insertProductSchema>, "slug">;
     }) => (
-      <FormItem className='w-full'>
+      <FormItem className="w-full">
         <FormLabel>Slug</FormLabel>
         <FormControl>
-          <div className='relative'>
-            <Input
-              placeholder='Enter product slug'
-              className='pl-8'
-              {...field}
-            />
+          <div className="relative">
+            <Input placeholder="Enter product slug" className="pl-8" {...field} />
             {/* Generate Button */}
           </div>
         </FormControl>
@@ -68,10 +64,10 @@ Let's add the button to generate the slug:
 
 ```tsx
 <button
-  type='button'
-  className='bg-gray-500 text-white px-4 py-1 mt-2 hover:bg-gray-600'
+  type="button"
+  className="bg-gray-500 text-white px-4 py-1 mt-2 hover:bg-gray-600"
   onClick={() => {
-    form.setValue('slug', slugify(form.getValues('name'), { lower: true }));
+    form.setValue("slug", slugify(form.getValues("name"), { lower: true }));
   }}
 >
   Generate
@@ -85,23 +81,20 @@ We are using the `slugify` library to generate the slug from the name. We are us
 Lat's add the next set of fields:
 
 ```tsx
-<div className='flex flex-col gap-5 md:flex-row'>
+<div className="flex flex-col gap-5 md:flex-row">
   {/* Category */}
   <FormField
     control={form.control}
-    name='category'
+    name="category"
     render={({
       field,
     }: {
-      field: ControllerRenderProps<
-        z.infer<typeof insertProductSchema>,
-        'category'
-      >;
+      field: ControllerRenderProps<z.infer<typeof insertProductSchema>, "category">;
     }) => (
-      <FormItem className='w-full'>
+      <FormItem className="w-full">
         <FormLabel>Category</FormLabel>
         <FormControl>
-          <Input placeholder='Enter category' {...field} />
+          <Input placeholder="Enter category" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -110,19 +103,16 @@ Lat's add the next set of fields:
   {/* Brand */}
   <FormField
     control={form.control}
-    name='brand'
+    name="brand"
     render={({
       field,
     }: {
-      field: ControllerRenderProps<
-        z.infer<typeof insertProductSchema>,
-        'brand'
-      >;
+      field: ControllerRenderProps<z.infer<typeof insertProductSchema>, "brand">;
     }) => (
-      <FormItem className='w-full'>
+      <FormItem className="w-full">
         <FormLabel>Brand</FormLabel>
         <FormControl>
-          <Input placeholder='Enter product brand' {...field} />
+          <Input placeholder="Enter product brand" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -136,23 +126,20 @@ Lat's add the next set of fields:
 Now, let's add the price and stock fields:
 
 ```tsx
-<div className='flex flex-col gap-5 md:flex-row'>
+<div className="flex flex-col gap-5 md:flex-row">
   {/* Price */}
   <FormField
     control={form.control}
-    name='price'
+    name="price"
     render={({
       field,
     }: {
-      field: ControllerRenderProps<
-        z.infer<typeof insertProductSchema>,
-        'price'
-      >;
+      field: ControllerRenderProps<z.infer<typeof insertProductSchema>, "price">;
     }) => (
-      <FormItem className='w-full'>
+      <FormItem className="w-full">
         <FormLabel>Price</FormLabel>
         <FormControl>
-          <Input placeholder='Enter product price' {...field} />
+          <Input placeholder="Enter product price" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -161,19 +148,16 @@ Now, let's add the price and stock fields:
   {/* Stock */}
   <FormField
     control={form.control}
-    name='stock'
+    name="stock"
     render={({
       field,
     }: {
-      field: ControllerRenderProps<
-        z.infer<typeof insertProductSchema>,
-        'stock'
-      >;
+      field: ControllerRenderProps<z.infer<typeof insertProductSchema>, "stock">;
     }) => (
-      <FormItem className='w-full'>
+      <FormItem className="w-full">
         <FormLabel>Stock</FormLabel>
         <FormControl>
-          <Input type='number' placeholder='Enter product stock' {...field} />
+          <Input type="number" placeholder="Enter product stock" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -196,32 +180,25 @@ Add the following for the description:
 
 ```tsx
 <div>
-          {/* Description */}
-          <FormField
-            control={form.control}
-            name='description'
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertProductSchema>,
-                'description'
-              >;
-            }) => (
-              <FormItem className='w-full'>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder='Enter product description'
-                    className='resize-none'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+  {/* Description */}
+  <FormField
+    control={form.control}
+    name="description"
+    render={({
+      field,
+    }: {
+      field: ControllerRenderProps<z.infer<typeof insertProductSchema>, "description">;
+    }) => (
+      <FormItem className="w-full">
+        <FormLabel>Description</FormLabel>
+        <FormControl>
+          <Textarea placeholder="Enter product description" className="resize-none" {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+</div>
 ```
 
 Now add the submit button:
@@ -231,4 +208,3 @@ Now add the submit button:
 ```
 
 Alright, now that we added the form fields, in the next lesson, we will add the submit handler.
-

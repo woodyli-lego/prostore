@@ -3,9 +3,9 @@
 Now let's add the edit user form. Create a new file at `app/admin/users/[id]/update-user-form.tsx` and add the following code for now:
 
 ```tsx
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -13,29 +13,25 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useToast } from '@/hooks/use-toast';
-import { USER_ROLES } from '@/lib/constants';
-import { updateUserSchema } from '@/lib/validator';
-import { ControllerRenderProps } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { USER_ROLES } from "@/lib/constants";
+import { updateUserSchema } from "@/lib/validator";
+import { ControllerRenderProps } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-const updateUserForm = ({
-  user,
-}: {
-  user: z.infer<typeof updateUserSchema>;
-}) => {
+const updateUserForm = ({ user }: { user: z.infer<typeof updateUserSchema> }) => {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -46,7 +42,7 @@ const updateUserForm = ({
 
   return (
     <Form {...form}>
-      <form className='space-y-4'>form</form>
+      <form className="space-y-4">form</form>
     </Form>
   );
 };
@@ -59,13 +55,13 @@ We are bringing in a bunch of UI components, hooks and some other stuff. The com
 Then we're returning an empty form for now. Let's add it to the page. Open the `app/admin/users/[id]/page.tsx` file and import the `updateUserForm` component and add it to the page.
 
 ```tsx
-import UpdateUserForm from './update-user-form';
+import UpdateUserForm from "./update-user-form";
 ```
 
 ```tsx
 return (
-  <div className='space-y-8 max-w-lg mx-auto'>
-    <h1 className='h2-bold'>Update User</h1>
+  <div className="space-y-8 max-w-lg mx-auto">
+    <h1 className="h2-bold">Update User</h1>
     <UpdateUserForm user={user} /> 👈 Add this line
   </div>
 );
@@ -82,16 +78,16 @@ Here is the first `div` with the email field:
 <div>
   <FormField
     control={form.control}
-    name='email'
+    name="email"
     render={({
       field,
     }: {
-      field: ControllerRenderProps<z.infer<typeof updateUserSchema>, 'email'>;
+      field: ControllerRenderProps<z.infer<typeof updateUserSchema>, "email">;
     }) => (
-      <FormItem className='w-full'>
+      <FormItem className="w-full">
         <FormLabel>Email</FormLabel>
         <FormControl>
-          <Input disabled={true} placeholder='Enter user email' {...field} />
+          <Input disabled={true} placeholder="Enter user email" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -111,16 +107,16 @@ Next, we have the name field:
 <div>
   <FormField
     control={form.control}
-    name='name'
+    name="name"
     render={({
       field,
     }: {
-      field: ControllerRenderProps<z.infer<typeof updateUserSchema>, 'name'>;
+      field: ControllerRenderProps<z.infer<typeof updateUserSchema>, "name">;
     }) => (
-      <FormItem className='w-full'>
+      <FormItem className="w-full">
         <FormLabel>Name</FormLabel>
         <FormControl>
-          <Input placeholder='Enter user name' {...field} />
+          <Input placeholder="Enter user name" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -138,18 +134,18 @@ Next is the role field. Here we will use the select component from the ShadCN UI
 <div>
   <FormField
     control={form.control}
-    name='role'
+    name="role"
     render={({
       field,
     }: {
-      field: ControllerRenderProps<z.infer<typeof updateUserSchema>, 'role'>;
+      field: ControllerRenderProps<z.infer<typeof updateUserSchema>, "role">;
     }) => (
-      <FormItem className=' items-center'>
+      <FormItem className=" items-center">
         <FormLabel>Role</FormLabel>
         <Select onValueChange={field.onChange} value={field.value.toString()}>
           <FormControl>
             <SelectTrigger>
-              <SelectValue placeholder='Select a role' />
+              <SelectValue placeholder="Select a role" />
             </SelectTrigger>
           </FormControl>
           <SelectContent>
@@ -172,13 +168,9 @@ The `USER_ROLES` is an array of strings that we defined in the `lib/constants.ts
 Finally, we have the button to submit the form.
 
 ```tsx
-<div className='flex-between'>
-  <Button
-    type='submit'
-    className='w-full'
-    disabled={form.formState.isSubmitting}
-  >
-    {form.formState.isSubmitting ? 'Submitting...' : `Update User `}
+<div className="flex-between">
+  <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+    {form.formState.isSubmitting ? "Submitting..." : `Update User `}
   </Button>
 </div>
 ```

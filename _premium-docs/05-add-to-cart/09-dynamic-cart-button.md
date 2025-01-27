@@ -5,7 +5,7 @@ We now have an action to remove the items from the cart. Now we are going to edi
 We need to pass the cart into the button component. So open the product page at `app/(root)/product/[slug]/page.tsx` and let's import our `getMyCart` action:
 
 ```tsx
-import { getMyCart } from '@/lib/actions/cart.actions';
+import { getMyCart } from "@/lib/actions/cart.actions";
 ```
 
 then initialize it above the return:
@@ -48,13 +48,7 @@ Now just pass it into the `AddToCart` component:
 Open the `components/shared/product/add-to-cart.tsx` file and add the `cart` prop:
 
 ```tsx
-const AddToCart = ({
-  cart,
-  item,
-}: {
-  cart?: Cart;
-  item: Omit<CartItem, 'cartId'>;
-}) => {
+const AddToCart = ({ cart, item }: { cart?: Cart; item: Omit<CartItem, "cartId"> }) => {
   // ...
 };
 ```
@@ -62,9 +56,9 @@ const AddToCart = ({
 Import the `Cart` type, `Minus` icon and the `removeFromCart` action:
 
 ```tsx
-import { Cart, CartItem } from '@/types';
-import { Plus, Minus } from 'lucide-react';
-import { addItemToCart, removeItemFromCart } from '@/lib/actions/cart.actions';
+import { Cart, CartItem } from "@/types";
+import { Plus, Minus } from "lucide-react";
+import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 ```
 
 ## Handle Remove From Cart
@@ -77,7 +71,7 @@ const handleRemoveFromCart = async () => {
   const res = await removeItemFromCart(item.productId);
 
   toast({
-    variant: res.success ? 'default' : 'destructive',
+    variant: res.success ? "default" : "destructive",
     description: res.message,
   });
 
@@ -92,8 +86,7 @@ We are just calling the `removeItemFromCart` action and showing a toast message.
 We are going to create a variable to let us know if the item exists in the cart. Add the following right above the return statement:
 
 ```tsx
-const existItem =
-  cart && cart.items.find((x) => x.productId === item.productId);
+const existItem = cart && cart.items.find((x) => x.productId === item.productId);
 ```
 
 Now in the return, let's check for the `existItem` variable and show a remove button with the minus sign, the quantity and an add button with a plus sign:
@@ -101,17 +94,17 @@ Now in the return, let's check for the `existItem` variable and show a remove bu
 ```tsx
 return existItem ? (
   <div>
-    <Button type='button' variant='outline' onClick={handleRemoveFromCart}>
-      <Minus className='w-4 h-4' />
+    <Button type="button" variant="outline" onClick={handleRemoveFromCart}>
+      <Minus className="w-4 h-4" />
     </Button>
-    <span className='px-2'>{existItem.qty}</span>
-    <Button type='button' variant='outline' onClick={handleAddToCart}>
-      <Plus className='w-4 h-4' />
+    <span className="px-2">{existItem.qty}</span>
+    <Button type="button" variant="outline" onClick={handleAddToCart}>
+      <Plus className="w-4 h-4" />
     </Button>
   </div>
 ) : (
-  <Button className='w-full' type='button' onClick={handleAddToCart}>
-    <Plus className='w-4 h-4' />
+  <Button className="w-full" type="button" onClick={handleAddToCart}>
+    <Plus className="w-4 h-4" />
     Add to cart
   </Button>
 );

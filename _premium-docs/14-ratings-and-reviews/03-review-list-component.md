@@ -7,7 +7,7 @@ Let's start with the UI stuff first. I want to have a review-list component and 
 So create a new file at `app/(root)/product/[slug]/review-list.tsx` and add the following code:
 
 ```tsx
-'use client';
+"use client";
 
 const ReviewList = ({
   userId,
@@ -31,8 +31,8 @@ The component takes in the `userId`, `productId` and `productSlug` as props. We 
 We want to add this to the product page. So open the `app/(root)/product/[slug]/page.tsx` file and import the following:
 
 ```tsx
-import { auth } from '@/auth';
-import ReviewList from './review-list';
+import { auth } from "@/auth";
+import ReviewList from "./review-list";
 ```
 
 We need to get the user ID. So add the following above the return in the `ProductDetailsPage`:
@@ -45,13 +45,9 @@ const userId = session?.user?.id;
 Now under the closing `</section>` add the following section with the review list component:
 
 ```tsx
-<section className='mt-10'>
-  <h2 className='h2-bold  mb-5'>Customer Reviews</h2>
-  <ReviewList
-    productId={product.id}
-    productSlug={product.slug}
-    userId={userId || ''}
-  />
+<section className="mt-10">
+  <h2 className="h2-bold  mb-5">Customer Reviews</h2>
+  <ReviewList productId={product.id} productSlug={product.slug} userId={userId || ""} />
 </section>
 ```
 
@@ -60,19 +56,13 @@ Now if you go to the product page, you should see the component text and the con
 Let's bring in a few ShadCN components, icons and hooks into the `ReviewList` component:
 
 ```tsx
-import { useEffect, useState } from 'react';
-import { Review } from '@/types';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Calendar, Check, User } from 'lucide-react';
-import { formatDateTime } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
-import Link from 'next/link';
+import { useEffect, useState } from "react";
+import { Review } from "@/types";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar, Check, User } from "lucide-react";
+import { formatDateTime } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 ```
 
 Now let's just add an empty array in state to hold the reviews and then add the following to the return:
@@ -90,23 +80,23 @@ const ReviewList = ({
   const [reviews, setReviews] = useState<Review[]>([]);
 
   return (
-    <div className='space-y-4'>
+    <div className="space-y-4">
       {reviews.length === 0 && <div>No reviews yet</div>}
       {userId ? (
         <>{/* REVIEW FORM HERE */}</>
       ) : (
         <div>
-          Please{' '}
+          Please{" "}
           <Link
-            className='text-primary px-2'
+            className="text-primary px-2"
             href={`/api/auth/signin?callbackUrl=/product/${productSlug}`}
           >
             sign in
-          </Link>{' '}
+          </Link>{" "}
           to write a review
         </div>
       )}
-      <div className='flex flex-col gap-3'>{/* REVIEWS HERE */}</div>
+      <div className="flex flex-col gap-3">{/* REVIEWS HERE */}</div>
     </div>
   );
 };

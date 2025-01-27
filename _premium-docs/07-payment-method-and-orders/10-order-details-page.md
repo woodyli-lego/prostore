@@ -5,7 +5,7 @@ Now that we can place an order, we need to work on a page to show the order deta
 Let's start with the action to fetch an order by ID. Open the `lib/actions/order.actions.ts` file and import the `convertToPlainObject` function:
 
 ```ts
-import { convertToPlainObject } from '../utils';
+import { convertToPlainObject } from "../utils";
 ```
 
 Create a new function:
@@ -32,12 +32,12 @@ This is very simple. We are just getting the order by the ID and returning the o
 Create a page at `app/(root)/order/[id]/page.tsx` and add the following code:
 
 ```tsx
-import { getOrderById } from '@/lib/actions/order.actions';
-import { notFound } from 'next/navigation';
-import { ShippingAddress } from '@/types';
+import { getOrderById } from "@/lib/actions/order.actions";
+import { notFound } from "next/navigation";
+import { ShippingAddress } from "@/types";
 
 export const metadata = {
-  title: 'Order Details',
+  title: "Order Details",
 };
 
 const OrderDetailsPage = async (props: {

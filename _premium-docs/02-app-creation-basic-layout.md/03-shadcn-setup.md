@@ -32,7 +32,7 @@ Using --force tells npm or your package manager to ignore any dependency conflic
 
 --legacy-peer-deps:
 
-This option tells npm to ignore the "peer dependency" requirements of packages. By default, npm enforces strict compatibility for peer dependencies, and this flag just bypasses this check. This is generally safer than --force because it respects the primary dependencies while ignoring only the incompatible peer dependencies. 
+This option tells npm to ignore the "peer dependency" requirements of packages. By default, npm enforces strict compatibility for peer dependencies, and this flag just bypasses this check. This is generally safer than --force because it respects the primary dependencies while ignoring only the incompatible peer dependencies.
 
 I'm going to select the `--legacy-peer-deps` option. Either way you shouldn't have issues. All the packages we're using are compatible with React 19.
 
@@ -53,7 +53,7 @@ This will create a `components/ui` folder in the root of the project with the `b
 In your `app/page.tsx` file, import the button component and use it:
 
 ```tsx
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
 const HomePage = () => {
   return <Button>Button</Button>;

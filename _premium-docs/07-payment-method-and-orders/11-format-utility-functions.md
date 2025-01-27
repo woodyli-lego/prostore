@@ -19,8 +19,8 @@ export function formatId(id: string) {
 Here is an example of it's usage:
 
 ```js
-const id1 = '439dde63-541a-4cc9-891a-ffeae193abc0';
-const id2 = '1234567890abcdef';
+const id1 = "439dde63-541a-4cc9-891a-ffeae193abc0";
+const id2 = "1234567890abcdef";
 
 console.log(formatId(id1)); // Expected: "..abc0"
 console.log(formatId(id2)); // Expected: "..cdef"
@@ -75,15 +75,15 @@ We can get the date and time in different formats. Here is an example:
 
 ```js
 // Import or copy the function here if necessary
-const testDate = new Date('2023-10-25T08:30:00Z'); // Example date string
+const testDate = new Date("2023-10-25T08:30:00Z"); // Example date string
 
 // Call the formatDateTime function
 const formatted = formatDateTime(testDate);
 
 // Log the results
-console.log('Full DateTime:', formatted.dateTime); // Expected output: "Oct 25, 2023, 1:30 AM" (adjusted for timezone)
-console.log('Date Only:', formatted.dateOnly); // Expected output: "Wed, Oct 25, 2023"
-console.log('Time Only:', formatted.timeOnly); // Expected output: "1:30 AM" (adjusted for timezone)
+console.log("Full DateTime:", formatted.dateTime); // Expected output: "Oct 25, 2023, 1:30 AM" (adjusted for timezone)
+console.log("Date Only:", formatted.dateOnly); // Expected output: "Wed, Oct 25, 2023"
+console.log("Time Only:", formatted.timeOnly); // Expected output: "1:30 AM" (adjusted for timezone)
 ```
 
 Now we can use these around the app.

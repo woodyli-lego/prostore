@@ -8,11 +8,11 @@ Let's start by creating the Zod schema for the shipping address. Open the `lib/v
 
 ```tsx
 export const shippingAddressSchema = z.object({
-  fullName: z.string().min(3, 'Name must be at least 3 characters'),
-  streetAddress: z.string().min(3, 'Address must be at least 3 characters'),
-  city: z.string().min(3, 'city must be at least 3 characters'),
-  postalCode: z.string().min(3, 'Postal code must be at least 3 characters'),
-  country: z.string().min(3, 'Country must be at least 3 characters'),
+  fullName: z.string().min(3, "Name must be at least 3 characters"),
+  streetAddress: z.string().min(3, "Address must be at least 3 characters"),
+  city: z.string().min(3, "city must be at least 3 characters"),
+  postalCode: z.string().min(3, "Postal code must be at least 3 characters"),
+  country: z.string().min(3, "Country must be at least 3 characters"),
   lat: z.number().optional(),
   lng: z.number().optional(),
 });
@@ -28,7 +28,7 @@ import {
   insertCartSchema,
   insertProductSchema,
   shippingAddressSchema,
-} from '@/lib/validator';
+} from "@/lib/validator";
 ```
 
 ```tsx
@@ -41,11 +41,11 @@ Let's add some constants to the `lib/constants/index.ts` file:
 
 ```tsx
 export const shippingAddressDefaultValues = {
-  fullName: 'John Doe',
-  streetAddress: '123 Main St',
-  city: 'Anytown',
-  postalCode: '12345',
-  country: 'USA',
+  fullName: "John Doe",
+  streetAddress: "123 Main St",
+  city: "Anytown",
+  postalCode: "12345",
+  country: "USA",
 };
 ```
 
@@ -56,28 +56,28 @@ Of course you can add different values if you would like.
 Let's create the page. Create a new file at `app/(root)/shipping-address/page.tsx` and add the following:
 
 ```tsx
-import { auth } from '@/auth';
-import { getMyCart } from '@/lib/actions/cart.actions';
-import { getUserById } from '@/lib/actions/user.actions';
-import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
-import { ShippingAddress } from '@/types';
+import { auth } from "@/auth";
+import { getMyCart } from "@/lib/actions/cart.actions";
+import { getUserById } from "@/lib/actions/user.actions";
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { ShippingAddress } from "@/types";
 
 export const metadata: Metadata = {
-  title: 'Shipping Address',
+  title: "Shipping Address",
 };
 
 const ShippingAddressPage = async () => {
   const cart = await getMyCart();
 
-  if (!cart || cart.items.length === 0) redirect('/cart');
+  if (!cart || cart.items.length === 0) redirect("/cart");
 
   const session = await auth();
 
   const userId = session?.user?.id;
 
   if (!userId) {
-    throw new Error('User ID not found');
+    throw new Error("User ID not found");
   }
 
   const user = await getUserById(userId);
@@ -103,7 +103,7 @@ export async function getUserById(userId: string) {
     where: { id: userId },
   });
 
-  if (!user) throw new Error('User not found');
+  if (!user) throw new Error("User not found");
   return user;
 }
 ```

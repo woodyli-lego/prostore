@@ -9,16 +9,16 @@ Let's add the Zod schema for the items in the cart. Open the `lib/validator.ts` 
 ```typescript
 // Cart
 export const cartItemSchema = z.object({
-  productId: z.string().min(1, 'Product is required'),
-  name: z.string().min(1, 'Name is required'),
-  slug: z.string().min(1, 'Slug is required'),
-  qty: z.number().int().nonnegative('Quantity must be a non-negative number'),
-  image: z.string().min(1, 'Image is required'),
+  productId: z.string().min(1, "Product is required"),
+  name: z.string().min(1, "Name is required"),
+  slug: z.string().min(1, "Slug is required"),
+  qty: z.number().int().nonnegative("Quantity must be a non-negative number"),
+  image: z.string().min(1, "Image is required"),
   price: z
     .number()
     .refine(
       (value) => /^\d+(\.\d{2})?$/.test(Number(value).toFixed(2)),
-      'Price must have exactly two decimal places (e.g., 49.99)'
+      "Price must have exactly two decimal places (e.g., 49.99)"
     ),
 });
 ```
@@ -36,7 +36,7 @@ export const insertCartSchema = z.object({
   totalPrice: currency,
   shippingPrice: currency,
   taxPrice: currency,
-  sessionCartId: z.string().min(1, 'Session cart id is required'),
+  sessionCartId: z.string().min(1, "Session cart id is required"),
   userId: z.string().optional().nullable(),
 });
 ```
@@ -46,11 +46,7 @@ export const insertCartSchema = z.object({
 Let's add a new type. Open the `types/index.ts` file and add the following types:
 
 ```typescript
-import {
-  cartItemSchema,
-  insertCartSchema,
-  insertProductSchema,
-} from '@/lib/validator';
+import { cartItemSchema, insertCartSchema, insertProductSchema } from "@/lib/validator";
 ```
 
 ```typescript

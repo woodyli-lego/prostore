@@ -19,10 +19,9 @@ Then open the `lib/constants/index.ts` file and add the following code:
 
 ```typescript
 export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
-  ? process.env.PAYMENT_METHODS.split(', ')
-  : ['PayPal', 'Stripe', 'CashOnDelivery'];
-export const DEFAULT_PAYMENT_METHOD =
-  process.env.DEFAULT_PAYMENT_METHOD || 'PayPal';
+  ? process.env.PAYMENT_METHODS.split(", ")
+  : ["PayPal", "Stripe", "CashOnDelivery"];
+export const DEFAULT_PAYMENT_METHOD = process.env.DEFAULT_PAYMENT_METHOD || "PayPal";
 ```
 
 We are just exporting the `PAYMENT_METHODS` and `DEFAULT_PAYMENT_METHOD` constants from the `lib/constants/index.ts` file. We are using `split()` to convert the comma-separated string into an array. If the `PAYMENT_METHODS` environment variable is not set, we will use the default values.
@@ -32,7 +31,7 @@ We are just exporting the `PAYMENT_METHODS` and `DEFAULT_PAYMENT_METHOD` constan
 We need to create our Zod schema for the payment method. Opent the `lib/validators.ts` file and import the constant:
 
 ```typescript
-import { PAYMENT_METHODS } from './constants';
+import { PAYMENT_METHODS } from "./constants";
 ```
 
 Then add the following schema:
@@ -41,11 +40,11 @@ Then add the following schema:
 //Payment Schema
 export const paymentMethodSchema = z
   .object({
-    type: z.string().min(1, 'Pyament method is required'),
+    type: z.string().min(1, "Pyament method is required"),
   })
   .refine((data) => PAYMENT_METHODS.includes(data.type), {
-    path: ['type'],
-    message: 'Invalid payment method',
+    path: ["type"],
+    message: "Invalid payment method",
   });
 ```
 
@@ -61,23 +60,21 @@ import {
   signUpFormSchema,
   shippingAddressSchema,
   paymentMethodSchema,
-} from '../validator';
-import { z } from 'zod';
+} from "../validator";
+import { z } from "zod";
 ```
 
 Now add the following function:
 
 ```typescript
 // Update user's payment method
-export async function updateUserPaymentMethod(
-  data: z.infer<typeof paymentMethodSchema>
-) {
+export async function updateUserPaymentMethod(data: z.infer<typeof paymentMethodSchema>) {
   try {
     const session = await auth();
     const currentUser = await prisma.user.findFirst({
       where: { id: session?.user.id! },
     });
-    if (!currentUser) throw new Error('User not found');
+    if (!currentUser) throw new Error("User not found");
 
     const paymentMethod = paymentMethodSchema.parse(data);
 
@@ -88,7 +85,7 @@ export async function updateUserPaymentMethod(
 
     return {
       success: true,
-      message: 'User updated successfully',
+      message: "User updated successfully",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };

@@ -1,4 +1,3 @@
-
 # Rating & Query Filter Links
 
 Now we will add links to filter the ratings and query text.
@@ -18,13 +17,10 @@ Now add the following right under the closing `</div>` of the price links. Make 
   /* Rating Links */
 }
 <div>
-  <div className='text-xl mt-8 mb-2'>Customer Review</div>
-  <ul className='space-y-1'>
+  <div className="text-xl mt-8 mb-2">Customer Review</div>
+  <ul className="space-y-1">
     <li>
-      <Link
-        href={getFilterUrl({ r: 'all' })}
-        className={`  ${'all' === rating && 'font-bold'}`}
-      >
+      <Link href={getFilterUrl({ r: "all" })} className={`  ${"all" === rating && "font-bold"}`}>
         Any
       </Link>
     </li>
@@ -32,7 +28,7 @@ Now add the following right under the closing `</div>` of the price links. Make 
       <li key={r}>
         <Link
           href={getFilterUrl({ r: `${r}` })}
-          className={`${r.toString() === rating && 'font-bold'}`}
+          className={`${r.toString() === rating && "font-bold"}`}
         >
           {`${r} stars & up`}
         </Link>
@@ -57,19 +53,19 @@ Find the div that wraps the right column:
 And add this inside of it:
 
 ```tsx
-<div className='flex-between flex-col md:flex-row my-4'>
-  <div className='flex items-center'>
-    {q !== 'all' && q !== '' && 'Query : ' + q}
-    {category !== 'all' && category !== '' && '   Category : ' + category}
-    {price !== 'all' && '    Price: ' + price}
-    {rating !== 'all' && '    Rating: ' + rating + ' & up'}
+<div className="flex-between flex-col md:flex-row my-4">
+  <div className="flex items-center">
+    {q !== "all" && q !== "" && "Query : " + q}
+    {category !== "all" && category !== "" && "   Category : " + category}
+    {price !== "all" && "    Price: " + price}
+    {rating !== "all" && "    Rating: " + rating + " & up"}
     &nbsp;
-    {(q !== 'all' && q !== '') ||
-    (category !== 'all' && category !== '') ||
-    rating !== 'all' ||
-    price !== 'all' ? (
-      <Button variant={'link'} asChild>
-        <Link href='/search'>Clear</Link>
+    {(q !== "all" && q !== "") ||
+    (category !== "all" && category !== "") ||
+    rating !== "all" ||
+    price !== "all" ? (
+      <Button variant={"link"} asChild>
+        <Link href="/search">Clear</Link>
       </Button>
     ) : null}
   </div>

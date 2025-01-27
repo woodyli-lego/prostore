@@ -9,9 +9,9 @@ Create a new file at `app/admin/products/page.tsx` and add the following:
 ```tsx
 const AdminProductsPage = () => {
   return (
-    <div className='space-y-2'>
-      <div className='flex-between'>
-        <h1 className='h2-bold'>Products</h1>
+    <div className="space-y-2">
+      <div className="flex-between">
+        <h1 className="h2-bold">Products</h1>
       </div>
     </div>
   );
@@ -35,13 +35,13 @@ const AdminProductsPage = async (props: {
   const searchParams = await props.searchParams;
 
   const page = Number(searchParams.page) || 1;
-  const searchText = searchParams.query || '';
-  const category = searchParams.category || '';
+  const searchText = searchParams.query || "";
+  const category = searchParams.category || "";
 
   return (
-    <div className='space-y-2'>
-      <div className='flex-between'>
-        <h1 className='h2-bold'>Products</h1>
+    <div className="space-y-2">
+      <div className="flex-between">
+        <h1 className="h2-bold">Products</h1>
       </div>
     </div>
   );
@@ -85,7 +85,7 @@ So it will take in the following parameters:
 We need to import the `PAGE_SIZE` constant from the `lib/constants/index.ts` file:
 
 ```ts
-import { PAGE_SIZE } from '../constants';
+import { PAGE_SIZE } from "../constants";
 ```
 
 Now, let's add the following to find the products:
@@ -98,7 +98,6 @@ const data = await prisma.product.findMany({
 ```
 
 We are using the `skip` and `take` methods to paginate the results. We are skipping `(page - 1) * limit` products and taking `limit` products. This is how we can get the products for the current page.
-
 
 ### Handle pagination
 
@@ -144,15 +143,14 @@ export async function getAllProducts({
     totalPages: Math.ceil(dataCount / limit),
   };
 }
-
 ```
 
 Now let's bring this into our page. Open the `app/admin/products/page.tsx` file and add the following imports:
 
 ```tsx
-import Link from 'next/link';
-import { getAllProducts } from '@/lib/actions/product.actions';
-import { formatCurrency, formatId } from '@/lib/utils';
+import Link from "next/link";
+import { getAllProducts } from "@/lib/actions/product.actions";
+import { formatCurrency, formatId } from "@/lib/utils";
 ```
 
 We are bringing in the `getAllProducts` action and the `formatCurrency` and `formatId` functions from the `lib/utils` file as well as the `Link` component from `next/link`.

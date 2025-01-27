@@ -6,7 +6,7 @@ Create a new group folder in the `app` folder called `(auth)`. We will have a se
 
 ```tsx
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <div className='flex-center min-h-screen w-full '>{children}</div>;
+  return <div className="flex-center min-h-screen w-full ">{children}</div>;
 };
 export default Layout;
 ```
@@ -26,27 +26,21 @@ Now you should be able to click on the sign in button in the header and go to /s
 Let's add the imports that we will need:
 
 ```tsx
-import { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
-import { auth } from '@/auth';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { APP_NAME } from '@/lib/constants';
+import { auth } from "@/auth";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { APP_NAME } from "@/lib/constants";
 ```
 
 Let's set a title. Below the imports and above the function, add the following:
 
 ```tsx
 export const metadata: Metadata = {
-  title: 'Sign In',
+  title: "Sign In",
 };
 ```
 
@@ -55,24 +49,24 @@ Now in the component, add the following:
 ```tsx
 const SignIn = () => {
   return (
-    <div className='w-full max-w-md mx-auto'>
+    <div className="w-full max-w-md mx-auto">
       <Card>
-        <CardHeader className='space-y-4'>
-          <Link href='/' className='flex-center'>
+        <CardHeader className="space-y-4">
+          <Link href="/" className="flex-center">
             <Image
               priority={true}
-              src='/images/logo.svg'
+              src="/images/logo.svg"
               width={100}
               height={100}
               alt={`${APP_NAME} logo`}
             />
           </Link>
-          <CardTitle className='text-center'>Sign In</CardTitle>
-          <CardDescription className='text-center'>
+          <CardTitle className="text-center">Sign In</CardTitle>
+          <CardDescription className="text-center">
             Select a method to sign in to your account
           </CardDescription>
         </CardHeader>
-        <CardContent className='space-y-4'>{/* FORM HERE */}</CardContent>
+        <CardContent className="space-y-4">{/* FORM HERE */}</CardContent>
       </Card>
     </div>
   );

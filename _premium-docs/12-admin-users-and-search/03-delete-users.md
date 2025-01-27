@@ -8,11 +8,11 @@ export async function deleteUser(id: string) {
   try {
     await prisma.user.delete({ where: { id } });
 
-    revalidatePath('/admin/users');
+    revalidatePath("/admin/users");
 
     return {
       success: true,
-      message: 'User deleted successfully',
+      message: "User deleted successfully",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
@@ -23,8 +23,8 @@ export async function deleteUser(id: string) {
 We already have the deleteDialog component that just takes in an action. So let's open the `app/admin/users/page.tsx` file and import the deleteDialog component if you have not already as well as the deleteUser action:
 
 ```tsx
-import DeleteDialog from '@/components/shared/delete-dialog';
-import { getAllUsers, deleteUser } from '@/lib/actions/user.actions';
+import DeleteDialog from "@/components/shared/delete-dialog";
+import { getAllUsers, deleteUser } from "@/lib/actions/user.actions";
 ```
 
 Now add the deleteDialog component to the page where we have the comment:

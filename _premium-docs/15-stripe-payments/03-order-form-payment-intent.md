@@ -5,7 +5,7 @@ Before we create the actual Stripe form, we need to update the order form and in
 Open the `app/(root)/order/[id]/page.tsx` file and add the following import:
 
 ```tsx
-import Stripe from 'stripe';
+import Stripe from "stripe";
 ```
 
 In the `OrderDetailsPage` component, right under the `session` variable, add the following:
@@ -14,13 +14,13 @@ In the `OrderDetailsPage` component, right under the `session` variable, add the
 let client_secret = null;
 
 // Check if using Stripe and not paid
-if (order.paymentMethod === 'Stripe' && !order.isPaid) {
+if (order.paymentMethod === "Stripe" && !order.isPaid) {
   // Initialize Stripe instance
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
   // Create a new payment intent
   const paymentIntent = await stripe.paymentIntents.create({
     amount: Math.round(Number(order.totalPrice) * 100),
-    currency: 'USD',
+    currency: "USD",
     metadata: { orderId: order.id },
   });
   client_secret = paymentIntent.client_secret;
@@ -67,8 +67,8 @@ Now we want to pass the `client_secret` variable to the `OrderDetailsPage` compo
     shippingAddress: order.shippingAddress as ShippingAddress,
   }}
   stripeClientSecret={client_secret}
-  paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
-  isAdmin={session?.user.role === 'admin' || false}
+  paypalClientId={process.env.PAYPAL_CLIENT_ID || "sb"}
+  isAdmin={session?.user.role === "admin" || false}
 />
 ```
 
@@ -115,7 +115,7 @@ It takes in the `priceInCents`, `orderId`, and `clientSecret` as props. Stripe u
 Now, back in the `OrderDetailsTable` component, we can import the `StripePayment` component and use it in the `Stripe` payment method.
 
 ```tsx
-import StripePayment from './stripe-payment';
+import StripePayment from "./stripe-payment";
 ```
 
 In the return, add the following right under where we check for paypal and use the `<PayPalScriptProvider>` component:`
@@ -125,7 +125,7 @@ In the return, add the following right under where we check for paypal and use t
   /* Stripe Payment */
 }
 {
-  !isPaid && paymentMethod === 'Stripe' && stripeClientSecret && (
+  !isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
     <StripePayment
       priceInCents={Number(order.totalPrice) * 100}
       orderId={order.id}

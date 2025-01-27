@@ -14,7 +14,7 @@ export async function updateUserAddress(data: ShippingAddress) {
       where: { id: session?.user?.id! },
     });
 
-    if (!currentUser) throw new Error('User not found');
+    if (!currentUser) throw new Error("User not found");
 
     const address = shippingAddressSchema.parse(data);
 
@@ -25,7 +25,7 @@ export async function updateUserAddress(data: ShippingAddress) {
 
     return {
       success: true,
-      message: 'User updated successfully',
+      message: "User updated successfully",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
@@ -40,27 +40,25 @@ We are using the `auth` function from the `auth` file to get the current user's 
 Now go back to the `app/(root)/shipping-address/shipping-address-form.tsx` file and import the `updateUserAddress` function from the `user.actions` file.
 
 ```tsx
-import { updateUserAddress } from '@/lib/actions/user.actions';
+import { updateUserAddress } from "@/lib/actions/user.actions";
 ```
 
 Now add the following submit handler above the `return` statement:
 
 ```tsx
-const onSubmit: SubmitHandler<z.infer<typeof shippingAddressSchema>> = async (
-  values
-) => {
+const onSubmit: SubmitHandler<z.infer<typeof shippingAddressSchema>> = async (values) => {
   startTransition(async () => {
     const res = await updateUserAddress(values);
 
     if (!res.success) {
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         description: res.message,
       });
       return;
     }
 
-    router.push('/payment-method');
+    router.push("/payment-method");
   });
 };
 ```

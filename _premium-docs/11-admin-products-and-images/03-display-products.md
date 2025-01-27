@@ -5,9 +5,9 @@ In the last lesson, we were able to create an action to get all the products and
 Add the following imports to the top of the `app/admin/products/page.tsx` file:
 
 ```tsx
-import Link from 'next/link';
-import Pagination from '@/components/shared/pagination';
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import Pagination from "@/components/shared/pagination";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -15,20 +15,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { getAllProducts } from '@/lib/actions/product.actions';
-import { formatCurrency, formatId } from '@/lib/utils';
+} from "@/components/ui/table";
+import { getAllProducts } from "@/lib/actions/product.actions";
+import { formatCurrency, formatId } from "@/lib/utils";
 ```
 
 Let's add a button to create a product at the top. It won't do anything yet, but we will add the functionality soon:
 
 ```tsx
 return (
-  <div className='space-y-2'>
-    <div className='flex-between'>
-      <h1 className='h2-bold'>Products</h1>
-      <Button asChild variant='default'>
-        <Link href='/admin/products/create'>Create Product</Link>
+  <div className="space-y-2">
+    <div className="flex-between">
+      <h1 className="h2-bold">Products</h1>
+      <Button asChild variant="default">
+        <Link href="/admin/products/create">Create Product</Link>
       </Button>
     </div>
   </div>
@@ -38,9 +38,9 @@ return (
 Now under the first ending `</div>` add another div with the `Table` component from ShadCN. The entire page should look like this:
 
 ```tsx
-import Link from 'next/link';
-import Pagination from '@/components/shared/pagination';
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import Pagination from "@/components/shared/pagination";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -48,9 +48,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { getAllProducts } from '@/lib/actions/product.actions';
-import { formatCurrency, formatId } from '@/lib/utils';
+} from "@/components/ui/table";
+import { getAllProducts } from "@/lib/actions/product.actions";
+import { formatCurrency, formatId } from "@/lib/utils";
 
 const AdminProductsPage = async (props: {
   searchParams: Promise<{
@@ -61,8 +61,8 @@ const AdminProductsPage = async (props: {
   const searchParams = await props.searchParams;
 
   const page = Number(searchParams.page) || 1;
-  const searchText = searchParams.query || '';
-  const category = searchParams.category || '';
+  const searchText = searchParams.query || "";
+  const category = searchParams.category || "";
 
   const products = await getAllProducts({
     query: searchText,
@@ -71,11 +71,11 @@ const AdminProductsPage = async (props: {
   });
 
   return (
-    <div className='space-y-2'>
-      <div className='flex-between'>
-        <h1 className='h2-bold'>Products</h1>
-        <Button asChild variant='default'>
-          <Link href='/admin/products/create'>Create Product</Link>
+    <div className="space-y-2">
+      <div className="flex-between">
+        <h1 className="h2-bold">Products</h1>
+        <Button asChild variant="default">
+          <Link href="/admin/products/create">Create Product</Link>
         </Button>
       </div>
       <div>
@@ -84,11 +84,11 @@ const AdminProductsPage = async (props: {
             <TableRow>
               <TableHead>ID</TableHead>
               <TableHead>NAME</TableHead>
-              <TableHead className='text-right'>PRICE</TableHead>
+              <TableHead className="text-right">PRICE</TableHead>
               <TableHead>CATEGORY</TableHead>
               <TableHead>STOCK</TableHead>
               <TableHead>RATING</TableHead>
-              <TableHead className='w-[100px]'>ACTIONS</TableHead>
+              <TableHead className="w-[100px]">ACTIONS</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -96,14 +96,12 @@ const AdminProductsPage = async (props: {
               <TableRow key={product.id}>
                 <TableCell>{formatId(product.id)}</TableCell>
                 <TableCell>{product.name}</TableCell>
-                <TableCell className='text-right'>
-                  {formatCurrency(product.price)}
-                </TableCell>
+                <TableCell className="text-right">{formatCurrency(product.price)}</TableCell>
                 <TableCell>{product.category}</TableCell>
                 <TableCell>{product.stock}</TableCell>
                 <TableCell>{product.rating}</TableCell>
-                <TableCell className='flex gap-1'>
-                  <Button asChild variant='outline' size='sm'>
+                <TableCell className="flex gap-1">
+                  <Button asChild variant="outline" size="sm">
                     <Link href={`/admin/products/${product.id}`}>Edit</Link>
                   </Button>
                   {/* DELETE HERE */}

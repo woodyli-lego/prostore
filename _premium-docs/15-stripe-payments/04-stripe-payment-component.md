@@ -5,19 +5,19 @@ In the last lesson, we created the StripePayment component and just returned a p
 Open the file `app/(root)/order/[id]/stripe-payment.tsx` and add the following imports:
 
 ```tsx
-import { Button } from '@/components/ui/button';
-import { SERVER_URL } from '@/lib/constants';
-import { formatCurrency } from '@/lib/utils';
+import { Button } from "@/components/ui/button";
+import { SERVER_URL } from "@/lib/constants";
+import { formatCurrency } from "@/lib/utils";
 import {
   Elements,
   LinkAuthenticationElement,
   PaymentElement,
   useElements,
   useStripe,
-} from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js/pure';
-import { useTheme } from 'next-themes';
-import { FormEvent, useState } from 'react';
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js/pure";
+import { useTheme } from "next-themes";
+import { FormEvent, useState } from "react";
 
 const StripePayment = ({
   priceInCents,
@@ -47,9 +47,7 @@ We need to call the `loadStripe` function, which returns a promise that resolves
 Add the following code above the return of the `StripePayment` function:
 
 ```tsx
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
 const { theme, systemTheme } = useTheme();
 ```
@@ -72,9 +70,7 @@ const StripePayment = ({
   orderId: string;
   clientSecret: string;
 }) => {
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-  );
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
   const { theme, systemTheme } = useTheme();
 
   // Stripe Form Component
@@ -113,21 +109,15 @@ Now let's add the return for the `StriptForm` component.
 
 ```tsx
 return (
-  <form onSubmit={handleSubmit} className='space-y-4'>
-    <div className='text-xl'>Stripe Checkout</div>
-    {errorMessage && <div className='text-destructive'>{errorMessage}</div>}
+  <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="text-xl">Stripe Checkout</div>
+    {errorMessage && <div className="text-destructive">{errorMessage}</div>}
     <PaymentElement />
     <div>
       <LinkAuthenticationElement onChange={(e) => setEmail(e.value.email)} />
     </div>
-    <Button
-      className='w-full'
-      size='lg'
-      disabled={stripe == null || elements == null || isLoading}
-    >
-      {isLoading
-        ? 'Purchasing...'
-        : `Purchase - ${formatCurrency(priceInCents / 100)}`}
+    <Button className="w-full" size="lg" disabled={stripe == null || elements == null || isLoading}>
+      {isLoading ? "Purchasing..." : `Purchase - ${formatCurrency(priceInCents / 100)}`}
     </Button>
   </form>
 );
@@ -149,22 +139,21 @@ async function handleSubmit(e: FormEvent) {
   e.preventDefault();
   if (stripe == null || elements == null || email == null) return;
   setIsLoading(true);
- stripe
-  .confirmPayment({
-    elements,
-    confirmParams: {
-      return_url: `${SERVER_URL}/order/${orderId}/stripe-payment-success`,
-    },
-  })
-  .then(({ error }) => {
-    if (error?.type === 'card_error' || error?.type === 'validation_error') {
-      setErrorMessage(error?.message ?? 'An unknown error occurred.');
-    } else if (error) {
-      setErrorMessage('An unknown error occurred.');
-    }
-  })
-  .finally(() => setIsLoading(false));
-
+  stripe
+    .confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${SERVER_URL}/order/${orderId}/stripe-payment-success`,
+      },
+    })
+    .then(({ error }) => {
+      if (error?.type === "card_error" || error?.type === "validation_error") {
+        setErrorMessage(error?.message ?? "An unknown error occurred.");
+      } else if (error) {
+        setErrorMessage("An unknown error occurred.");
+      }
+    })
+    .finally(() => setIsLoading(false));
 }
 ```
 
@@ -186,13 +175,13 @@ return (
       clientSecret,
       appearance: {
         theme:
-          theme === 'dark'
-            ? 'night'
-            : theme === 'light'
-            ? 'stripe'
-            : systemTheme === 'light'
-            ? 'stripe'
-            : 'night',
+          theme === "dark"
+            ? "night"
+            : theme === "light"
+              ? "stripe"
+              : systemTheme === "light"
+                ? "stripe"
+                : "night",
       },
     }}
     stripe={stripePromise}
@@ -226,19 +215,19 @@ http://localhost:3000/order/5e89889a-3ab7-4e53-9054-5df781096b5a/stripe-payment-
 Here is the complete code for the `StripePayment` component:
 
 ```tsx
-import { Button } from '@/components/ui/button';
-import { SERVER_URL } from '@/lib/constants';
-import { formatCurrency } from '@/lib/utils';
+import { Button } from "@/components/ui/button";
+import { SERVER_URL } from "@/lib/constants";
+import { formatCurrency } from "@/lib/utils";
 import {
   Elements,
   LinkAuthenticationElement,
   PaymentElement,
   useElements,
   useStripe,
-} from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js/pure';
-import { useTheme } from 'next-themes';
-import { FormEvent, useState } from 'react';
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js/pure";
+import { useTheme } from "next-themes";
+import { FormEvent, useState } from "react";
 
 const StripePayment = ({
   priceInCents,
@@ -249,9 +238,7 @@ const StripePayment = ({
   orderId: string;
   clientSecret: string;
 }) => {
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-  );
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
   const { theme, systemTheme } = useTheme();
 
   // Stripe Form Component
@@ -276,13 +263,10 @@ const StripePayment = ({
           },
         })
         .then(({ error }) => {
-          if (
-            error.type === 'card_error' ||
-            error.type === 'validation_error'
-          ) {
+          if (error.type === "card_error" || error.type === "validation_error") {
             setErrorMessage(error.message);
           } else {
-            setErrorMessage('An unknown error occurred');
+            setErrorMessage("An unknown error occurred");
           }
         })
         .finally(() => setIsLoading(false));
@@ -290,23 +274,19 @@ const StripePayment = ({
 
     // return for StripeForm
     return (
-      <form onSubmit={handleSubmit} className='space-y-4'>
-        <div className='text-xl'>Stripe Checkout</div>
-        {errorMessage && <div className='text-destructive'>{errorMessage}</div>}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="text-xl">Stripe Checkout</div>
+        {errorMessage && <div className="text-destructive">{errorMessage}</div>}
         <PaymentElement />
         <div>
-          <LinkAuthenticationElement
-            onChange={(e) => setEmail(e.value.email)}
-          />
+          <LinkAuthenticationElement onChange={(e) => setEmail(e.value.email)} />
         </div>
         <Button
-          className='w-full'
-          size='lg'
+          className="w-full"
+          size="lg"
           disabled={stripe == null || elements == null || isLoading}
         >
-          {isLoading
-            ? 'Purchasing...'
-            : `Purchase - ${formatCurrency(priceInCents / 100)}`}
+          {isLoading ? "Purchasing..." : `Purchase - ${formatCurrency(priceInCents / 100)}`}
         </Button>
       </form>
     );
@@ -319,13 +299,13 @@ const StripePayment = ({
         clientSecret,
         appearance: {
           theme:
-            theme === 'dark'
-              ? 'night'
-              : theme === 'light'
-              ? 'stripe'
-              : systemTheme === 'light'
-              ? 'stripe'
-              : 'night',
+            theme === "dark"
+              ? "night"
+              : theme === "light"
+                ? "stripe"
+                : systemTheme === "light"
+                  ? "stripe"
+                  : "night",
         },
       }}
       stripe={stripePromise}

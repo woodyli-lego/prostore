@@ -15,17 +15,17 @@ We are going to create a separate component for the menu.
 Creare a new file at `components/shared/header/menu.tsx` and add the following imports:
 
 ```tsx
-import { EllipsisVertical, ShoppingCart, UserIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { EllipsisVertical, ShoppingCart, UserIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
   SheetTitle,
   SheetDescription,
-} from '@/components/ui/sheet';
-import Link from 'next/link';
-import ModeToggle from './mode-toggle';
+} from "@/components/ui/sheet";
+import Link from "next/link";
+import ModeToggle from "./mode-toggle";
 ```
 
 Add the following code:
@@ -34,17 +34,17 @@ Add the following code:
 const Menu = () => {
   return (
     <>
-      <div className='flex justify-end gap-3'>
-        <nav className='md:flex hidden w-full max-w-xs gap-1'>
+      <div className="flex justify-end gap-3">
+        <nav className="md:flex hidden w-full max-w-xs gap-1">
           <ModeToggle />
-          <Button asChild variant='ghost'>
-            <Link href='/cart'>
+          <Button asChild variant="ghost">
+            <Link href="/cart">
               <ShoppingCart />
               Cart
             </Link>
           </Button>
           <Button asChild>
-            <Link href='/sign-in'>
+            <Link href="/sign-in">
               <UserIcon />
               Sign In
             </Link>
@@ -63,27 +63,25 @@ Let's replace the right side of the header with this Menu component. Open the `c
 It should look like this:
 
 ```tsx
-import Image from 'next/image';
-import Link from 'next/link';
-import { APP_NAME } from '@/lib/constants';
-import Menu from './menu';
+import Image from "next/image";
+import Link from "next/link";
+import { APP_NAME } from "@/lib/constants";
+import Menu from "./menu";
 
 const Header = () => {
   return (
-    <header className='w-full border-b'>
-      <div className='wrapper flex-between'>
-        <div className='flex-start'>
-          <Link href='/' className='flex-start'>
+    <header className="w-full border-b">
+      <div className="wrapper flex-between">
+        <div className="flex-start">
+          <Link href="/" className="flex-start">
             <Image
               priority={true}
-              src='/images/logo.svg'
+              src="/images/logo.svg"
               width={48}
               height={48}
               alt={`${APP_NAME} logo`}
             />
-            <span className='hidden lg:block font-bold text-2xl ml-3'>
-              {APP_NAME}
-            </span>
+            <span className="hidden lg:block font-bold text-2xl ml-3">{APP_NAME}</span>
           </Link>
         </div>
         <Menu />
@@ -102,22 +100,22 @@ You should basically see the same thing. The only difference is that the menu is
 Now let's create the sheet. Add the following code under the ending `</nav>` tag in the `Menu` component:
 
 ```tsx
-<nav className='md:hidden'>
+<nav className="md:hidden">
   <Sheet>
-    <SheetTrigger className='align-middle'>
+    <SheetTrigger className="align-middle">
       <EllipsisVertical />
     </SheetTrigger>
-    <SheetContent className='flex flex-col items-start'>
+    <SheetContent className="flex flex-col items-start">
       <SheetTitle>Menu</SheetTitle>
       <ModeToggle />
-      <Button asChild variant='ghost'>
-        <Link href='/cart'>
+      <Button asChild variant="ghost">
+        <Link href="/cart">
           <ShoppingCart />
           Cart
         </Link>
       </Button>
-       <Button asChild>
-        <Link href='/sign-in'>
+      <Button asChild>
+        <Link href="/sign-in">
           <UserIcon />
           Sign In
         </Link>
@@ -135,47 +133,47 @@ Now when you make the screen smaller, you should see the EllipsisVertical icon. 
 Here is the final code for the Menu component:
 
 ```tsx
-import { EllipsisVertical, ShoppingCart, UserIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import Link from 'next/link';
-import ModeToggle from './mode-toggle';
+import { EllipsisVertical, ShoppingCart, UserIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Link from "next/link";
+import ModeToggle from "./mode-toggle";
 
 const Menu = () => {
   return (
     <>
-      <div className='flex justify-end gap-3'>
-        <nav className='md:flex hidden w-full max-w-xs gap-1'>
+      <div className="flex justify-end gap-3">
+        <nav className="md:flex hidden w-full max-w-xs gap-1">
           <ModeToggle />
-          <Button asChild variant='ghost'>
-            <Link href='/cart'>
+          <Button asChild variant="ghost">
+            <Link href="/cart">
               <ShoppingCart />
               Cart
             </Link>
           </Button>
           <Button asChild>
-            <Link href='/sign-in'>
+            <Link href="/sign-in">
               <UserIcon />
               Sign In
             </Link>
           </Button>
         </nav>
-        <nav className='md:hidden'>
+        <nav className="md:hidden">
           <Sheet>
-            <SheetTrigger className='align-middle'>
+            <SheetTrigger className="align-middle">
               <EllipsisVertical />
             </SheetTrigger>
-            <SheetContent className='flex flex-col items-start'>
+            <SheetContent className="flex flex-col items-start">
               <SheetTitle>Menu</SheetTitle>
               <ModeToggle />
-              <Button asChild variant='ghost'>
-                <Link href='/cart'>
+              <Button asChild variant="ghost">
+                <Link href="/cart">
                   <ShoppingCart />
                   Cart
                 </Link>
               </Button>
-               <Button asChild>
-                <Link href='/sign-in'>
+              <Button asChild>
+                <Link href="/sign-in">
                   <UserIcon />
                   Sign In
                 </Link>

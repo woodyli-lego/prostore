@@ -15,18 +15,13 @@ npx shadcn@latest add toast
 We need to add the container for the toast component. Add the following to the `app/layout.tsx` file:
 
 ```tsx
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from "@/components/ui/toaster";
 ```
 
 Embed it right below the `{children}` tag:
 
 ```tsx
-<ThemeProvider
-  attribute='class'
-  defaultTheme='light'
-  enableSystem
-  disableTransitionOnChange
->
+<ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
   {children}
   <Toaster />
 </ThemeProvider>
@@ -37,11 +32,11 @@ Embed it right below the `{children}` tag:
 Create a new file called `add-to-cart.tsx` in the `components/shared/product` folder and add the following for now:
 
 ```tsx
-'use client';
+"use client";
 
-import { CartItem } from '@/types';
+import { CartItem } from "@/types";
 
-const AddToCart = ({ item }: { item: Omit<CartItem, 'cartId'> }) => {
+const AddToCart = ({ item }: { item: Omit<CartItem, "cartId"> }) => {
   return <>Add To Cart</>;
 };
 
@@ -55,7 +50,7 @@ We are using the `CartItem` type from the `types.ts` file. We are using the `Omi
 Bring it into the product page. Open the `app/(root)/product/[slug]/page.tsx` file and add the following import:
 
 ```tsx
-import AddToCart from '@/components/shared/product/add-to-cart';
+import AddToCart from "@/components/shared/product/add-to-cart";
 ```
 
 Replace this code:
@@ -63,8 +58,8 @@ Replace this code:
 ```tsx
 {
   product.stock > 0 && (
-    <div className=' flex-center'>
-      <Button className='w-full'>Add to cart</Button>
+    <div className=" flex-center">
+      <Button className="w-full">Add to cart</Button>
     </div>
   );
 }
@@ -75,7 +70,7 @@ With this code:
 ```tsx
 {
   product.stock > 0 && (
-    <div className=' flex-center'>
+    <div className=" flex-center">
       <AddToCart
         item={{
           productId: product.id,
@@ -100,13 +95,13 @@ We will also implment the `toast` component for notifications. So we will add to
 For now, add the following imports:
 
 ```tsx
-import { Button } from '@/components/ui/button';
-import { ToastAction } from '@/components/ui/toast';
-import { useToast } from '@/hooks/use-toast';
-import { round2 } from '@/lib/utils';
-import { CartItem } from '@/types';
-import { Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { Button } from "@/components/ui/button";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
+import { round2 } from "@/lib/utils";
+import { CartItem } from "@/types";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 ```
 
 Pretty self-explanatory. We are importing our ShadCN components, the types, some icons, the `useRouter` , and the `useToast` hook.
@@ -122,7 +117,7 @@ Under that, in the return let's add the button:
 
 ```tsx
 return (
-  <Button className='w-full' type='button' onClick={handleAddToCart}>
+  <Button className="w-full" type="button" onClick={handleAddToCart}>
     <Plus />
     Add to cart
   </Button>
@@ -139,7 +134,7 @@ const handleAddToCart = async () => {
   // Display appropriate toast message based on the result
   if (!res.success) {
     toast({
-      variant: 'destructive',
+      variant: "destructive",
       description: res.message,
     });
     return;
@@ -149,9 +144,9 @@ const handleAddToCart = async () => {
     description: `${item.name} added to the cart`,
     action: (
       <ToastAction
-        className='bg-primary text-white hover:bg-gray-800'
-        onClick={() => router.push('/cart')}
-        altText='Go to cart'
+        className="bg-primary text-white hover:bg-gray-800"
+        onClick={() => router.push("/cart")}
+        altText="Go to cart"
       >
         Go to cart
       </ToastAction>
@@ -165,16 +160,16 @@ We have not created the `addItemToCart` action yet, but we will do that next. We
 Here is the whole AddToCart component:
 
 ```tsx
-'use client';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import { Plus } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { ToastAction } from '@/components/ui/toast';
-import { addItemToCart } from '@/lib/actions/cart.actions';
-import { CartItem } from '@/types';
+"use client";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { Plus } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { addItemToCart } from "@/lib/actions/cart.actions";
+import { CartItem } from "@/types";
 
-const AddToCart = ({ item }: { item: CartItem; }) => {
+const AddToCart = ({ item }: { item: CartItem }) => {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -185,7 +180,7 @@ const AddToCart = ({ item }: { item: CartItem; }) => {
     // Display appropriate toast message based on the result
     if (!res.success) {
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         description: res.message,
       });
       return;
@@ -195,21 +190,24 @@ const AddToCart = ({ item }: { item: CartItem; }) => {
       description: `${item.name} added to the cart`,
       action: (
         <ToastAction
-          className='bg-primary text-white hover:bg-gray-800'
-          onClick={() => router.push('/cart')}
-          altText='Go to cart'
+          className="bg-primary text-white hover:bg-gray-800"
+          onClick={() => router.push("/cart")}
+          altText="Go to cart"
         >
           Go to cart
         </ToastAction>
       ),
     });
-};
+  };
 
-  return <Button className='w-full' type='button' onClick={ handleAddToCart }>Add To Cart</Button>;
+  return (
+    <Button className="w-full" type="button" onClick={handleAddToCart}>
+      Add To Cart
+    </Button>
+  );
 };
 
 export default AddToCart;
-
 ```
 
 ## Create The `addItemToCart` Action
@@ -234,7 +232,7 @@ export async function addItemToCart (data: CartItem) => {
 Bring the action into the `AddToCart` component:
 
 ```tsx
-import { addItemToCart } from '@/lib/actions/cart.actions';
+import { addItemToCart } from "@/lib/actions/cart.actions";
 ```
 
 Now click the button and you should see the toast message.
@@ -242,7 +240,7 @@ Now click the button and you should see the toast message.
 Temporarily change the success to false:
 
 ```ts
-return { success: false, message: 'Something went wrong' };
+return { success: false, message: "Something went wrong" };
 ```
 
 Click the button and the toast should be red.

@@ -9,8 +9,8 @@ npx shadcn@latest add table
 Then we can use it in the `CartTable` component. Let's add the following imports for the card, button and all the table elements:
 
 ```tsx
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -18,20 +18,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 ```
 
 Let's start with the headers. Add the following to the return:
 
 ```tsx
-<div className='grid md:grid-cols-4 md:gap-5'>
-  <div className='overflow-x-auto md:col-span-3'>
+<div className="grid md:grid-cols-4 md:gap-5">
+  <div className="overflow-x-auto md:col-span-3">
     <Table>
       <TableHeader>
         <TableRow>
           <TableHead>Item</TableHead>
-          <TableHead className='text-center'>Quantity</TableHead>
-          <TableHead className='text-right'>Price</TableHead>
+          <TableHead className="text-center">Quantity</TableHead>
+          <TableHead className="text-right">Price</TableHead>
         </TableRow>
       </TableHeader>
     </Table>
@@ -48,14 +48,9 @@ Now let's add the table body and map over the cart items. We will add the first 
   {cart.items.map((item) => (
     <TableRow key={item.slug}>
       <TableCell>
-        <Link href={`/product/${item.slug}`} className='flex items-center'>
-          <Image
-            src={item.image}
-            alt={item.name}
-            width={50}
-            height={50}
-          ></Image>
-          <span className='px-2'>{item.name}</span>
+        <Link href={`/product/${item.slug}`} className="flex items-center">
+          <Image src={item.image} alt={item.name} width={50} height={50}></Image>
+          <span className="px-2">{item.name}</span>
         </Link>
       </TableCell>
     </TableRow>
@@ -70,51 +65,43 @@ Be sure you have the sample images in the `public/images/sample-products` folder
 The next cell will be the quantity and the add/remove buttons. We will add the following to the table body:
 
 ```tsx
-<TableCell className='flex-center gap-2'>
+<TableCell className="flex-center gap-2">
   <Button
     disabled={isPending}
-    variant='outline'
-    type='button'
+    variant="outline"
+    type="button"
     onClick={() =>
       startTransition(async () => {
         const res = await removeItemFromCart(item.productId);
         if (!res.success) {
           toast({
-            variant: 'destructive',
+            variant: "destructive",
             description: res.message,
           });
         }
       })
     }
   >
-    {isPending ? (
-      <Loader className='w-4 h-4  animate-spin' />
-    ) : (
-      <Minus className='w-4 h-4' />
-    )}
+    {isPending ? <Loader className="w-4 h-4  animate-spin" /> : <Minus className="w-4 h-4" />}
   </Button>
   <span>{item.qty}</span>
   <Button
     disabled={isPending}
-    variant='outline'
-    type='button'
+    variant="outline"
+    type="button"
     onClick={() =>
       startTransition(async () => {
         const res = await addItemToCart(item);
         if (!res.success) {
           toast({
-            variant: 'destructive',
+            variant: "destructive",
             description: res.message,
           });
         }
       })
     }
   >
-    {isPending ? (
-      <Loader className='w-4 h-4  animate-spin' />
-    ) : (
-      <Plus className='w-4 h-4' />
-    )}
+    {isPending ? <Loader className="w-4 h-4  animate-spin" /> : <Plus className="w-4 h-4" />}
   </Button>
 </TableCell>
 ```
@@ -126,7 +113,7 @@ We are doing the same thing that we did with the add to cart component. We are s
 Lastly, we will add the price cell. We will add the following to the table body:
 
 ```tsx
-<TableCell className='text-right'>${item.price}</TableCell>
+<TableCell className="text-right">${item.price}</TableCell>
 ```
 
 In the next lesson, we will have a card that shows the total. We are also going to create a custom function to format the currency.

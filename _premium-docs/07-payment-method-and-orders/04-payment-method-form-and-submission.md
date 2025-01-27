@@ -14,32 +14,25 @@ Open the `app/(root)/payment-method/payment-method-form.tsx` file and add the fo
 return (
   <>
     <CheckoutSteps current={2} />
-    <div className='max-w-md mx-auto'>
+    <div className="max-w-md mx-auto">
       <Form {...form}>
-        <form
-          method='post'
-          onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-4'
-        >
-          <h1 className='h2-bold mt-4'>Payment Method</h1>
-          <p className='text-sm text-muted-foreground'>
+        <form method="post" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <h1 className="h2-bold mt-4">Payment Method</h1>
+          <p className="text-sm text-muted-foreground">
             Please select your preferred payment method
           </p>
-          <div className='flex flex-col gap-5 md:flex-row'>
+          <div className="flex flex-col gap-5 md:flex-row">
             <FormField
               control={form.control}
-              name='type'
+              name="type"
               render={({ field }) => (
-                <FormItem className='space-y-3'>
+                <FormItem className="space-y-3">
                   <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      className='flex flex-col space-y-2'
-                    >
+                    <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-2">
                       {PAYMENT_METHODS.map((paymentMethod) => (
                         <FormItem
                           key={paymentMethod}
-                          className='flex items-center space-x-3 space-y-0'
+                          className="flex items-center space-x-3 space-y-0"
                         >
                           <FormControl>
                             <RadioGroupItem
@@ -47,9 +40,7 @@ return (
                               checked={field.value === paymentMethod}
                             />
                           </FormControl>
-                          <FormLabel className='font-normal'>
-                            {paymentMethod}
-                          </FormLabel>
+                          <FormLabel className="font-normal">{paymentMethod}</FormLabel>
                         </FormItem>
                       ))}
                     </RadioGroup>
@@ -59,12 +50,12 @@ return (
               )}
             />
           </div>
-          <div className='flex gap-2'>
-            <Button type='submit' disabled={isPending}>
+          <div className="flex gap-2">
+            <Button type="submit" disabled={isPending}>
               {isPending ? (
-                <Loader className='animate-spin w-4 h-4' />
+                <Loader className="animate-spin w-4 h-4" />
               ) : (
-                <ArrowRight className='w-4 h-4' />
+                <ArrowRight className="w-4 h-4" />
               )}
               Continue
             </Button>
@@ -89,14 +80,14 @@ async function onSubmit(values: z.infer<typeof paymentMethodSchema>) {
 
     if (!res.success) {
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         description: res.message,
       });
 
       return;
     }
 
-    router.push('/place-order');
+    router.push("/place-order");
   });
 }
 ```

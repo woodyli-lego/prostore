@@ -5,17 +5,17 @@ Now let's work on the page and UI to create a new product.
 Create a file at `app/admin/products/create/page.tsx` with the following code:
 
 ```tsx
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Create product',
+  title: "Create product",
 };
 
 const CreateProductPage = () => {
   return (
     <>
-      <h2 className='h2-bold'>Create Product</h2>
-      <div className='my-8'>{/* Product Form Here */}</div>
+      <h2 className="h2-bold">Create Product</h2>
+      <div className="my-8">{/* Product Form Here */}</div>
     </>
   );
 };
@@ -29,7 +29,7 @@ If you go to the admin products page, you should be able to click on the button 
 Let's start on the product form. Create a file at `components/shared/admin/product-form` and add the following code for now:
 
 ```tsx
-'use client';
+"use client";
 
 const ProductForm = () => {
   return <>Form</>;
@@ -41,7 +41,7 @@ export default ProductForm;
 Now bring it into the `app/admin/products/create/page.tsx` file:
 
 ```tsx
-import ProductForm from '@/components/shared/admin/product-form';
+import ProductForm from "@/components/shared/admin/product-form";
 ```
 
 and embed it:
@@ -50,9 +50,9 @@ and embed it:
 const CreateProductPage = () => {
   return (
     <>
-      <h2 className='h2-bold'>Create Product</h2>
-      <div className='my-8'>
-        <ProductForm type='Create' />
+      <h2 className="h2-bold">Create Product</h2>
+      <div className="my-8">
+        <ProductForm type="Create" />
       </div>
     </>
   );
@@ -73,24 +73,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
-import { createProduct, updateProduct } from '@/lib/actions/product.actions';
-import { productDefaultValues } from '@/lib/constants';
-import { insertProductSchema, updateProductSchema } from '@/lib/validator';
-import { ControllerRenderProps } from 'react-hook-form';
-import { Product } from '@/types';
-import { zodResolver } from '@hookform/resolvers/zod';
-import slugify from 'slugify';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Card, CardContent } from '@/components/ui/card';
-import Image from 'next/image';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { createProduct, updateProduct } from "@/lib/actions/product.actions";
+import { productDefaultValues } from "@/lib/constants";
+import { insertProductSchema, updateProductSchema } from "@/lib/validator";
+import { ControllerRenderProps } from "react-hook-form";
+import { Product } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import slugify from "slugify";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 ```
 
 Lot's of imports here. We have a bunch of ui components from ShadCN, a few hooks, a few actions, a few types, a few constants, a few validators, a few libraries, and a few components.
@@ -103,7 +103,7 @@ const ProductForm = ({
   product,
   productId,
 }: {
-  type: 'Create' | 'Update';
+  type: "Create" | "Update";
   product?: Product;
   productId?: string;
 }) => {
@@ -120,11 +120,8 @@ We are going to use React Hook Form, so let's create a form:
 
 ```tsx
 const form = useForm<z.infer<typeof insertProductSchema>>({
-  resolver:
-    type === 'Update'
-      ? zodResolver(updateProductSchema)
-      : zodResolver(insertProductSchema),
-  defaultValues: product && type === 'Update' ? product : productDefaultValues,
+  resolver: type === "Update" ? zodResolver(updateProductSchema) : zodResolver(insertProductSchema),
+  defaultValues: product && type === "Update" ? product : productDefaultValues,
 });
 ```
 
@@ -150,23 +147,21 @@ Let's add the form to the return statement with the divs that will hold the fiel
 ```tsx
 return (
   <Form {...form}>
-    <form className='space-y-8'>
-      <div className='flex flex-col gap-5 md:flex-row'>
+    <form className="space-y-8">
+      <div className="flex flex-col gap-5 md:flex-row">
         {/* Name */}
         {/* Slug */}
       </div>
-      <div className='flex flex-col gap-5 md:flex-row'>
+      <div className="flex flex-col gap-5 md:flex-row">
         {/* Category */}
         {/* Brand */}
       </div>
-      <div className='flex flex-col gap-5 md:flex-row'>
+      <div className="flex flex-col gap-5 md:flex-row">
         {/* Price */}
         {/* Stock  */}
       </div>
-      <div className='upload-field flex flex-col gap-5 md:flex-row'>
-        {/* Images */}
-      </div>
-      <div className='upload-field'>{/* Is Featured */}</div>
+      <div className="upload-field flex flex-col gap-5 md:flex-row">{/* Images */}</div>
+      <div className="upload-field">{/* Is Featured */}</div>
       <div>{/* Description */}</div>
       <div>{/* Submit */}</div>
     </form>

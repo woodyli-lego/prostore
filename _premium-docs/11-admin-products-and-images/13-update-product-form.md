@@ -20,14 +20,14 @@ Create a new file at `app/admin/products/[id]/page.tsx`. This will be the update
 Add the following code:
 
 ```tsx
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import ProductForm from '@/components/shared/admin/product-form';
-import { getProductById } from '@/lib/actions/product.actions';
+import ProductForm from "@/components/shared/admin/product-form";
+import { getProductById } from "@/lib/actions/product.actions";
 
 export const metadata: Metadata = {
-  title: 'Update product',
+  title: "Update product",
 };
 
 const UpdateProductPage = async (props: {
@@ -42,9 +42,9 @@ const UpdateProductPage = async (props: {
   if (!product) return notFound();
 
   return (
-    <div className='space-y-8 max-w-5xl mx-auto'>
-      <h1 className='h2-bold'>Update Product</h1>
-      <ProductForm type='Update' product={product} productId={product.id} />
+    <div className="space-y-8 max-w-5xl mx-auto">
+      <h1 className="h2-bold">Update Product</h1>
+      <ProductForm type="Update" product={product} productId={product.id} />
     </div>
   );
 };

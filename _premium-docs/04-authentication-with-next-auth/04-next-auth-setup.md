@@ -60,13 +60,13 @@ We need to create our main authentication file. This is where we will setup our 
 Create a file in the root called `auth.ts` and add the following imports:
 
 ```ts
-import { compareSync } from 'bcrypt-ts-edge';
-import type { NextAuthConfig } from 'next-auth';
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import { compareSync } from "bcrypt-ts-edge";
+import type { NextAuthConfig } from "next-auth";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-import { prisma } from '@/db/prisma';
-import { PrismaAdapter } from '@auth/prisma-adapter';
+import { prisma } from "@/db/prisma";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 ```
 
 - `compareSync` is a Bcrypt function that we will use to compare the password from the database with the password from the form.
@@ -87,8 +87,8 @@ Add the following code to the `auth.ts` file:
 ```ts
 export const config = {
   pages: {
-    signIn: '/sign-in',
-    error: '/sign-in',
+    signIn: "/sign-in",
+    error: "/sign-in",
   },
 };
 ```
@@ -230,21 +230,21 @@ This will initialize NextAuth with the config object that we are providing it. I
 Here is the entire file:
 
 ```ts
-import { compareSync } from 'bcrypt-ts-edge';
-import type { NextAuthConfig } from 'next-auth';
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import { compareSync } from "bcrypt-ts-edge";
+import type { NextAuthConfig } from "next-auth";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-import { prisma } from '@/db/prisma';
-import { PrismaAdapter } from '@auth/prisma-adapter';
+import { prisma } from "@/db/prisma";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
 export const config = {
   pages: {
-    signIn: '/sign-in',
-    error: '/sign-in',
+    signIn: "/sign-in",
+    error: "/sign-in",
   },
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
   adapter: PrismaAdapter(prisma),
@@ -252,9 +252,9 @@ export const config = {
     CredentialsProvider({
       credentials: {
         email: {
-          type: 'email',
+          type: "email",
         },
-        password: { type: 'password' },
+        password: { type: "password" },
       },
       async authorize(credentials) {
         if (credentials == null) return null;
@@ -267,10 +267,7 @@ export const config = {
         });
         // Check if user exists and password is correct
         if (user && user.password) {
-          const isMatch = compareSync(
-            credentials.password as string,
-            user.password
-          );
+          const isMatch = compareSync(credentials.password as string, user.password);
           // If password is correct, return user object
           if (isMatch) {
             return {
@@ -287,11 +284,11 @@ export const config = {
     }),
   ],
   callbacks: {
-    async session ({ session, user, trigger, token }: any) {
+    async session({ session, user, trigger, token }: any) {
       // Set the user id on the session
       session.user.id = token.sub;
       // If there is an update, set the name on the session
-      if (trigger === 'update') {
+      if (trigger === "update") {
         session.user.name = user.name;
       }
       return session;

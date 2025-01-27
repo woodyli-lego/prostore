@@ -5,38 +5,38 @@ Now we are going to make the search bar in the admin area work. It will search p
 Let's create a new file at `components/admin/admin-search.tsx` and add the following code:
 
 ```tsx
-'use client';
-import { Input } from '@/components/ui/input';
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { usePathname } from 'next/navigation';
+"use client";
+import { Input } from "@/components/ui/input";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const AdminSearch = () => {
   const pathname = usePathname();
-  const formActionUrl = pathname.includes('/admin/orders')
-    ? '/admin/orders'
-    : pathname.includes('/admin/users')
-    ? '/admin/users'
-    : '/admin/products';
+  const formActionUrl = pathname.includes("/admin/orders")
+    ? "/admin/orders"
+    : pathname.includes("/admin/users")
+      ? "/admin/users"
+      : "/admin/products";
 
   const searchParams = useSearchParams();
-  const [queryValue, setQueryValue] = useState(searchParams.get('query') || '');
+  const [queryValue, setQueryValue] = useState(searchParams.get("query") || "");
 
   useEffect(() => {
-    setQueryValue(searchParams.get('query') || '');
+    setQueryValue(searchParams.get("query") || "");
   }, [searchParams]);
 
   return (
-    <form action={formActionUrl} method='GET'>
+    <form action={formActionUrl} method="GET">
       <Input
-        type='search'
-        placeholder='Search...'
-        name='query'
+        type="search"
+        placeholder="Search..."
+        name="query"
         value={queryValue}
         onChange={(e) => setQueryValue(e.target.value)}
-        className='md:w-[100px] lg:w-[300px]'
+        className="md:w-[100px] lg:w-[300px]"
       />
-      <button type='submit' className='sr-only'>
+      <button type="submit" className="sr-only">
         Search
       </button>
     </form>
@@ -55,13 +55,13 @@ We are getting the path name and the form action url. Then we set the `queryValu
 Now let's add the form to the admin layout. Open the `app/admin/layout.tsx` file and add the following import:
 
 ```tsx
-import AdminSearch from '@/components/shared/admin/admin-search';
+import AdminSearch from "@/components/shared/admin/admin-search";
 ```
 
 Replace the `Input` with the component:
 
 ```tsx
-<div className='ml-auto flex items-center space-x-4'>
+<div className="ml-auto flex items-center space-x-4">
   <AdminSearch />
   <Menu />
 </div>
@@ -76,13 +76,13 @@ If you go to `/admin/products` it will already work because we already implement
 Let's add an option to remove the filter. Open the `app/admin/products/page.tsx` and replace the `h1` heading with the following:
 
 ```tsx
-<div className='flex items-center gap-3'>
-  <h1 className='h2-bold'>Products</h1>
+<div className="flex items-center gap-3">
+  <h1 className="h2-bold">Products</h1>
   {searchText && (
     <div>
-      Filtered by <i>&quot;{searchText}&quot;</i>{' '}
+      Filtered by <i>&quot;{searchText}&quot;</i>{" "}
       <Link href={`/admin/products`}>
-        <Button variant='outline' size='sm'>
+        <Button variant="outline" size="sm">
           Remove Filter
         </Button>
       </Link>

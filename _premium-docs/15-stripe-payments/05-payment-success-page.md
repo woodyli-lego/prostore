@@ -5,15 +5,15 @@ Now that we have the Stripe payment form working, we need to create a page that 
 Create a new file at `app/(root)/order/[id]/stripe-payment-success/page.tsx` and add the following:
 
 ```tsx
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
-import Stripe from 'stripe';
-import { getOrderById } from '@/lib/actions/order.actions';
-import { Button } from '@/components/ui/button';
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
+import Stripe from "stripe";
+import { getOrderById } from "@/lib/actions/order.actions";
+import { Button } from "@/components/ui/button";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 export const metadata: Metadata = {
-  title: 'Stripe Payment Success',
+  title: "Stripe Payment Success",
 };
 const SuccessPage = async (props: {
   params: Promise<{ id: string }>;
@@ -39,14 +39,14 @@ const SuccessPage = async (props: {
   }
 
   // Check if the payment intent is successful
-  const isSuccess = paymentIntent.status === 'succeeded';
+  const isSuccess = paymentIntent.status === "succeeded";
 
   if (!isSuccess) return redirect(`/order/${id}`);
 
   return (
-    <div className='max-w-4xl w-full mx-auto space-y-8'>
-      <div className='flex flex-col gap-6 items-center '>
-        <h1 className='h1-bold'>Thanks for your purchase</h1>
+    <div className="max-w-4xl w-full mx-auto space-y-8">
+      <div className="flex flex-col gap-6 items-center ">
+        <h1 className="h1-bold">Thanks for your purchase</h1>
         <div>We are now processing your order.</div>
         <Button asChild>
           <Link href={`/order/${id}`}>View order</Link>

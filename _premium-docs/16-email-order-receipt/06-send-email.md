@@ -5,8 +5,8 @@ Now we want this email to be sent when the user completes the checkout process.
 Open the `lib/actions/order.actions.ts` file and import the `sendPurchaseReceipt` function from the `email` folder. We also need the `ShippingAddress` type from the `types` folder.
 
 ```ts
-import { CartItem, PaymentResult, ShippingAddress } from '@/types';
-import { sendPurchaseReceipt } from '@/email';
+import { CartItem, PaymentResult, ShippingAddress } from "@/types";
+import { sendPurchaseReceipt } from "@/email";
 ```
 
 At the very end of the `updateOrderToPaid` function, after the transaction, we are going to get the updated order and send the email.
@@ -26,7 +26,7 @@ const updatedOrder = await prisma.order.findFirst({
 });
 
 if (!updatedOrder) {
-  throw new Error('Order not found');
+  throw new Error("Order not found");
 }
 
 // Send the purchase receipt email with the updated order

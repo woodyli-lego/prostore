@@ -11,7 +11,7 @@ Open the `lib/validator.ts` file. We already have an `insertProductSchema` schem
 ```ts
 // Schema for updating a product
 export const updateProductSchema = insertProductSchema.extend({
-  id: z.string().min(1, 'Id is required'),
+  id: z.string().min(1, "Id is required"),
 });
 ```
 
@@ -20,7 +20,7 @@ All we need to do is extend the `insertProductSchema` schema with the `id` field
 Open the `lib/actions/product.actions.ts` file and import the `updateProductSchema` schema:
 
 ```ts
-import { insertProductSchema, updateProductSchema } from '../validator';
+import { insertProductSchema, updateProductSchema } from "../validator";
 ```
 
 ## Product Default Values
@@ -29,16 +29,16 @@ I am also going to add a constant for the product form default values. Open the 
 
 ```ts
 export const productDefaultValues = {
-  name: '',
-  slug: '',
-  category: '',
+  name: "",
+  slug: "",
+  category: "",
   images: [],
-  brand: '',
-  description: '',
-  price: '0',
+  brand: "",
+  description: "",
+  price: "0",
   stock: 0,
-  rating: '0',
-  numReviews: '0',
+  rating: "0",
+  numReviews: "0",
   isFeatured: false,
   banner: null,
 };
@@ -56,11 +56,11 @@ export async function createProduct(data: z.infer<typeof insertProductSchema>) {
     const product = insertProductSchema.parse(data);
     await prisma.product.create({ data: product });
 
-    revalidatePath('/admin/products');
+    revalidatePath("/admin/products");
 
     return {
       success: true,
-      message: 'Product created successfully',
+      message: "Product created successfully",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
@@ -86,16 +86,16 @@ export async function updateProduct(data: z.infer<typeof updateProductSchema>) {
       where: { id: product.id },
     });
 
-    if (!productExists) throw new Error('Product not found');
+    if (!productExists) throw new Error("Product not found");
 
     // Update product
     await prisma.product.update({ where: { id: product.id }, data: product });
 
-    revalidatePath('/admin/products');
+    revalidatePath("/admin/products");
 
     return {
       success: true,
-      message: 'Product updated successfully',
+      message: "Product updated successfully",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };

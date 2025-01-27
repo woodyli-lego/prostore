@@ -5,7 +5,7 @@ We are going to add some preview props to our email template so that we can prev
 Open the `email/purchase-receipt.tsx` file and import the `db/sample-data.ts` file if you have not done so already.
 
 ```tsx
-import sampleData from '@/db/sample-data';
+import sampleData from "@/db/sample-data";
 ```
 
 Add the following code right above the `dateFormatter` variable:
@@ -14,28 +14,28 @@ Add the following code right above the `dateFormatter` variable:
 PurchaseReceiptEmail.PreviewProps = {
   order: {
     id: crypto.randomUUID(),
-    userId: '123',
+    userId: "123",
     user: {
-      name: 'John Doe',
-      email: 'bS8Rn@example.com',
+      name: "John Doe",
+      email: "bS8Rn@example.com",
     },
-    paymentMethod: 'Stripe',
+    paymentMethod: "Stripe",
     shippingAddress: {
-      fullName: 'John Doe',
-      streetAddress: '123 Main St',
-      city: 'New York',
-      postalCode: '10001',
-      country: 'US',
+      fullName: "John Doe",
+      streetAddress: "123 Main St",
+      city: "New York",
+      postalCode: "10001",
+      country: "US",
     },
     createdAt: new Date(),
-    totalPrice: '100',
-    taxPrice: '10',
-    shippingPrice: '10',
-    itemsPrice: '80',
+    totalPrice: "100",
+    taxPrice: "10",
+    shippingPrice: "10",
+    itemsPrice: "80",
     orderItems: sampleData.products.map((x) => ({
       name: x.name,
-      orderId: '123',
-      productId: '123',
+      orderId: "123",
+      productId: "123",
       slug: x.slug,
       qty: x.stock,
       image: x.images[0],
@@ -46,10 +46,10 @@ PurchaseReceiptEmail.PreviewProps = {
     isPaid: true,
     paidAt: new Date(),
     paymentResult: {
-      id: '123',
-      status: 'succeeded',
-      pricePaid: '12',
-      email_address: 'bS8Rn@example.com',
+      id: "123",
+      status: "succeeded",
+      pricePaid: "12",
+      email_address: "bS8Rn@example.com",
     },
   },
 } satisfies OrderInformationProps;
@@ -82,7 +82,7 @@ order: Order;
 To this line:
 
 ```tsx
-order: Omit<Order, 'paymentResult'>;
+order: Omit<Order, "paymentResult">;
 ```
 
 We are just omitting the `paymentResult` property from the `Order` type. Yes TypeScript can be a pain in the ass 😉

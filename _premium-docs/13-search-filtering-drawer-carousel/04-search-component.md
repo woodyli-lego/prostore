@@ -5,30 +5,30 @@ We are going to create a search component that allows users to search for produc
 Let's create a new file at `components/shared/header/search.tsx` and add the following code:
 
 ```tsx
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { getAllCategories } from '@/lib/actions/product.actions';
-import { SearchIcon } from 'lucide-react';
+} from "@/components/ui/select";
+import { getAllCategories } from "@/lib/actions/product.actions";
+import { SearchIcon } from "lucide-react";
 
 const Search = async () => {
   const categories = await getAllCategories();
 
   return (
-    <form action='/search' method='GET'>
-      <div className='flex w-full max-w-sm items-center space-x-2'>
-        <Select name='category'>
-          <SelectTrigger className='w-[180px]'>
-            <SelectValue placeholder='All' />
+    <form action="/search" method="GET">
+      <div className="flex w-full max-w-sm items-center space-x-2">
+        <Select name="category">
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="All" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem key={'All'} value={'all'}>
+            <SelectItem key={"All"} value={"all"}>
               All
             </SelectItem>
             {categories.map((x) => (
@@ -38,12 +38,7 @@ const Search = async () => {
             ))}
           </SelectContent>
         </Select>
-        <Input
-          name='q'
-          type='text'
-          placeholder='Search...'
-          className='md:w-[100px] lg:w-[300px]'
-        />
+        <Input name="q" type="text" placeholder="Search..." className="md:w-[100px] lg:w-[300px]" />
         <Button>
           <SearchIcon />
         </Button>
@@ -64,7 +59,7 @@ The form action is set to `/search`. We will create the search page soon.
 Now open the `components/shared/header/index.tsx` file and import the `Search` component:
 
 ```tsx
-import Search from './search';
+import Search from "./search";
 ```
 
 We are going to show the search component within the header on large screens but on small screens, we'll show it in the menu drawer.
@@ -72,7 +67,7 @@ We are going to show the search component within the header on large screens but
 Add the following code to the `Header` component right above the `Menu` component:
 
 ```tsx
-<div className='hidden md:block'>
+<div className="hidden md:block">
   <Search />
 </div>
 ```
@@ -80,14 +75,14 @@ Add the following code to the `Header` component right above the `Menu` componen
 Now open the `components/shared/header/menu.tsx` file and import the `Search` component:
 
 ```tsx
-import Search from './search';
+import Search from "./search";
 ```
 
 And add the `<div>` with the `<Search />` component within the `<SheetContent>` component:
 
 ```tsx
-<SheetContent className='flex flex-col items-start'>
-  <div className='mt-10'>
+<SheetContent className="flex flex-col items-start">
+  <div className="mt-10">
     <Search />
   </div>
   // ...

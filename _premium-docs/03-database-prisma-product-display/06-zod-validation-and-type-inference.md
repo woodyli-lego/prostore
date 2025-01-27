@@ -16,7 +16,6 @@ With zod, we:
 
 In short: zod = validation + type inference.
 
-
 ## Install Zod
 
 Open a terminal and run the following command:
@@ -27,29 +26,26 @@ npm install zod
 
 Let's create a new file at `lib/validator.ts`. This will be where we will write our validation code.
 
-
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 // Schema for inserting a product
 export const insertProductSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters'),
-  slug: z.string().min(3, 'Slug must be at least 3 characters'),
-  category: z.string().min(3, 'Category must be at least 3 characters'),
-  brand: z.string().min(3, 'Brand must be at least 3 characters'),
-  description: z.string().min(3, 'Description must be at least 3 characters'),
+  name: z.string().min(3, "Name must be at least 3 characters"),
+  slug: z.string().min(3, "Slug must be at least 3 characters"),
+  category: z.string().min(3, "Category must be at least 3 characters"),
+  brand: z.string().min(3, "Brand must be at least 3 characters"),
+  description: z.string().min(3, "Description must be at least 3 characters"),
   stock: z.coerce.number(),
-  images: z.array(z.string()).min(1, 'Product must have at least one image'),
+  images: z.array(z.string()).min(1, "Product must have at least one image"),
   isFeatured: z.boolean(),
   banner: z.string().nullable(),
 });
-
 ```
 
 Each field in the schema corresponds to a property in our Product model. Fields like name, slug, and description must be at least 3 characters. Images must contain at least one image. Banner can be null because it’s optional.
 
 z.coerce.number() ensures that values (e.g., "10") are converted to numbers, as the stock field in our database expects a number.
-
 
 ## Handling The Price Field
 
@@ -60,7 +56,6 @@ Remember, with the price field:
 - It’s a Decimal in the database, which requires precise formatting.
 - Form inputs typically provides price as a string (e.g., "49.9"), but we need to ensure it’s valid and formatted properly before passing it to the database.
 
-
 #### Helper Function
 
 First, we're going to create a helper function. Open the `lib/utils.ts` file and add the following:
@@ -68,8 +63,8 @@ First, we're going to create a helper function. Open the `lib/utils.ts` file and
 ```ts
 // Format number with decimal places
 export function formatNumberWithDecimal(num: number): string {
-  const [int, decimal] = num.toString().split('.');
-  return decimal ? `${int}.${decimal.padEnd(2, '0')}` : `${int}.00`;
+  const [int, decimal] = num.toString().split(".");
+  return decimal ? `${int}.${decimal.padEnd(2, "0")}` : `${int}.00`;
 }
 ```
 
@@ -92,27 +87,33 @@ const currency = z
   .string()
   .refine(
     (value) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))),
-    'Price must have exactly two decimal places (e.g., 49.99)'
+    "Price must have exactly two decimal places (e.g., 49.99)"
   );
-
 ```
 
 **Explanation:**
 
 1. Input as a String:
- - The price field is received as a string (e.g., "49.9").
-2. Convert to Number:
- - Number(value) converts the string to a number (49.9).
-3. Format:
- - `formatNumberWithDecimal` ensures the number has two decimal places (e.g., 49.9 → "49.90").
-4. Validate:
- - The regex /^\d+(\.\d{2})?$/ checks that the final value is a valid decimal (e.g., "49.90").
 
- Why do we convert the string to a number? Strings like "49.9" may visually look correct but lack precision. By converting to a number, we strip out any unnecessary formatting or errors (e.g., leading zeros) and then use our helper function to enforce two decimal places before validating the result.
+- The price field is received as a string (e.g., "49.9").
+
+2. Convert to Number:
+
+- Number(value) converts the string to a number (49.9).
+
+3. Format:
+
+- `formatNumberWithDecimal` ensures the number has two decimal places (e.g., 49.9 → "49.90").
+
+4. Validate:
+
+- The regex /^\d+(\.\d{2})?$/ checks that the final value is a valid decimal (e.g., "49.90").
+
+Why do we convert the string to a number? Strings like "49.9" may visually look correct but lack precision. By converting to a number, we strip out any unnecessary formatting or errors (e.g., leading zeros) and then use our helper function to enforce two decimal places before validating the result.
 
 #### Regex Pattern
 
- We are checking for a string that matches the following regex:
+We are checking for a string that matches the following regex:
 
 ```regex
 ^\d+(\.\d{2})?$
@@ -124,8 +125,8 @@ Here is the breakdown:
 
 - `^`: Start of the string.
 - `\d`+: Matches one or more digits (e.g., 49 in 49.99).
-- `(\.\d{2})?`: Matches an optional decimal point followed by exactly two digits `(\d{2})`. Example: .99. 
-The `?` makes the decimal part optional (it’s fine if there’s no .99).
+- `(\.\d{2})?`: Matches an optional decimal point followed by exactly two digits `(\d{2})`. Example: .99.
+  The `?` makes the decimal part optional (it’s fine if there’s no .99).
 - `$`: End of the string.
 
 #### Add Price To Schema
@@ -137,7 +138,6 @@ export const insertProductSchema = z.object({
   //... other fields
   price: currency,
 });
-
 ```
 
 ## Generate TypeScript Types
@@ -145,8 +145,8 @@ export const insertProductSchema = z.object({
 We have our validators, but we need to create the `Product` type. Create a file at `types/index.ts`. This is where we define our types. Add the following imports:
 
 ```ts
-import { z } from 'zod';
-import { insertProductSchema } from '@/lib/validator';
+import { z } from "zod";
+import { insertProductSchema } from "@/lib/validator";
 ```
 
 We can use `z.infer` to create a product type and include all the fields from the validator. Add the following to the types file:
@@ -164,7 +164,6 @@ So we are saying a product should have all the fields in the Zod schema plus and
 
 Using `z.infer` ensures that our TypeScript types are always in sync with our validation schema. If we update the schema (e.g., add a required field), the inferred type will automatically reflect the change, reducing the risk of type mismatches in our codebase.
 
-
 ## Update Components
 
 Now we want to use that `Product` type.
@@ -172,7 +171,7 @@ Now we want to use that `Product` type.
 Open the `components/shared/product/product-card.tsx` file and import the `Product` type:
 
 ```ts
-import { Product } from '@/types';
+import { Product } from "@/types";
 ```
 
 Then replace the `any` type with the `Product` type:
@@ -186,7 +185,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 Open the `components/shared/product/product-list.tsx` file and import the `Product` type:
 
 ```ts
-import { Product } from '@/types';
+import { Product } from "@/types";
 ```
 
 Then replace the `any` type with the `Product` type:
@@ -201,9 +200,7 @@ As well as within the `map` function:
 
 ```tsx
 {
-  data.map((product: Product) => (
-    <ProductCard key={product.slug} product={product} />
-  ));
+  data.map((product: Product) => <ProductCard key={product.slug} product={product} />);
 }
 ```
 

@@ -11,14 +11,13 @@ It provides two values:
 - **isPending**: A boolean that indicates whether the transition is ongoing.
 - **startTransition**: A function that starts the transition.
 
-
 We are going to show a spinning loader when the transition is pending.
 
-In the `AddToCart` component,  let's import the `useTransition` hook and the `Loader` icon:
+In the `AddToCart` component, let's import the `useTransition` hook and the `Loader` icon:
 
 ```tsx
-import { useTransition } from 'react';
-import { Plus, Minus, Loader } from 'lucide-react';
+import { useTransition } from "react";
+import { Plus, Minus, Loader } from "lucide-react";
 ```
 
 Then add the following in the function above the `handleAddToCart` function:
@@ -46,7 +45,7 @@ const handleAddToCart = async () => {
     // Display appropriate toast message based on the result
     if (!res.success) {
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         description: res.message,
       });
       return;
@@ -56,9 +55,9 @@ const handleAddToCart = async () => {
       description: `${item.name} added to the cart`,
       action: (
         <ToastAction
-          className='bg-primary text-white hover:bg-gray-800'
-          onClick={() => router.push('/cart')}
-          altText='Go to cart'
+          className="bg-primary text-white hover:bg-gray-800"
+          onClick={() => router.push("/cart")}
+          altText="Go to cart"
         >
           Go to cart
         </ToastAction>
@@ -79,7 +78,7 @@ const handleRemoveFromCart = async () => {
     const res = await removeItemFromCart(item.productId);
 
     toast({
-      variant: res.success ? 'default' : 'destructive',
+      variant: res.success ? "default" : "destructive",
       description: res.message,
     });
 
@@ -93,44 +92,17 @@ We are going to set the `disabled` attribute of the buttons to `isPending` and r
 ```tsx
 return existItem ? (
   <div>
-    <Button
-      type='button'
-      variant='outline'
-      disabled={isPending}
-      onClick={handleRemoveFromCart}
-    >
-      {isPending ? (
-        <Loader className='w-4 h-4  animate-spin' />
-      ) : (
-        <Minus className='w-4 h-4' />
-      )}
+    <Button type="button" variant="outline" disabled={isPending} onClick={handleRemoveFromCart}>
+      {isPending ? <Loader className="w-4 h-4  animate-spin" /> : <Minus className="w-4 h-4" />}
     </Button>
-    <span className='px-2'>{existItem.qty}</span>
-    <Button
-      type='button'
-      variant='outline'
-      disabled={isPending}
-      onClick={handleAddToCart}
-    >
-      {isPending ? (
-        <Loader className='w-4 h-4 animate-spin' />
-      ) : (
-        <Plus className='w-4 h-4' />
-      )}
+    <span className="px-2">{existItem.qty}</span>
+    <Button type="button" variant="outline" disabled={isPending} onClick={handleAddToCart}>
+      {isPending ? <Loader className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
     </Button>
   </div>
 ) : (
-  <Button
-    className='w-full'
-    type='button'
-    disabled={isPending}
-    onClick={handleAddToCart}
-  >
-    {isPending ? (
-      <Loader className='w-4 h-4 animate-spin' />
-    ) : (
-      <Plus className='w-4 h-4' />
-    )}
+  <Button className="w-full" type="button" disabled={isPending} onClick={handleAddToCart}>
+    {isPending ? <Loader className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
     Add to cart
   </Button>
 );

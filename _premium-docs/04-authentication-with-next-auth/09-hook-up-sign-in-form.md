@@ -3,16 +3,16 @@
 So we have our action and we have the form, now we need to connect them and make it work. Open the `app/(auth)/sign-in/credentials-signin-form.tsx` file and add a few more imports:
 
 ```typescript
-import { useActionState } from 'react';
-import { useFormStatus } from 'react-dom';
-import { signInWithCredentials } from '@/lib/actions/user.actions';
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
+import { signInWithCredentials } from "@/lib/actions/user.actions";
 ```
 
 We brought in the `signInWithCredentials` action, the `useActionState` from React and `useFormStatus` from `react-dom` to get the state and status of our form. We will use these to show the user feedback when they submit the form. One important thing I want to mention is that if you are using React 18 and Next.js 14, then you would use `useFormState` instead of `useActionState`:
 
 ```typescript
 // ONLY for React 18 and below
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState, useFormStatus } from "react-dom";
 ```
 
 ## Action State
@@ -21,7 +21,7 @@ Add the following state to the component:
 
 ```typescript
 const [data, action] = useActionState(signInWithCredentials, {
-  message: '',
+  message: "",
   success: false,
 });
 ```
@@ -63,21 +63,19 @@ Now we need to show an error with a message if we get back an error from the act
 
 ```jsx
 {
-  data && !data.success && (
-    <div className='text-center text-destructive'>{data.message}</div>
-  );
+  data && !data.success && <div className="text-center text-destructive">{data.message}</div>;
 }
 ```
 
-This will show the error message if there is an error. 
+This will show the error message if there is an error.
 
 ## Redirect To Homepage
 
 In the `app/(auth)/sign-in/page.tsx`, bring in `redirect` and the `auth` function, which is used to check for the session and if we are logged in.
 
 ```tsx
-import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 ```
 
 In the `SignInPage` function, right above the return, add the following:
@@ -86,7 +84,7 @@ In the `SignInPage` function, right above the return, add the following:
 const session = await auth();
 
 if (session) {
-  return redirect('/');
+  return redirect("/");
 }
 ```
 
@@ -103,4 +101,3 @@ If the login is successful, you should be redirected to the home page.
 Open the devtools->application tab and you should have the session cookie.
 
 In the next video, we will add the callback URL redirect.
-

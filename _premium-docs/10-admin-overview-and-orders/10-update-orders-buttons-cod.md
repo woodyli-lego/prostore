@@ -5,7 +5,7 @@ We now need to show the delivered status on the order details page.
 Open the `app/(root)/order/[id]/page.tsx` file and add the auth import:
 
 ```tsx
-import { auth } from '@/auth';
+import { auth } from "@/auth";
 ```
 
 Above the return statement, get the session using the `auth` function:
@@ -22,8 +22,8 @@ Now pass in a prop of `isAdmin`:
     ...order,
     shippingAddress: order.shippingAddress as ShippingAddress,
   }}
-  paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
-  isAdmin={session?.user.role === 'admin' || false} // Add this line
+  paypalClientId={process.env.PAYPAL_CLIENT_ID || "sb"}
+  isAdmin={session?.user.role === "admin" || false} // Add this line
 />
 ```
 
@@ -35,14 +35,14 @@ import {
   createPayPalOrder,
   deliverOrder,
   updateOrderToPaidByCOD,
-} from '@/lib/actions/order.actions';
+} from "@/lib/actions/order.actions";
 ```
 
 Also import the `useTransition` hook and `Button` component:
 
 ```tsx
-import { useTransition } from 'react';
-import { Button } from '@/components/ui/button';
+import { useTransition } from "react";
+import { Button } from "@/components/ui/button";
 ```
 
 We need to take in the `isAdmin` prop from the parent component:
@@ -68,9 +68,7 @@ Now we want to have 2 buttons that only admins have access to to update the paid
   /* Cash On Delivery */
 }
 {
-  isAdmin && !isPaid && paymentMethod === 'CashOnDelivery' && (
-    <MarkAsPaidButton />
-  );
+  isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && <MarkAsPaidButton />;
 }
 {
   isAdmin && isPaid && !isDelivered && <MarkAsDeliveredButton />;
@@ -88,19 +86,19 @@ const MarkAsPaidButton = () => {
   const { toast } = useToast();
   return (
     <Button
-      type='button'
+      type="button"
       disabled={isPending}
       onClick={() =>
         startTransition(async () => {
           const res = await updateOrderToPaidByCOD(order.id);
           toast({
-            variant: res.success ? 'default' : 'destructive',
+            variant: res.success ? "default" : "destructive",
             description: res.message,
           });
         })
       }
     >
-      {isPending ? 'processing...' : 'Mark As Paid'}
+      {isPending ? "processing..." : "Mark As Paid"}
     </Button>
   );
 };
@@ -111,19 +109,19 @@ const MarkAsDeliveredButton = () => {
   const { toast } = useToast();
   return (
     <Button
-      type='button'
+      type="button"
       disabled={isPending}
       onClick={() =>
         startTransition(async () => {
           const res = await deliverOrder(order.id);
           toast({
-            variant: res.success ? 'default' : 'destructive',
+            variant: res.success ? "default" : "destructive",
             description: res.message,
           });
         })
       }
     >
-      {isPending ? 'processing...' : 'Mark As Delivered'}
+      {isPending ? "processing..." : "Mark As Delivered"}
     </Button>
   );
 };

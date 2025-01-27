@@ -5,7 +5,7 @@ Now we have our form in the UI and we have the action to create or update a revi
 Open the `app/(root)/product/[slug]/review-form.tsx` file and import the action:
 
 ```ts
-import { createUpdateReview } from '@/lib/actions/review.actions';
+import { createUpdateReview } from "@/lib/actions/review.actions";
 ```
 
 ## Create Form Submit Handler
@@ -19,7 +19,7 @@ const onSubmit: SubmitHandler<CustomerReview> = async (values) => {
 
   if (!res.success)
     return toast({
-      variant: 'destructive',
+      variant: "destructive",
       description: res.message,
     });
 
@@ -43,8 +43,8 @@ In the `handleOpenForm` function, we need to add the following:
 
 ```ts
 const handleOpenForm = () => {
-  form.setValue('productId', productId);
-  form.setValue('userId', userId);
+  form.setValue("productId", productId);
+  form.setValue("userId", userId);
 
   setOpen(true);
 };
@@ -75,7 +75,7 @@ Create the `reload` function in the `review-list.tsx` file right above the retur
 ```tsx
 // Reload reviews when a review is submitted
 const reload = async () => {
-  console.log('review submitted');
+  console.log("review submitted");
 };
 ```
 

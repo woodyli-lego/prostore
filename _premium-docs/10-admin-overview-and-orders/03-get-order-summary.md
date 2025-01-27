@@ -27,7 +27,7 @@ export async function getOrderSummary() {
 
   // Get latest sales
   const latestOrders = await prisma.order.findMany({
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
     include: {
       user: { select: { name: true } },
     },
@@ -43,8 +43,6 @@ export async function getOrderSummary() {
     salesData,
   };
 }
-
-
 ```
 
 Now just add the `SalesDataType` above this function:
@@ -53,7 +51,7 @@ Now just add the `SalesDataType` above this function:
 type SalesDataType = {
   month: string;
   totalSales: number;
-}[]
+}[];
 ```
 
 Let's go over this function step by step.

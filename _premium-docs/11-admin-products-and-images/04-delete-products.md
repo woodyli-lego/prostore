@@ -10,15 +10,15 @@ export async function deleteProduct(id: string) {
       where: { id },
     });
 
-    if (!productExists) throw new Error('Product not found');
+    if (!productExists) throw new Error("Product not found");
 
     await prisma.product.delete({ where: { id } });
 
-    revalidatePath('/admin/products');
+    revalidatePath("/admin/products");
 
     return {
       success: true,
-      message: 'Product deleted successfully',
+      message: "Product deleted successfully",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
@@ -33,8 +33,8 @@ We already created a component at `components/shared/delete-dialog.tsx` that we 
 Go into `app/admin/products/page.tsx` and import both the delete dialog and the action:
 
 ```tsx
-import { getAllProducts, deleteProduct } from '@/lib/actions/product.actions';
-import DeleteDialog from '@/components/shared/delete-dialog';
+import { getAllProducts, deleteProduct } from "@/lib/actions/product.actions";
+import DeleteDialog from "@/components/shared/delete-dialog";
 ```
 
 Noe replace the comment with the actual delete dialog. Right under the edit button, add the following:

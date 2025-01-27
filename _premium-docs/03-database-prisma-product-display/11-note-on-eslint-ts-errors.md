@@ -31,7 +31,6 @@ Another thing that you can do that I would not suggest is disabling certain TS r
     "@typescript-eslint/no-unused-vars": "off"
   }
 }
-
 ```
 
 For certain pages:
@@ -48,7 +47,6 @@ For certain pages:
     }
   ]
 }
-
 ```
 
 Again, I would not suggest that. I say just fix anything you can and ignore the rest until you can fix it.

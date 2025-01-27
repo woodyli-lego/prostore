@@ -11,7 +11,7 @@ async function onSubmit(values: z.infer<typeof updateProfileSchema>) {
 
   if (!res.success)
     return toast({
-      variant: 'destructive',
+      variant: "destructive",
       description: res.message,
     });
 
@@ -31,7 +31,6 @@ async function onSubmit(values: z.infer<typeof updateProfileSchema>) {
 }
 ```
 
-
 In the function, we are calling the `updateProfile` action with the form values. If the action is successful, we are updating the session and showing a success message. If the action fails, we are showing an error message.
 
 Go ahead and try it out and you should be able to submit the form and update the user name.
@@ -40,7 +39,7 @@ If you check the database and the name updates but if you refresh the form and t
 
 ```tsx
 // Handle session updates (e.g., name change)
-if (session?.user.name && trigger === 'update') {
+if (session?.user.name && trigger === "update") {
   token.name = session.user.name;
 }
 ```

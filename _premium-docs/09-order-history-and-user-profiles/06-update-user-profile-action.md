@@ -9,8 +9,8 @@ Open the file `lib/validators.ts` and add the following code:
 ```ts
 // Update Profile Schema
 export const updateProfileSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters'),
-  email: z.string().min(3, 'Email must be at least 3 characters'),
+  name: z.string().min(3, "Name must be at least 3 characters"),
+  email: z.string().min(3, "Email must be at least 3 characters"),
 });
 ```
 
@@ -30,7 +30,7 @@ export async function updateProfile(user: { name: string; email: string }) {
       },
     });
 
-    if (!currentUser) throw new Error('User not found');
+    if (!currentUser) throw new Error("User not found");
 
     await prisma.user.update({
       where: {
@@ -43,7 +43,7 @@ export async function updateProfile(user: { name: string; email: string }) {
 
     return {
       success: true,
-      message: 'User updated successfully',
+      message: "User updated successfully",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
@@ -52,5 +52,3 @@ export async function updateProfile(user: { name: string; email: string }) {
 ```
 
 This is pretty simple. We are just getting the session, finding the user, and updating the name field. We are also returning a success message if everything goes well.
-
-

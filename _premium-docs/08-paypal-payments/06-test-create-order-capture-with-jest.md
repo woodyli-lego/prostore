@@ -2,14 +2,13 @@
 
 Now we will write two more tests to test the functions that we created in the last lesson.
 
-
 ## Creating The Order
 
 You can test the create order function by adding the following test to thee `paypal.test.ts` file:
 
 ```ts
 // Create a PayPal order
-test('creates a PayPal order', async () => {
+test("creates a PayPal order", async () => {
   const token = await generateAccessToken();
   const price = 10.0; // Example price for testing
 
@@ -17,16 +16,16 @@ test('creates a PayPal order', async () => {
   console.log(orderResponse);
 
   // Ensure the order response contains expected fields
-  expect(orderResponse).toHaveProperty('id');
-  expect(orderResponse).toHaveProperty('status');
-  expect(orderResponse.status).toBe('CREATED'); // PayPal returns 'CREATED' for new orders
+  expect(orderResponse).toHaveProperty("id");
+  expect(orderResponse).toHaveProperty("status");
+  expect(orderResponse.status).toBe("CREATED"); // PayPal returns 'CREATED' for new orders
 });
 ```
 
 You need to import the paypal object as well:
 
 ```ts
-import { generateAccessToken, paypal } from '../lib/paypal';
+import { generateAccessToken, paypal } from "../lib/paypal";
 ```
 
 Now run `npm run test` and you should see an array of objects in the console. The test should pass.
@@ -41,20 +40,18 @@ Add the following test to the `paypal.test.ts` file:
 
 ```ts
 // Capture payment with a mock order
-test('simulates capturing a PayPal order', async () => {
-  const orderId = '100'; // Mock order ID
+test("simulates capturing a PayPal order", async () => {
+  const orderId = "100"; // Mock order ID
 
   // Mock the capturePayment function to return a successful response
-  const mockCapturePayment = jest
-    .spyOn(paypal, 'capturePayment')
-    .mockResolvedValue({
-      status: 'COMPLETED',
-    });
+  const mockCapturePayment = jest.spyOn(paypal, "capturePayment").mockResolvedValue({
+    status: "COMPLETED",
+  });
 
   // Call the capturePayment function with the mock order ID
   const captureResponse = await paypal.capturePayment(orderId);
   // Ensure the capture response contains expected fields
-  expect(captureResponse).toHaveProperty('status', 'COMPLETED');
+  expect(captureResponse).toHaveProperty("status", "COMPLETED");
 
   // Clean up mock
   mockCapturePayment.mockRestore();

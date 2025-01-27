@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className='flex h-screen flex-col'>
-      <main className='flex-1 wrapper'>{children}</main>
+    <div className="flex h-screen flex-col">
+      <main className="flex-1 wrapper">{children}</main>
     </div>
   );
 }
@@ -25,15 +25,15 @@ It is very similar to the main layout except we added some container classes. We
 Your main `app/layout.tsx` file should look like this:
 
 ```tsx
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import '@/assets/styles/globals.css';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "@/assets/styles/globals.css";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Prostore',
-  description: 'A modern store built with Next.js',
+  title: "Prostore",
+  description: "A modern store built with Next.js",
 };
 
 export default function RootLayout({
@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>{children}</body>
     </html>
   );
@@ -58,12 +58,10 @@ This will give us a more flexible layout. When we create our header and stuff, t
 Another thing I want to do in this lesson is create a file to store some constants and info that we will use throughout the course. Create a file at `lib/constants/index.ts` and add the following code:
 
 ```ts
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'Prostore';
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Prostore";
 export const APP_DESCRIPTION =
-  process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
-  'A modern store built with Next.js';
-export const SERVER_URL =
-  process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
+  process.env.NEXT_PUBLIC_APP_DESCRIPTION || "A modern store built with Next.js";
+export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
 ```
 
 We will add to this file as we go. The purpose of this file is so that we can use these values in multiple places without having to repeat ourselves. In this case, we are using the `process.env` object to get the values from the `.env` file and creating a default value if the environment variable is not set.
@@ -89,7 +87,7 @@ In the `app/layout.tsx` file, we can add the `APP_NAME` and `APP_DESCRIPTION` to
 Import the contstants and add them to the metadata object:
 
 ```tsx
-import { APP_NAME, APP_DESCRIPTION, SERVER_URL } from '@/lib/constants';
+import { APP_NAME, APP_DESCRIPTION, SERVER_URL } from "@/lib/constants";
 ```
 
 ```tsx

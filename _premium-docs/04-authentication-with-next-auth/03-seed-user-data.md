@@ -15,21 +15,21 @@ npm install bcrypt-ts-edge
 Open the `db/sample-data.ts` file and add the following code:
 
 ```typescript
-import { hashSync } from 'bcrypt-ts-edge'; // Import the hashSync function from the bcrypt-ts-edge library
+import { hashSync } from "bcrypt-ts-edge"; // Import the hashSync function from the bcrypt-ts-edge library
 
 const sampleData = {
   users: [
     {
-      name: 'John',
-      email: 'admin@example.com',
-      password: hashSync('123456', 10),
-      role: 'admin',
+      name: "John",
+      email: "admin@example.com",
+      password: hashSync("123456", 10),
+      role: "admin",
     },
     {
-      name: 'Jane',
-      email: 'jane@example.com',
-      password: hashSync('123456', 10),
-      role: 'user',
+      name: "Jane",
+      email: "jane@example.com",
+      password: hashSync("123456", 10),
+      role: "user",
     },
   ],
 
@@ -44,8 +44,8 @@ const sampleData = {
 Open the `db/seed.ts` file and update it with the following code:
 
 ```typescript
-import { PrismaClient } from '@prisma/client';
-import sampleData from '@/db/sample-data';
+import { PrismaClient } from "@prisma/client";
+import sampleData from "@/db/sample-data";
 
 async function main() {
   const prisma = new PrismaClient();
@@ -58,7 +58,7 @@ async function main() {
   await prisma.product.createMany({ data: sampleData.products });
   await prisma.user.createMany({ data: sampleData.users });
 
-  console.log('Database seeded successfully');
+  console.log("Database seeded successfully");
 }
 
 main();

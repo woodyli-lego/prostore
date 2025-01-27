@@ -1,0 +1,29 @@
+# 表明这是最顶层的配置文件
+root = true
+
+# 对所有文件生效
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# 对JavaScript和TypeScript文件的特殊配置
+[*.{js,jsx,ts,tsx}]
+indent_size = 2
+quote_type = single
+
+# 对JSON文件的配置
+[*.json]
+indent_size = 2
+
+# 对CSS、SCSS文件的配置
+[*.{css,scss}]
+indent_size = 2
+
+# 对Markdown文件的特殊配置
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off

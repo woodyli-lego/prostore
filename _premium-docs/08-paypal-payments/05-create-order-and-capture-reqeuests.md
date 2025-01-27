@@ -1,6 +1,6 @@
 # Create Order & Capture Payment Requests
 
-Now we need to add two functions to the `paypal` object. 
+Now we need to add two functions to the `paypal` object.
 
 ## `createOrder` Function
 
@@ -13,17 +13,17 @@ export const paypal = {
     const url = `${base}/v2/checkout/orders`;
 
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
-        intent: 'CAPTURE',
+        intent: "CAPTURE",
         purchase_units: [
           {
             amount: {
-              currency_code: 'USD',
+              currency_code: "USD",
               value: price,
             },
           },
@@ -32,9 +32,8 @@ export const paypal = {
     });
 
     return handleResponse(response);
-  }
+  },
 };
-
 ```
 
 We are simply making a request to the paypal endpoint and sending the token in the header and the intent and purchase units in the body. Then we return the response.

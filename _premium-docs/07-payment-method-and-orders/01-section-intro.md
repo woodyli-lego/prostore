@@ -4,11 +4,11 @@ In this section, we'll be adding more pages to the checkout process. We're going
 
 We're going to create the payment select form and the action that that form will submit to. It will update the user's payment method in the database.
 
-After the payment method page is done, we'll create an order schema  as well as an `orderItems` schema for each item. Because when a user places an order, the items will be stored in the `orderItems` table while the basic order info like the totalPrice will be in the `order` table.
+After the payment method page is done, we'll create an order schema as well as an `orderItems` schema for each item. Because when a user places an order, the items will be stored in the `orderItems` table while the basic order info like the totalPrice will be in the `order` table.
 
-We'll need to create a createOrder action to add that stuff to the database. 
+We'll need to create a createOrder action to add that stuff to the database.
 
-We're going to have a place order page with a summary of the items and a button to place the order. 
+We're going to have a place order page with a summary of the items and a button to place the order.
 
 Once they place the order, they will be taken to the order page and will have the option to pay with their seleced method. Of course, we have not added the PayPal or Stripe integration, but later on they will have either PayPal buttons or a Stripe form.
 

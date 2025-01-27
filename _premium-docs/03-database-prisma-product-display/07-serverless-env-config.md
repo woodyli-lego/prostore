@@ -59,10 +59,10 @@ Most of the code we are using here is from https://neon.tech/docs/serverless/ser
 Create a new file at `db/prisma.ts` and add the following:
 
 ```ts
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { PrismaNeon } from '@prisma/adapter-neon';
-import { PrismaClient } from '@prisma/client';
-import ws from 'ws';
+import { Pool, neonConfig } from "@neondatabase/serverless";
+import { PrismaNeon } from "@prisma/adapter-neon";
+import { PrismaClient } from "@prisma/client";
+import ws from "ws";
 
 // Sets up WebSocket connections, which enables Neon to use WebSocket communication.
 neonConfig.webSocketConstructor = ws;
@@ -104,7 +104,7 @@ There will be other fields that we need to convert before they hit our code as w
 Now when we use Prisma, we import it from here. Open the `lib/actions/product.actions.ts` file and update the import statement to the following:
 
 ```ts
-import { prisma } from '@/db/prisma';
+import { prisma } from "@/db/prisma";
 ```
 
 And DELETE the following line:

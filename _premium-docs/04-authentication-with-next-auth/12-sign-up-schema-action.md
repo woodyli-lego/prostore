@@ -10,16 +10,14 @@ Open the file `lib/validator.ts` and add the following code:
 // Schema for signing up a user
 export const signUpFormSchema = z
   .object({
-    name: z.string().min(3, 'Name must be at least 3 characters'),
-    email: z.string().min(3, 'Email must be at least 3 characters'),
-    password: z.string().min(3, 'Password must be at least 3 characters'),
-    confirmPassword: z
-      .string()
-      .min(3, 'Confirm password must be at least 3 characters'),
+    name: z.string().min(3, "Name must be at least 3 characters"),
+    email: z.string().min(3, "Email must be at least 3 characters"),
+    password: z.string().min(3, "Password must be at least 3 characters"),
+    confirmPassword: z.string().min(3, "Confirm password must be at least 3 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ['confirmPassword'],
+    path: ["confirmPassword"],
   });
 ```
 
@@ -30,9 +28,9 @@ We are creating the schema for the sign up form data. There will be a name, emai
 Let's create the action that will handle the sign up form submission. Open the file `lib/actions/user.action.ts` and add the following imports:
 
 ```ts
-import { signInFormSchema, signUpFormSchema } from '../validator';
-import { hashSync } from 'bcrypt-ts-edge';
-import { prisma } from '@/db/prisma';
+import { signInFormSchema, signUpFormSchema } from "../validator";
+import { hashSync } from "bcrypt-ts-edge";
+import { prisma } from "@/db/prisma";
 ```
 
 Here is the code for the action:
@@ -42,10 +40,10 @@ Here is the code for the action:
 export async function signUp(prevState: unknown, formData: FormData) {
   try {
     const user = signUpFormSchema.parse({
-      name: formData.get('name'),
-      email: formData.get('email'),
-      confirmPassword: formData.get('confirmPassword'),
-      password: formData.get('password'),
+      name: formData.get("name"),
+      email: formData.get("email"),
+      confirmPassword: formData.get("confirmPassword"),
+      password: formData.get("password"),
     });
 
     const plainPassword = user.password;
@@ -60,12 +58,12 @@ export async function signUp(prevState: unknown, formData: FormData) {
       },
     });
 
-    await signIn('credentials', {
+    await signIn("credentials", {
       email: user.email,
       password: plainPassword,
     });
 
-    return { success: true, message: 'User created successfully' };
+    return { success: true, message: "User created successfully" };
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
@@ -73,7 +71,7 @@ export async function signUp(prevState: unknown, formData: FormData) {
 
     return {
       success: false,
-      message: 'Something went wrong',
+      message: "Something went wrong",
     };
   }
 }

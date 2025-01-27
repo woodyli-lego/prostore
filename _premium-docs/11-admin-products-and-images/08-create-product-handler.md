@@ -6,15 +6,13 @@ Let's create the handler for the create product form. In the `components/shared/
 
 ```tsx
 // Handle form submit
-const onSubmit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (
-  values
-) => {
-  if (type === 'Create') {
+const onSubmit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (values) => {
+  if (type === "Create") {
     const res = await createProduct(values);
 
     if (!res.success) {
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         description: res.message,
       });
     } else {
@@ -24,7 +22,7 @@ const onSubmit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (
       router.push(`/admin/products`);
     }
   }
-  if (type === 'Update') {
+  if (type === "Update") {
     if (!productId) {
       router.push(`/admin/products`);
       return;
@@ -34,7 +32,7 @@ const onSubmit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (
 
     if (!res.success) {
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         description: res.message,
       });
     } else {
@@ -65,11 +63,11 @@ Since we are not using those fields yet, Let's open the `lib/validator.ts` file 
 ```ts
 // Schema for inserting a product
 export const insertProductSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters'),
-  slug: z.string().min(3, 'Name must be at least 3 characters'),
-  category: z.string().min(3, 'Name must be at least 3 characters'),
-  brand: z.string().min(3, 'Name must be at least 3 characters'),
-  description: z.string().min(3, 'Name must be at least 3 characters'),
+  name: z.string().min(3, "Name must be at least 3 characters"),
+  slug: z.string().min(3, "Name must be at least 3 characters"),
+  category: z.string().min(3, "Name must be at least 3 characters"),
+  brand: z.string().min(3, "Name must be at least 3 characters"),
+  description: z.string().min(3, "Name must be at least 3 characters"),
   stock: z.coerce.number(),
   // images: z.array(z.string()).min(1, 'Product must have at least one image'),
   // isFeatured: z.boolean(),

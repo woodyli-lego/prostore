@@ -6,7 +6,7 @@ Create a new file at `app/(root)/cart/page.tsx` and add the following code:
 
 ```tsx
 export const metadata = {
-  title: 'Shopping Cart',
+  title: "Shopping Cart",
 };
 
 const CartPage = async () => {
@@ -23,14 +23,14 @@ You should see this page if you navigate to `/cart` in your browser.
 Now, let's create the form. Create a new file at `app/(root)/cart/cart-table.tsx` and add the following code:
 
 ```tsx
-'use client';
+"use client";
 
-import { Cart } from '@/types';
+import { Cart } from "@/types";
 
 const CartTable = ({ cart }: { cart?: Cart }) => {
   return (
     <>
-      <h1 className='py-4 h2-bold'>Shopping Cart</h1>
+      <h1 className="py-4 h2-bold">Shopping Cart</h1>
     </>
   );
 };
@@ -43,11 +43,11 @@ We are making it a client component because we will be using hookd. We are bring
 Now bring it into the `CartPage` component along with our cart using the `getMyCart` action.
 
 ```tsx
-import { getMyCart } from '@/lib/actions/cart.actions';
-import CartTable from './cart-table';
+import { getMyCart } from "@/lib/actions/cart.actions";
+import CartTable from "./cart-table";
 
 export const metadata = {
-  title: 'Shopping Cart',
+  title: "Shopping Cart",
 };
 
 const CartPage = async () => {
@@ -68,14 +68,14 @@ You should see the heading "Shopping Cart" on the page.
 Let's continue with the cart form. Add the following imports:
 
 ```tsx
-import { useTransition } from 'react';
-import { useRouter } from 'next/navigation';
-import { useToast } from '@/hooks/use-toast';
-import { addItemToCart, removeItemFromCart } from '@/lib/actions/cart.actions';
-import { ArrowRight, Loader, Minus, Plus } from 'lucide-react';
-import { Cart } from '@/types';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
+import { ArrowRight, Loader, Minus, Plus } from "lucide-react";
+import { Cart } from "@/types";
+import Image from "next/image";
+import Link from "next/link";
 ```
 
 In the function, let's initialize the `toast` and `router` variables and also our `useTransition` hook.

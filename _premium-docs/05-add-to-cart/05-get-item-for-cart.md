@@ -5,18 +5,18 @@ We want to be able to add an item to the cart in the database, but first, we hav
 Open the `lib/actions/cart.actions.ts` and add the following imports:
 
 ```ts
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
-import { z } from 'zod';
-import { auth } from '@/auth';
-import { formatError } from '../utils';
-import { cartItemSchema, insertCartSchema } from '../validators';
-import { prisma } from '@/db/prisma';
-import { CartItem } from '@/types';
-import { Prisma } from '@prisma/client';
-import { convertToPlainObject } from '../utils';
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
+import { z } from "zod";
+import { auth } from "@/auth";
+import { formatError } from "../utils";
+import { cartItemSchema, insertCartSchema } from "../validators";
+import { prisma } from "@/db/prisma";
+import { CartItem } from "@/types";
+import { Prisma } from "@prisma/client";
+import { convertToPlainObject } from "../utils";
 ```
 
 We are bringing in the validators, utility functions, auth file, cookies, revalidatePath, and the prisma client.
@@ -69,7 +69,7 @@ Under the `addItemToCart` action, add the following action:
 //  Get user cart from database
 export async function getMyCart() {
   // Check for session cart cookie
-  const sessionCartId = (await cookies()).get('sessionCartId')?.value;
+  const sessionCartId = (await cookies()).get("sessionCartId")?.value;
   if (!sessionCartId) return undefined;
 
   // Get session and user ID
@@ -110,20 +110,20 @@ const item = cartItemSchema.parse(data);
 const product = await prisma.product.findFirst({
   where: { id: item.productId },
 });
-if (!product) throw new Error('Product not found');
+if (!product) throw new Error("Product not found");
 
 // Testing
 console.log({
-  'Session Cart ID': sessionCartId,
-  'User ID': userId,
-  'Item Requested': item,
-  'Product Found': product,
+  "Session Cart ID": sessionCartId,
+  "User ID": userId,
+  "Item Requested": item,
+  "Product Found": product,
   cart: cart,
 });
 
 return {
   success: true,
-  message: 'Testing Cart',
+  message: "Testing Cart",
 };
 ```
 
@@ -134,25 +134,25 @@ In the next lesson, we will make it so the item is added to the cart.
 Here is the full code for the `addItemToCart` action up to this point:
 
 ```ts
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
-import { z } from 'zod';
-import { auth } from '@/auth';
-import { formatError } from '../utils';
-import { cartItemSchema, insertCartSchema } from '../validator';
-import { prisma } from '@/db/prisma';
-import { CartItem } from '@/types';
-import { Prisma } from '@prisma/client';
-import { convertToPlainObject, round2 } from '../utils';
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
+import { z } from "zod";
+import { auth } from "@/auth";
+import { formatError } from "../utils";
+import { cartItemSchema, insertCartSchema } from "../validator";
+import { prisma } from "@/db/prisma";
+import { CartItem } from "@/types";
+import { Prisma } from "@prisma/client";
+import { convertToPlainObject, round2 } from "../utils";
 
 // Add item to cart in database
 export const addItemToCart = async (data: z.infer<typeof cartItemSchema>) => {
   try {
     // Check for session cart cookie
-    const sessionCartId = (await cookies()).get('sessionCartId')?.value;
-    if (!sessionCartId) throw new Error('Cart Session not found');
+    const sessionCartId = (await cookies()).get("sessionCartId")?.value;
+    if (!sessionCartId) throw new Error("Cart Session not found");
     // Get session and user ID
     const session = await auth();
     const userId = session?.user.id as string | undefined;
@@ -164,20 +164,20 @@ export const addItemToCart = async (data: z.infer<typeof cartItemSchema>) => {
     const product = await prisma.product.findFirst({
       where: { id: item.productId },
     });
-    if (!product) throw new Error('Product not found');
+    if (!product) throw new Error("Product not found");
 
     // Testing
     console.log({
-      'Session Cart ID': sessionCartId,
-      'User ID': userId,
-      'Item Requested': item,
-      'Product Found': product,
+      "Session Cart ID": sessionCartId,
+      "User ID": userId,
+      "Item Requested": item,
+      "Product Found": product,
       cart: cart,
     });
 
     return {
       success: true,
-      message: 'Testing Cart',
+      message: "Testing Cart",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
@@ -187,7 +187,7 @@ export const addItemToCart = async (data: z.infer<typeof cartItemSchema>) => {
 //  Get user cart from database
 export async function getMyCart() {
   // Check for session cart cookie
-  const sessionCartId = (await cookies()).get('sessionCartId')?.value;
+  const sessionCartId = (await cookies()).get("sessionCartId")?.value;
   if (!sessionCartId) return undefined;
 
   // Get session and user ID

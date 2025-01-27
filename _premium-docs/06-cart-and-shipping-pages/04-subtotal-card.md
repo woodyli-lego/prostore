@@ -5,9 +5,9 @@ We are going to add the subtotal to our cart page and create a utility function 
 Open the file `lib/utils.ts` and add the following code below the other functions:
 
 ```ts
-const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
-  currency: 'USD',
-  style: 'currency',
+const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", {
+  currency: "USD",
+  style: "currency",
   minimumFractionDigits: 2,
 });
 ```
@@ -19,12 +19,12 @@ Now let's create the function below it:
 ```ts
 // Format currency
 export function formatCurrency(amount: number | string | null) {
-  if (typeof amount === 'number') {
+  if (typeof amount === "number") {
     return CURRENCY_FORMATTER.format(amount);
-  } else if (typeof amount === 'string') {
+  } else if (typeof amount === "string") {
     return CURRENCY_FORMATTER.format(Number(amount));
   } else {
-    return 'NaN';
+    return "NaN";
   }
 }
 ```
@@ -34,17 +34,17 @@ This function takes in a number or string and returns a formatted currency strin
 Now, let's go back into the `CartTable` component and bring in the `formatCurrency` function:
 
 ```tsx
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency } from "@/lib/utils";
 ```
 
 Now, let's go right above the last closing `</div>` and add the following:
 
 ```tsx
 <Card>
-  <CardContent className='p-4 gap-4'>
-    <div className='pb-3 text-xl'>
+  <CardContent className="p-4 gap-4">
+    <div className="pb-3 text-xl">
       Subtotal ({cart.items.reduce((a, c) => a + c.qty, 0)}):
-      <span className='font-bold'> {formatCurrency(cart.itemsPrice)}</span>
+      <span className="font-bold"> {formatCurrency(cart.itemsPrice)}</span>
     </div>
   </CardContent>
 </Card>
@@ -58,21 +58,17 @@ Now let's add the button to proceed to checkout. Make the `Card` component look 
 
 ```tsx
 <Card>
-  <CardContent className='p-4   gap-4'>
-    <div className='pb-3 text-xl'>
+  <CardContent className="p-4   gap-4">
+    <div className="pb-3 text-xl">
       Subtotal ({cart.items.reduce((a, c) => a + c.qty, 0)}):
       {formatCurrency(cart.itemsPrice)}
     </div>
     <Button
-      onClick={() => startTransition(() => router.push('/shipping-address'))}
-      className='w-full'
+      onClick={() => startTransition(() => router.push("/shipping-address"))}
+      className="w-full"
       disabled={isPending}
     >
-      {isPending ? (
-        <Loader className='animate-spin w-4 h-4' />
-      ) : (
-        <ArrowRight className='w-4 h-4' />
-      )}
+      {isPending ? <Loader className="animate-spin w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
       Proceed to Checkout
     </Button>
   </CardContent>

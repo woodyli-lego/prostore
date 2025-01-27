@@ -11,21 +11,21 @@ The image is called `loader.gif` and we're going to put it in the `assets` folde
 Now create a file called `loading.tsx` in the `app` folder and add the following code:
 
 ```tsx
-import Image from 'next/image';
-import loader from '@/assets/loader.gif';
+import Image from "next/image";
+import loader from "@/assets/loader.gif";
 
 const Loading = () => {
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        width: '100vw',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        width: "100vw",
       }}
     >
-      <Image src={loader} width={150} height={150} alt='Loading...' />
+      <Image src={loader} width={150} height={150} alt="Loading..." />
     </div>
   );
 };
@@ -41,12 +41,11 @@ Now if you refresh the page, you will see the loading page. If you don't see it 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Homepage = async () => {
-    await delay(2000);
+  await delay(2000);
   return <>Prostore</>;
 };
 
 export default Homepage;
-
 ```
 
 ## Not Found Page
@@ -56,28 +55,28 @@ Now we want a not found page. Go to any page that does not exist and you will se
 Create a file called `not-found.tsx` in the `app` folder and add the following code:
 
 ```tsx
-'use client';
-import { APP_NAME } from '@/lib/constants';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+"use client";
+import { APP_NAME } from "@/lib/constants";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen '>
+    <div className="flex flex-col items-center justify-center min-h-screen ">
       <Image
         priority={true}
-        src='/images/logo.svg'
+        src="/images/logo.svg"
         width={48}
         height={48}
         alt={`${APP_NAME} logo`}
       />
-      <div className='p-6 rounded-lg shadow-md w-1/3 text-center'>
-        <h1 className='text-3xl font-bold mb-4'>Not Found</h1>
-        <p className='text-destructive'>Could not find requested resource</p>
+      <div className="p-6 rounded-lg shadow-md w-1/3 text-center">
+        <h1 className="text-3xl font-bold mb-4">Not Found</h1>
+        <p className="text-destructive">Could not find requested resource</p>
         <Button
-          variant='outline'
-          className='mt-4 ml-2'
-          onClick={() => (window.location.href = '/')}
+          variant="outline"
+          className="mt-4 ml-2"
+          onClick={() => (window.location.href = "/")}
         >
           Back to home
         </Button>

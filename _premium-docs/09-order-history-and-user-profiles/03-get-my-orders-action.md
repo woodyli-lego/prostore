@@ -17,26 +17,20 @@ We are saying look at the `PAGE_SIZE` environment variable and if it is not set,
 Open the file `lib/actions/order.actions.tsx` and import the `PAGE_SIZE` constant:
 
 ```tsx
-import { PAGE_SIZE } from '../constants';
+import { PAGE_SIZE } from "../constants";
 ```
 
 Now create the `getMyOrders` function:
 
 ```tsx
 // Get User Orders
-export async function getMyOrders({
-  limit = PAGE_SIZE,
-  page,
-}: {
-  limit?: number;
-  page: number;
-}) {
+export async function getMyOrders({ limit = PAGE_SIZE, page }: { limit?: number; page: number }) {
   const session = await auth();
-  if (!session) throw new Error('User is not authenticated');
+  if (!session) throw new Error("User is not authenticated");
 
   const data = await prisma.order.findMany({
     where: { userId: session.user.id! },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
     take: limit,
     skip: (page - 1) * limit,
   });

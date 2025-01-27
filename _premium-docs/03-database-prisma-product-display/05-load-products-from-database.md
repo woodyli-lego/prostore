@@ -39,9 +39,9 @@ We will be using server actions throughout this course. It is one of the best fe
 Let's create our `actions` folder in the `lib` directory. Create a new file at `lib/actions/product.actions.ts` and add the following:
 
 ```typescript
-'use server';
-import { PrismaClient } from '@prisma/client';
-import { convertToPlainObject } from '../utils';
+"use server";
+import { PrismaClient } from "@prisma/client";
+import { convertToPlainObject } from "../utils";
 
 // Get the latest products
 export async function getLatestProducts() {
@@ -49,7 +49,7 @@ export async function getLatestProducts() {
 
   const data = await prisma.product.findMany({
     take: 4,
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 
   return convertToPlainObject(data);
@@ -87,20 +87,19 @@ We no longer need to bring in the sample data. We are now seeing the products fr
 Let's open the `lib/constants/index.ts` file and add the following:
 
 ```typescript
-export const LATEST_PRODUCTS_LIMIT =
-  Number(process.env.LATEST_PRODUCTS_LIMIT) || 4;
+export const LATEST_PRODUCTS_LIMIT = Number(process.env.LATEST_PRODUCTS_LIMIT) || 4;
 ```
 
 Now in the `lib/actions/product.actions.ts` file, import the constant and use it in the `getLatestProducts` function:
 
 ```typescript
-import { LATEST_PRODUCTS_LIMIT } from '../constants';
+import { LATEST_PRODUCTS_LIMIT } from "../constants";
 
 // Get the latest products
 export async function getLatestProducts() {
   const data = await prisma.product.findMany({
     take: LATEST_PRODUCTS_LIMIT,
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 
   return convertToPlainObject(data);

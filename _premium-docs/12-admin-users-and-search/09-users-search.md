@@ -18,11 +18,11 @@ export async function getAllUsers({
   query: string;
 }) {
   const queryFilter: Prisma.UserWhereInput =
-    query && query !== 'all'
+    query && query !== "all"
       ? {
           name: {
             contains: query,
-            mode: 'insensitive',
+            mode: "insensitive",
           } as Prisma.StringFilter,
         }
       : {};
@@ -31,7 +31,7 @@ export async function getAllUsers({
     where: {
       ...queryFilter,
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
     take: limit,
     skip: (page - 1) * limit,
   });
@@ -64,7 +64,7 @@ const AdminUsersPage = async (props: {
 ```
 
 ```tsx
-const { page = '1', query: searchText } = searchParams;
+const { page = "1", query: searchText } = searchParams;
 ```
 
 Pass the query into the `getAllUsers` function call:
@@ -76,13 +76,13 @@ const users = await getAllUsers({ page: Number(page), query: searchText });
 In the return, replace the `h1` heading with the following:
 
 ```tsx
-<div className='flex items-center gap-3'>
-  <h1 className='h2-bold'>Users</h1>
+<div className="flex items-center gap-3">
+  <h1 className="h2-bold">Users</h1>
   {searchText && (
     <div>
-      Filtered by <i>&quot;{searchText}&quot;</i>{' '}
+      Filtered by <i>&quot;{searchText}&quot;</i>{" "}
       <Link href={`/admin/users`}>
-        <Button variant='outline' size='sm'>
+        <Button variant="outline" size="sm">
           Remove Filter
         </Button>
       </Link>

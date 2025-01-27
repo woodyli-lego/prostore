@@ -23,19 +23,19 @@ All the code that we are about to write comes from the [uploadthing documentatio
 We need to create a new file at `app/api/uploadthing/core.ts` and add the following code:
 
 ```ts
-import { createUploadthing, type FileRouter } from 'uploadthing/next';
-import { UploadThingError } from 'uploadthing/server';
-import { auth } from '@/auth';
+import { createUploadthing, type FileRouter } from "uploadthing/next";
+import { UploadThingError } from "uploadthing/server";
+import { auth } from "@/auth";
 
 const f = createUploadthing();
 
 export const ourFileRouter = {
-  imageUploader: f({ image: { maxFileSize: '4MB' } })
+  imageUploader: f({ image: { maxFileSize: "4MB" } })
     .middleware(async () => {
       const session = await auth();
-     
-      if (!session) throw new UploadThingError('Unauthorized');
-     
+
+      if (!session) throw new UploadThingError("Unauthorized");
+
       return { userId: session?.user.id };
     })
     .onUploadComplete(async ({ metadata }) => {
@@ -53,8 +53,8 @@ This code creates a file router for the uploadthing library. It also creates a m
 Now we will use the `ourFileRouter` to create a route for the uploadthing library. Create a file at `app/api/uploadthing/route.ts` with the following code:
 
 ```ts
-import { createRouteHandler } from 'uploadthing/next';
-import { ourFileRouter } from './core';
+import { createRouteHandler } from "uploadthing/next";
+import { ourFileRouter } from "./core";
 
 // Export routes for Next App Router
 export const { GET, POST } = createRouteHandler({
@@ -68,14 +68,11 @@ We are exporting the `GET` and `POST` routes for the uploadthing library. This w
 
 Now we are going to generate some pre-configured components that we can use to upload images.
 
- Create a file named `lib/uploadthing.ts` with the following code:
+Create a file named `lib/uploadthing.ts` with the following code:
 
 ```ts
-import {
-  generateUploadButton,
-  generateUploadDropzone,
-} from '@uploadthing/react';
-import type { OurFileRouter } from '@/app/api/uploadthing/core';
+import { generateUploadButton, generateUploadDropzone } from "@uploadthing/react";
+import type { OurFileRouter } from "@/app/api/uploadthing/core";
 
 export const UploadButton = generateUploadButton<OurFileRouter>();
 export const UploadDropzone = generateUploadDropzone<OurFileRouter>();
@@ -95,9 +92,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'utfs.io',
-        port: '',
+        protocol: "https",
+        hostname: "utfs.io",
+        port: "",
       },
     ],
   },

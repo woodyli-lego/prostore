@@ -29,12 +29,7 @@ export async function generateMetadata(props: {
     rating: string;
   }>;
 }) {
-  const {
-    q = 'all',
-    category = 'all',
-    price = 'all',
-    rating = 'all',
-  } = await props.searchParams;
+  const { q = "all", category = "all", price = "all", rating = "all" } = await props.searchParams;
 }
 ```
 
@@ -49,34 +44,26 @@ export async function generateMetadata(props: {
     rating: string;
   }>;
 }) {
-  const {
-    q = 'all',
-    category = 'all',
-    price = 'all',
-    rating = 'all',
-  } = await props.searchParams;
+  const { q = "all", category = "all", price = "all", rating = "all" } = await props.searchParams;
 
-  const isQuerySet = q && q !== 'all' && q.trim() !== '';
-  const isCategorySet = category && category !== 'all' && category.trim() !== '';
-  const isPriceSet = price && price !== 'all' && price.trim() !== '';
-  const isRatingSet = rating && rating !== 'all' && rating.trim() !== '';
+  const isQuerySet = q && q !== "all" && q.trim() !== "";
+  const isCategorySet = category && category !== "all" && category.trim() !== "";
+  const isPriceSet = price && price !== "all" && price.trim() !== "";
+  const isRatingSet = rating && rating !== "all" && rating.trim() !== "";
 
   if (isQuerySet || isCategorySet || isPriceSet || isRatingSet) {
     return {
-      title: `Search ${
-        isQuerySet ? q : ''
-      }
-      ${isCategorySet ? `: Category ${category}` : ''}
-      ${isPriceSet ? `: Price ${price}` : ''}
-      ${isRatingSet ? `: Rating ${rating}` : ''}`,
+      title: `Search ${isQuerySet ? q : ""}
+      ${isCategorySet ? `: Category ${category}` : ""}
+      ${isPriceSet ? `: Price ${price}` : ""}
+      ${isRatingSet ? `: Rating ${rating}` : ""}`,
     };
   } else {
     return {
-      title: 'Search Products',
+      title: "Search Products",
     };
   }
 }
-
 ```
 
 We are checking for the query, category, price, and rating parameters and if they are not `all`, we are adding them to the title. If there are no filters, we are just returning the default title of `Search Products`.

@@ -14,11 +14,11 @@ export async function updateUser(user: z.infer<typeof updateUserSchema>) {
       },
     });
 
-    revalidatePath('/admin/users');
+    revalidatePath("/admin/users");
 
     return {
       success: true,
-      message: 'User updated successfully',
+      message: "User updated successfully",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
@@ -35,13 +35,13 @@ import {
   shippingAddressSchema,
   paymentMethodSchema,
   updateUserSchema,
-} from '../validator';
+} from "../validator";
 ```
 
 Now go back to the form at `app/admin/users/[id]/update-user-form.tsx` and import the new action:
 
 ```ts
-import { updateUser } from '@/lib/actions/user.actions';
+import { updateUser } from "@/lib/actions/user.actions";
 ```
 
 Now, add the `onSubmit` handler:
@@ -57,7 +57,7 @@ const onSubmit = async (values: z.infer<typeof updateUserSchema>) => {
 
     if (!res.success)
       return toast({
-        variant: 'destructive',
+        variant: "destructive",
         description: res.message,
       });
 
@@ -69,7 +69,7 @@ const onSubmit = async (values: z.infer<typeof updateUserSchema>) => {
     router.push(`/admin/users`);
   } catch (error) {
     toast({
-      variant: 'destructive',
+      variant: "destructive",
       description: (error as Error).message,
     });
   }

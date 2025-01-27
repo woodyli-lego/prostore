@@ -33,13 +33,13 @@ const data = await prisma.product.findMany({
     ...priceFilter,
   },
   orderBy:
-    sort === 'lowest'
-      ? { price: 'asc' }
-      : sort === 'highest'
-      ? { price: 'desc' }
-      : sort === 'rating'
-      ? { rating: 'desc' }
-      : { createdAt: 'desc' },
+    sort === "lowest"
+      ? { price: "asc" }
+      : sort === "highest"
+        ? { price: "desc" }
+        : sort === "rating"
+          ? { rating: "desc" }
+          : { createdAt: "desc" },
   skip: (page - 1) * limit,
   take: limit,
 });
@@ -52,7 +52,7 @@ We are adding a new `orderBy` parameter. We can sort by `price` or `rating` or `
 Now open the `app/(root)/search/page.tsx` file and add the following array at the top of the file with the other arrays:
 
 ```ts
-const sortOrders = ['newest', 'lowest', 'highest', 'rating'];
+const sortOrders = ["newest", "lowest", "highest", "rating"];
 ```
 
 Now go to the comment "SORTING HERE" and replace it with the following code:

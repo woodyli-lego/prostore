@@ -33,16 +33,16 @@ export default ModeToggle;
 Bring it into the `components/shared/header/index.tsx` file:
 
 ```tsx
-import ModeToggle from './mode-toggle';
+import ModeToggle from "./mode-toggle";
 ```
 
 Embed it right above the button that surrounds the shopping cart link and inside the div with the class `space-x-2`:
 
 ```tsx
-<div className='space-x-2'>
+<div className="space-x-2">
   <ModeToggle /> 👈 Add this line
-  <Button asChild variant='ghost'>
-    <Link href='/cart'>
+  <Button asChild variant="ghost">
+    <Link href="/cart">
       <ShoppingCart />
       Cart
     </Link>
@@ -56,11 +56,11 @@ You should see the text in the header.
 Go back to the `components/shared/header/mode-toggle.tsx` file and add the following imports. We also need to make this a client component since we are using hooks:
 
 ```tsx
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -68,8 +68,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { MoonIcon, SunIcon, SunMoon } from 'lucide-react';
+} from "@/components/ui/dropdown-menu";
+import { MoonIcon, SunIcon, SunMoon } from "lucide-react";
 ```
 
 We are bringing in the `useTheme` hook from `next-themes` to allow us to switch between light and dark themes. We are also bringing in the `useState` and `useEffect` hooks and some dropdown components and icons.
@@ -135,7 +135,7 @@ We are checking the theme state and then rendering the appropriate icon. We are 
 In order to use the theme state in our app we need to wrap our app in a theme provider. This is something that will be used throughout the entire project, so we want this in our main layout. Open the `app/layout.tsx` file and add the following import:
 
 ```tsx
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider } from "next-themes";
 ```
 
 Now just wrap the output with the theme provider:
@@ -161,8 +161,6 @@ We are adding a couple of options to the theme provider. The `attribute` prop is
 ## Fix Hydration Issue
 
 If you run the app now you will see an error in the console about hydration. You can fix this by adding the `surpressHydrationWarning` attribute to the `<html>` tag in the main layout.
-
-
 
 One of the reasons is listed as "Server/client branch like if (typeof window !== 'undefined')"
 

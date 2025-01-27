@@ -64,7 +64,7 @@ const AdminOrdersPage = async (props: {
 ```
 
 ```tsx
-const { page = '1', query: searchText } = searchParams;
+const { page = "1", query: searchText } = searchParams;
 ```
 
 Pass the query into the `getAllOrders` function call:
@@ -79,13 +79,13 @@ const orders = await getAllOrders({
 In the return, replace the `h1` heading with the following:
 
 ```tsx
-<div className='flex items-center gap-3'>
-  <h1 className='h2-bold'>Orders</h1>
+<div className="flex items-center gap-3">
+  <h1 className="h2-bold">Orders</h1>
   {searchText && (
     <div>
-      Filtered by <i>&quot;{searchText}&quot;</i>{' '}
+      Filtered by <i>&quot;{searchText}&quot;</i>{" "}
       <Link href={`/admin/orders`}>
-        <Button variant='outline' size='sm'>
+        <Button variant="outline" size="sm">
           Remove Filter
         </Button>
       </Link>

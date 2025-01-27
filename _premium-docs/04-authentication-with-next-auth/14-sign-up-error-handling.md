@@ -6,7 +6,7 @@ Our registration form is working, but we need to handle errors more gracefully. 
 console.log(error.name);
 console.log(error.code);
 console.log(error.errors);
-console.log(error.meta?.target)
+console.log(error.meta?.target);
 ```
 
 Now remove the `required` attribute from the name and email inputs and change the email type to "text" temporarily in the sign up form and try to register a user without a name and email. You will see something like this:
@@ -46,7 +46,7 @@ Invalid `prisma.user.create()` invocation:
 Unique constraint failed on the fields: (`email`)
 ```
 
-This gives us some info we can use for an error handler. 
+This gives us some info we can use for an error handler.
 
 Let's create an error handler. Open the file `lib/utils.ts` and add the following:
 
@@ -54,29 +54,23 @@ Let's create an error handler. Open the file `lib/utils.ts` and add the followin
 // Format Errors
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function formatError(error: any): string {
-  if (error.name === 'ZodError') {
+  if (error.name === "ZodError") {
     // Handle Zod error
     const fieldErrors = Object.keys(error.errors).map((field) => {
       const message = error.errors[field].message;
-      return typeof message === 'string' ? message : JSON.stringify(message);
+      return typeof message === "string" ? message : JSON.stringify(message);
     });
 
-    return fieldErrors.join('. ');
-  } else if (
-    error.name === 'PrismaClientKnownRequestError' &&
-    error.code === 'P2002'
-  ) {
+    return fieldErrors.join(". ");
+  } else if (error.name === "PrismaClientKnownRequestError" && error.code === "P2002") {
     // Handle Prisma error
-    const field = error.meta?.target ? error.meta.target[0] : 'Field';
+    const field = error.meta?.target ? error.meta.target[0] : "Field";
     return `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`;
   } else {
     // Handle other errors
-    return typeof error.message === 'string'
-      ? error.message
-      : JSON.stringify(error.message);
+    return typeof error.message === "string" ? error.message : JSON.stringify(error.message);
   }
 }
-
 ```
 
 I used the "// eslint-disable-next-line @typescript-eslint/no-explicit-any" comment because I want to use the `any` type without any hassle from eslint. To include the types for this was way more complicated than I'd like.
@@ -86,7 +80,7 @@ Here, we are checking for two types of errors: `ZodError` and `PrismaClientKnown
 Now bring it into the `lib/actions/user.actions.ts` file and update the catch block as follows:
 
 ```ts
-import { formatError } from '../utils';
+import { formatError } from "../utils";
 // ...
 
 try {

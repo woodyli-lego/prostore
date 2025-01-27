@@ -5,12 +5,12 @@ Just like with shipping, payment method will have a page and then a form embedde
 Create a new file at `app/(root)/payment-method/page.tsx` and add the following code:
 
 ```tsx
-import { Metadata } from 'next';
-import { auth } from '@/auth';
-import { getUserById } from '@/lib/actions/user.actions';
+import { Metadata } from "next";
+import { auth } from "@/auth";
+import { getUserById } from "@/lib/actions/user.actions";
 
 export const metadata: Metadata = {
-  title: 'Payment Method',
+  title: "Payment Method",
 };
 
 const PaymentMethodPage = async () => {
@@ -18,7 +18,7 @@ const PaymentMethodPage = async () => {
   const userId = session?.user?.id;
 
   if (!userId) {
-    throw new Error('User ID not found');
+    throw new Error("User ID not found");
   }
 
   const user = await getUserById(userId);
@@ -35,14 +35,13 @@ Now when you continue from the shipping page, you should see the text "Payment M
 
 We need to create the payment method form. We will create the file and add some some imports and initialization but we'll add the actual form components in the next lesson.
 
-
 Now create a file at `app/(root)/payment-method/payment-method-form.tsx` and add the following code:
 
 ```tsx
-'use client';
+"use client";
 
-import CheckoutSteps from '@/components/shared/checkout-steps';
-import { Button } from '@/components/ui/button';
+import CheckoutSteps from "@/components/shared/checkout-steps";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -50,18 +49,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { useToast } from '@/hooks/use-toast';
-import { updateUserPaymentMethod } from '@/lib/actions/user.actions';
-import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from '@/lib/constants';
-import { paymentMethodSchema } from '@/lib/validator';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowRight, Loader } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "@/hooks/use-toast";
+import { updateUserPaymentMethod } from "@/lib/actions/user.actions";
+import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from "@/lib/constants";
+import { paymentMethodSchema } from "@/lib/validator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight, Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const PaymentMethodForm = ({
   preferredPaymentMethod,
@@ -97,7 +96,7 @@ Then we return the `CheckoutSteps` component.
 Now let's bring it into the `PaymentMethodPage` component. Update the `PaymentMethodPage` component in `app/(root)/payment-method/page.tsx` to the following:
 
 ```tsx
-import PaymentMethodForm from './payment-method-form';
+import PaymentMethodForm from "./payment-method-form";
 ```
 
 In the return:

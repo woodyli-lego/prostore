@@ -7,10 +7,10 @@ Now we will add the pagination to the orders. We already have a PAGE_SIZE consta
 We are going to create a pagination component. Create a file at `components/shared/pagination.tsx` and add the following code:
 
 ```tsx
-'use client';
+"use client";
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Button } from '../ui/button';
+import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "../ui/button";
 
 type PaginationProps = {
   page: number | string;
@@ -22,21 +22,11 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
   const searchParams = useSearchParams();
 
   return (
-    <div className='flex gap-2'>
-      <Button
-        size='lg'
-        variant='outline'
-        className='w-28'
-        disabled={Number(page) <= 1}
-      >
+    <div className="flex gap-2">
+      <Button size="lg" variant="outline" className="w-28" disabled={Number(page) <= 1}>
         Previous
       </Button>
-      <Button
-        size='lg'
-        variant='outline'
-        className='w-28'
-        disabled={Number(page) >= totalPages}
-      >
+      <Button size="lg" variant="outline" className="w-28" disabled={Number(page) >= totalPages}>
         Next
       </Button>
     </div>
@@ -55,16 +45,14 @@ Before we add the rest of the functionality, let's add the component to the orde
 Open the `app/user/orders/page.tsx` file and import the pagination component:
 
 ```tsx
-import Pagination from '@/components/shared/pagination';
+import Pagination from "@/components/shared/pagination";
 ```
 
 Now under the closing `</Table>` element, add the following code:
 
 ```tsx
 {
-  orders.totalPages > 1 && (
-    <Pagination page={Number(page) || 1} totalPages={orders?.totalPages} />
-  );
+  orders.totalPages > 1 && <Pagination page={Number(page) || 1} totalPages={orders?.totalPages} />;
 }
 ```
 
@@ -79,7 +67,7 @@ Add the following click handler above the return statement:
 ```tsx
 // Handle Page Change
 const onClick = (btnType: string) => {
-  const pageValue = btnType === 'next' ? Number(page) + 1 : Number(page) - 1;
+  const pageValue = btnType === "next" ? Number(page) + 1 : Number(page) - 1;
   console.log(pageValue);
 };
 ```
@@ -90,21 +78,21 @@ Add the handler to the buttons:
 
 ```tsx
 return (
-  <div className='flex gap-2'>
+  <div className="flex gap-2">
     <Button
-      size='lg'
-      variant='outline'
-      className='w-28'
-      onClick={() => onClick('prev')}
+      size="lg"
+      variant="outline"
+      className="w-28"
+      onClick={() => onClick("prev")}
       disabled={Number(page) <= 1}
     >
       Previous
     </Button>
     <Button
-      size='lg'
-      variant='outline'
-      className='w-28'
-      onClick={() => onClick('next')}
+      size="lg"
+      variant="outline"
+      className="w-28"
+      onClick={() => onClick("next")}
       disabled={Number(page) >= totalPages}
     >
       Next
@@ -126,7 +114,7 @@ npm install query-string
 Open the `lib/utils.ts` file and add the following import:
 
 ```tsx
-import qs from 'query-string';
+import qs from "query-string";
 ```
 
 Now add the following function to the file:
@@ -169,7 +157,7 @@ The skipNull option in qs.stringifyUrl (from the qs library) ensures that query 
 Now bring the function into the `components/shared/pagination.tsx` file and add the following import:
 
 ```tsx
-import { formUrlQuery } from '@/lib/utils';
+import { formUrlQuery } from "@/lib/utils";
 ```
 
 In the `onClick` function, add the following code:
@@ -177,11 +165,11 @@ In the `onClick` function, add the following code:
 ```tsx
 // Handle Page Change
 const onClick = (btnType: string) => {
-  const pageValue = btnType === 'next' ? Number(page) + 1 : Number(page) - 1;
+  const pageValue = btnType === "next" ? Number(page) + 1 : Number(page) - 1;
 
   const newUrl = formUrlQuery({
     params: searchParams.toString(),
-    key: urlParamName || 'page',
+    key: urlParamName || "page",
     value: pageValue.toString(),
   });
 

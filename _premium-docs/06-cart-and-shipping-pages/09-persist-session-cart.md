@@ -4,7 +4,6 @@ So we have the first couple pages of our checkout and we have our cart. However,
 
 We will do this by overwriting the user cart on sign in. When a user logs in, we check for their guest sessionCartId. If the guest cart exists, we update the user's cart with the session cart items.
 
-
 Open the `auth.ts` file and add the following:
 
 ```ts
@@ -41,10 +40,10 @@ async jwt({ token, user, trigger, session }: any) {
 
   return token;
 },
- ```
+```
 
- We are checking for a sign in or sign up trigger and then getting the `sessionCartId` from the cookie.
+We are checking for a sign in or sign up trigger and then getting the `sessionCartId` from the cookie.
 
- We then find the user cart if there is one and overwrite it with the guests.
+We then find the user cart if there is one and overwrite it with the guests.
 
- You could merge the two but the code starts to get very complicated and I dont feel I have a good ability to explain that for this course. 
+You could merge the two but the code starts to get very complicated and I dont feel I have a good ability to explain that for this course.

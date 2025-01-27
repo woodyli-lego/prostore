@@ -25,8 +25,8 @@ touch auth.config.ts
 Add the following imports:
 
 ```ts
-import type { NextAuthConfig } from 'next-auth';
-import { NextResponse } from 'next/server';
+import type { NextAuthConfig } from "next-auth";
+import { NextResponse } from "next/server";
 ```
 
 Now create a new config object called `authConfig` and add the `authorized` function like so:
@@ -54,7 +54,7 @@ export const authConfig = {
       if (!auth && protectedPaths.some((p) => p.test(pathname))) return false;
 
       // Check for session cart cookie
-      if (!request.cookies.get('sessionCartId')) {
+      if (!request.cookies.get("sessionCartId")) {
         // Generate new session cart id cookie
         const sessionCartId = crypto.randomUUID();
 
@@ -66,7 +66,7 @@ export const authConfig = {
         });
 
         // Set newly generated sessionCartId in the response cookies
-        response.cookies.set('sessionCartId', sessionCartId);
+        response.cookies.set("sessionCartId", sessionCartId);
 
         return response;
       }
@@ -82,14 +82,14 @@ export const authConfig = {
 Now, in the `auth.ts` file, remove the 2 imports:
 
 ```ts
-import type { NextAuthConfig } from 'next-auth';
-import { NextResponse } from 'next/server';
+import type { NextAuthConfig } from "next-auth";
+import { NextResponse } from "next/server";
 ```
 
 and add the following import:
 
 ```ts
-import { authConfig } from './auth.config';
+import { authConfig } from "./auth.config";
 ```
 
 Remove the `authorized` callback and instead, add this to the `callbacks` object:
@@ -119,8 +119,8 @@ This is because this value has to be one of 3 values ("jwt" | "database" | undef
 The last thing we need to do is update the `middleware.ts` file to the following:
 
 ```ts
-import NextAuth from 'next-auth';
-import { authConfig } from './auth.config';
+import NextAuth from "next-auth";
+import { authConfig } from "./auth.config";
 
 export const { auth: middleware } = NextAuth(authConfig);
 ```

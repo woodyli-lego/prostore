@@ -5,10 +5,10 @@ So, now we are going to create the table to embed in the order details page.
 Create a file at `app/(root)/order/[id]/order-details-table.tsx` and add the following code:
 
 ```tsx
-'use client';
+"use client";
 
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -16,21 +16,21 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { useToast } from '@/hooks/use-toast';
-import { formatCurrency, formatDateTime, formatId } from '@/lib/utils';
-import { Order } from '@/types';
-import Image from 'next/image';
-import Link from 'next/link';
+} from "@/components/ui/table";
+import { useToast } from "@/hooks/use-toast";
+import { formatCurrency, formatDateTime, formatId } from "@/lib/utils";
+import { Order } from "@/types";
+import Image from "next/image";
+import Link from "next/link";
 
 const OrderDetailsTable = ({ order }: { order: Order }) => {
   const { toast } = useToast();
 
   return (
     <>
-      <h1 className='py-4 text-2xl'> Order {formatId(order.id)}</h1>
-      <div className='grid md:grid-cols-3 md:gap-5'>
-        <div className='overflow-x-auto md:col-span-2 space-y-4'>Content</div>
+      <h1 className="py-4 text-2xl"> Order {formatId(order.id)}</h1>
+      <div className="grid md:grid-cols-3 md:gap-5">
+        <div className="overflow-x-auto md:col-span-2 space-y-4">Content</div>
       </div>
     </>
   );
@@ -48,7 +48,7 @@ Bring the form into the order details page.
 Open the `app/(root)/order/[id]/page.tsx` file and add the following import:
 
 ```tsx
-import OrderDetailsTable from './order-details-table';
+import OrderDetailsTable from "./order-details-table";
 ```
 
 Then, add the following code to the `OrderPage` component:
@@ -96,15 +96,13 @@ In the return, within the `div` tags, add the following card:
 
 ```tsx
 <Card>
-  <CardContent className='p-4 gap-4'>
-    <h2 className='text-xl pb-4'>Payment Method</h2>
+  <CardContent className="p-4 gap-4">
+    <h2 className="text-xl pb-4">Payment Method</h2>
     <p>{paymentMethod}</p>
     {isPaid ? (
-      <Badge variant='secondary'>
-        Paid at {formatDateTime(paidAt!).dateTime}
-      </Badge>
+      <Badge variant="secondary">Paid at {formatDateTime(paidAt!).dateTime}</Badge>
     ) : (
-      <Badge variant='destructive'>Not paid</Badge>
+      <Badge variant="destructive">Not paid</Badge>
     )}
   </CardContent>
 </Card>
@@ -118,19 +116,17 @@ Now add the following card under the last one:
 
 ```tsx
 <Card>
-  <CardContent className='p-4 gap-4'>
-    <h2 className='text-xl pb-4'>Shipping Address</h2>
+  <CardContent className="p-4 gap-4">
+    <h2 className="text-xl pb-4">Shipping Address</h2>
     <p>{shippingAddress.fullName}</p>
     <p>
-      {shippingAddress.streetAddress}, {shippingAddress.city},{' '}
-      {shippingAddress.postalCode}, {shippingAddress.country}{' '}
+      {shippingAddress.streetAddress}, {shippingAddress.city}, {shippingAddress.postalCode},{" "}
+      {shippingAddress.country}{" "}
     </p>
     {isDelivered ? (
-      <Badge variant='secondary'>
-        Delivered at {formatDateTime(deliveredAt!).dateTime}
-      </Badge>
+      <Badge variant="secondary">Delivered at {formatDateTime(deliveredAt!).dateTime}</Badge>
     ) : (
-      <Badge variant='destructive'>Not delivered</Badge>
+      <Badge variant="destructive">Not delivered</Badge>
     )}
   </CardContent>
 </Card>
@@ -144,8 +140,8 @@ Add the following card under the last one:
 
 ```tsx
 <Card>
-  <CardContent className='p-4 gap-4'>
-    <h2 className='text-xl pb-4'>Order Items</h2>
+  <CardContent className="p-4 gap-4">
+    <h2 className="text-xl pb-4">Order Items</h2>
     <Table>
       <TableHeader>
         <TableRow>
@@ -158,23 +154,15 @@ Add the following card under the last one:
         {orderItems.map((item) => (
           <TableRow key={item.slug}>
             <TableCell>
-              <Link
-                href={`/product/${item.slug}`}
-                className='flex items-center'
-              >
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  width={50}
-                  height={50}
-                ></Image>
-                <span className='px-2'>{item.name}</span>
+              <Link href={`/product/${item.slug}`} className="flex items-center">
+                <Image src={item.image} alt={item.name} width={50} height={50}></Image>
+                <span className="px-2">{item.name}</span>
               </Link>
             </TableCell>
             <TableCell>
-              <span className='px-2'>{item.qty}</span>
+              <span className="px-2">{item.qty}</span>
             </TableCell>
-            <TableCell className='text-right'>${item.price}</TableCell>
+            <TableCell className="text-right">${item.price}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -190,21 +178,21 @@ Finally we want the price summary. Add this `div` in the middle of the 2 closing
 ```tsx
 <div>
   <Card>
-    <CardContent className='p-4 space-y-4 gap-4'>
-      <h2 className='text-xl pb-4'>Order Summary</h2>
-      <div className='flex justify-between'>
+    <CardContent className="p-4 space-y-4 gap-4">
+      <h2 className="text-xl pb-4">Order Summary</h2>
+      <div className="flex justify-between">
         <div>Items</div>
         <div>{formatCurrency(itemsPrice)}</div>
       </div>
-      <div className='flex justify-between'>
+      <div className="flex justify-between">
         <div>Tax</div>
         <div>{formatCurrency(taxPrice)}</div>
       </div>
-      <div className='flex justify-between'>
+      <div className="flex justify-between">
         <div>Shipping</div>
         <div>{formatCurrency(shippingPrice)}</div>
       </div>
-      <div className='flex justify-between'>
+      <div className="flex justify-between">
         <div>Total</div>
         <div>{formatCurrency(totalPrice)}</div>
       </div>

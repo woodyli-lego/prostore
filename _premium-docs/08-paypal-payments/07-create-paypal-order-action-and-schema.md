@@ -1,8 +1,8 @@
 # Create PayPal Order Action & Payment Result Schema/Type
 
-Now that we know our `paypal.ts` file is working, let's continue on to integrate PayPal with our project. 
+Now that we know our `paypal.ts` file is working, let's continue on to integrate PayPal with our project.
 
-When we call our function to create an order from paypal, it sends back an object called `paymentResult`. That object includes an `id` and a  `status` field. So we will be using that in our code to update the order to paid. 
+When we call our function to create an order from paypal, it sends back an object called `paymentResult`. That object includes an `id` and a `status` field. So we will be using that in our code to update the order to paid.
 
 We need to create the Zod schema for that `paymentResult`
 
@@ -32,7 +32,7 @@ import {
   insertOrderItemSchema,
   insertOrderSchema,
   paymentResultSchema, // 👈 Add this line
-} from '@/lib/validator';
+} from "@/lib/validator";
 
 export type PaymentResult = z.infer<typeof paymentResultSchema>;
 ```
@@ -46,9 +46,9 @@ This action itself does not mark the order as paid. We will do that in the next 
 Open the `lib/actions/order.actions.ts` file and import the paypal object, revalidatePath as well as the PaymentResult type:
 
 ```ts
-import { revalidatePath } from 'next/cache';
-import { paypal } from '../paypal';
-import { CartItem, PaymentResult } from '@/types';
+import { revalidatePath } from "next/cache";
+import { paypal } from "../paypal";
+import { CartItem, PaymentResult } from "@/types";
 ```
 
 Now add the following function:

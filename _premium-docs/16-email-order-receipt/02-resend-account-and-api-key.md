@@ -18,8 +18,7 @@ You also need to add these variables to Vercel for the production environment. G
 Let's also add the sender email to our constants file. Add the following to `app/constants/index.ts`:
 
 ```ts
-export const SENDER_EMAIL =
-  process.env.SENDER_EMAIL || 'onboarding@resend.dev';
+export const SENDER_EMAIL = process.env.SENDER_EMAIL || "onboarding@resend.dev";
 ```
 
 ## Install Packages

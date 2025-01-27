@@ -2,7 +2,7 @@
 
 Now that we have our basic layout and some components including the product card display, we can start to implement a database.
 
-We're going to be using a cloud PostgreSQL database that is offered through Vercel but is managed and is hosted by Neon, which is a great company and service. We're using the free tier so you don't need to pay anything or enter any credit card information to use this service. 
+We're going to be using a cloud PostgreSQL database that is offered through Vercel but is managed and is hosted by Neon, which is a great company and service. We're using the free tier so you don't need to pay anything or enter any credit card information to use this service.
 
 We'll be using Prisma as our ORM to interact with our database. Instead of writing raw SQL queries, Prisma offers easy to use methods to create, read, update, delete and more.
 

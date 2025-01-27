@@ -17,7 +17,7 @@ Let's create a new file at `lib/paypal.ts`. This will contain the PayPal API cal
 Let's start by creating a variable to hold the paypal api url.:
 
 ```ts
-const base = process.env.PAYPAL_API_URL || 'https://api-m.sandbox.paypal.com';
+const base = process.env.PAYPAL_API_URL || "https://api-m.sandbox.paypal.com";
 ```
 
 We will use this in all of our requests to the PayPal API.
@@ -40,16 +40,14 @@ Let's create a function to get the access token. Add the following function unde
 // Generate an access token for the PayPal API
 async function generateAccessToken() {
   const { PAYPAL_CLIENT_ID, PAYPAL_APP_SECRET } = process.env;
-  const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_APP_SECRET}`).toString(
-    'base64'
-  );
+  const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_APP_SECRET}`).toString("base64");
 
   const response = await fetch(`${base}/v1/oauth2/token`, {
-    method: 'POST',
-    body: 'grant_type=client_credentials',
+    method: "POST",
+    body: "grant_type=client_credentials",
     headers: {
       Authorization: `Basic ${auth}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
+      "Content-Type": "application/x-www-form-urlencoded",
     },
   });
 

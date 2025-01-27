@@ -108,4 +108,3 @@ npx prisma generate
 ```
 
 Now run the server and Studio. If you open up Studio you should see the new `Order` and `OrderItem` tables.
-

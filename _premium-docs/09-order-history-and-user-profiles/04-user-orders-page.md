@@ -12,20 +12,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { getMyOrders } from '@/lib/actions/order.actions';
-import { formatCurrency, formatDateTime, formatId } from '@/lib/utils';
-import { Metadata } from 'next';
-import Link from 'next/link';
+} from "@/components/ui/table";
+import { getMyOrders } from "@/lib/actions/order.actions";
+import { formatCurrency, formatDateTime, formatId } from "@/lib/utils";
+import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: 'My Orders',
+  title: "My Orders",
 };
 
-const OrdersPage = async (props: {
-  searchParams: Promise<{ page: string }>;
-}) => {
-  const {page } = await props.searchParams;
+const OrdersPage = async (props: { searchParams: Promise<{ page: string }> }) => {
+  const { page } = await props.searchParams;
   const orders = await getMyOrders({
     page: Number(page) || 1,
   });
@@ -46,9 +44,9 @@ Now let's create the UI for the orders page. Replace the return statement with t
 
 ```tsx
 return (
-  <div className='space-y-2'>
-    <h2 className='h2-bold'>Orders</h2>
-    <div className='overflow-x-auto'>
+  <div className="space-y-2">
+    <h2 className="h2-bold">Orders</h2>
+    <div className="overflow-x-auto">
       <Table>
         <TableHeader>
           <TableRow>
@@ -67,18 +65,16 @@ return (
               <TableCell> {formatCurrency(order.totalPrice)}</TableCell>
               <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
               <TableCell>
-                {order.isPaid && order.paidAt
-                  ? formatDateTime(order.paidAt).dateTime
-                  : 'not paid'}
+                {order.isPaid && order.paidAt ? formatDateTime(order.paidAt).dateTime : "not paid"}
               </TableCell>
               <TableCell>
                 {order.isDelivered && order.deliveredAt
                   ? formatDateTime(order.deliveredAt).dateTime
-                  : 'not delivered'}
+                  : "not delivered"}
               </TableCell>
               <TableCell>
                 <Link href={`/order/${order.id}`}>
-                  <span className='px-2'>Details</span>
+                  <span className="px-2">Details</span>
                 </Link>
               </TableCell>
             </TableRow>

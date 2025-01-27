@@ -25,7 +25,7 @@ We are going to embed the header in our root group layout file (`app/(root)/layo
 Open the `app/(root)/layout.tsx` file and add the following import:
 
 ```tsx
-import Header from '@/components/shared/header';
+import Header from "@/components/shared/header";
 ```
 
 Since the file is called `index.tsx`, we don't need to specify the file name when importing it.
@@ -39,9 +39,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className='flex h-screen flex-col'>
+    <div className="flex h-screen flex-col">
       <Header />
-      <main className='flex-1 wrapper'>{children}</main>
+      <main className="flex-1 wrapper">{children}</main>
     </div>
   );
 }
@@ -54,40 +54,38 @@ Hint: If you want to import something that is not imported, you can press `Ctrl 
 Add the following to the `Header` component:
 
 ```tsx
-import { ShoppingCart, UserIcon } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { ShoppingCart, UserIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-import { Button } from '@/components/ui/button';
-import { APP_NAME } from '@/lib/constants';
+import { Button } from "@/components/ui/button";
+import { APP_NAME } from "@/lib/constants";
 
 const Header = () => {
   return (
-    <header className='w-full border-b'>
-      <div className='wrapper flex-between'>
-        <div className='flex-start'>
-          <Link href='/' className='flex-start'>
+    <header className="w-full border-b">
+      <div className="wrapper flex-between">
+        <div className="flex-start">
+          <Link href="/" className="flex-start">
             <Image
               priority={true}
-              src='/images/logo.svg'
+              src="/images/logo.svg"
               width={48}
               height={48}
               alt={`${APP_NAME} logo`}
             />
-            <span className='hidden lg:block font-bold text-2xl ml-3'>
-              {APP_NAME}
-            </span>
+            <span className="hidden lg:block font-bold text-2xl ml-3">{APP_NAME}</span>
           </Link>
         </div>
-        <div className='space-x-2'>
-          <Button asChild variant='ghost'>
-            <Link href='/cart'>
+        <div className="space-x-2">
+          <Button asChild variant="ghost">
+            <Link href="/cart">
               <ShoppingCart />
               Cart
             </Link>
           </Button>
           <Button asChild>
-            <Link href='/sign-in'>
+            <Link href="/sign-in">
               <UserIcon />
               Sign In
             </Link>
@@ -112,14 +110,14 @@ We are using the `ghost` variant of the `Button` component. This is because we w
 Create a file at `components/footer.tsx` and add the following code:
 
 ```tsx
-import { APP_NAME } from '@/lib/constants';
+import { APP_NAME } from "@/lib/constants";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className='border-t'>
-      <div className='p-5 flex-center'>
+    <footer className="border-t">
+      <div className="p-5 flex-center">
         {currentYear} {APP_NAME}. All Rights reserved.
       </div>
     </footer>
@@ -132,7 +130,7 @@ export default Footer;
 Bring the footer into the `app/(root)/layout.tsx` file.
 
 ```tsx
-import Footer from '@/components/footer';
+import Footer from "@/components/footer";
 ```
 
 Now embed it:
@@ -144,11 +142,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>
-        <div className='flex h-screen flex-col'>
+        <div className="flex h-screen flex-col">
           <Header />
-          <main className='flex-1 wrapper'>{children}</main>
+          <main className="flex-1 wrapper">{children}</main>
           <Footer />
         </div>
       </body>

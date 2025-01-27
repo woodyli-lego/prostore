@@ -1,4 +1,4 @@
-# Section Intro 
+# Section Intro
 
 Now we are going to add the rating and review functionality to the project.
 

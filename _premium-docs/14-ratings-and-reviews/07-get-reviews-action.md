@@ -17,7 +17,7 @@ export async function getReviews({ productId }: { productId: string }) {
       },
     },
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
   });
 
@@ -33,13 +33,9 @@ Let's also create a function to get a product review for a specific product that
 
 ```ts
 // Get a review for a product written by the current user
-export const getReviewByProductId = async ({
-  productId,
-}: {
-  productId: string;
-}) => {
+export const getReviewByProductId = async ({ productId }: { productId: string }) => {
   const session = await auth();
-  if (!session) throw new Error('User is not authenticated');
+  if (!session) throw new Error("User is not authenticated");
 
   return await prisma.review.findFirst({
     where: { productId, userId: session?.user.id },

@@ -11,19 +11,19 @@ Open the `lib/utils.ts` file and add the following function:
 ```ts
 // Round to 2 decimal places
 export const round2 = (value: number | string) => {
-  if (typeof value === 'number') {
+  if (typeof value === "number") {
     return Math.round((value + Number.EPSILON) * 100) / 100; // avoid rounding errors
-  } else if (typeof value === 'string') {
+  } else if (typeof value === "string") {
     return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
   } else {
-    throw new Error('value is not a number nor a string');
+    throw new Error("value is not a number nor a string");
   }
 };
 ```
 
-The round2 function takes a number or a string that looks like a number and rounds it to 2 decimal places. It takes in a number or string and rounds both to 2 decimal places. It uses Number.EPSILON, which is a very tiny number that helps avoid rounding errors caused by how computers handle floating-point math. Adding this ensures the number is correctly rounded. 
+The round2 function takes a number or a string that looks like a number and rounds it to 2 decimal places. It takes in a number or string and rounds both to 2 decimal places. It uses Number.EPSILON, which is a very tiny number that helps avoid rounding errors caused by how computers handle floating-point math. Adding this ensures the number is correctly rounded.
 
-value * 100: This moves the decimal point two places to the right. For example 123.456 → 12345.6
+value \* 100: This moves the decimal point two places to the right. For example 123.456 → 12345.6
 
 Dividing by 100: This moves the decimal point back to where it was. For example 12346 → 123.46
 
@@ -34,9 +34,7 @@ We need to calculate the price of the item. We will do this in the `calcPrice` f
 ```ts
 // Calculate cart price based on items
 const calcPrice = (items: z.infer<typeof cartItemSchema>[]) => {
-  const itemsPrice = round2(
-      items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0)
-    ),
+  const itemsPrice = round2(items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0)),
     shippingPrice = round2(itemsPrice > 100 ? 0 : 10),
     taxPrice = round2(0.15 * itemsPrice),
     totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
@@ -49,18 +47,17 @@ const calcPrice = (items: z.infer<typeof cartItemSchema>[]) => {
 };
 ```
 
-This function takes an array of items and returns an object with the total price of the items, the shipping price, the tax price, and the total price. We use the `round2` function to round the prices to 2 decimal places. We will create this in a minute. 
+This function takes an array of items and returns an object with the total price of the items, the shipping price, the tax price, and the total price. We use the `round2` function to round the prices to 2 decimal places. We will create this in a minute.
 
-The shipping price is $10 if the items price is less than or equal to $100. 
+The shipping price is $10 if the items price is less than or equal to $100.
 
-The tax price is 15% of the items price. 
+The tax price is 15% of the items price.
 
-The total price is the sum of the items price, the shipping price, and the tax price. 
+The total price is the sum of the items price, the shipping price, and the tax price.
 
 We return an object with the prices rounded to 2 decimal places.
 
 ## Add Item To Database
-
 
 In the `addItemToCart` function, get rid of the testing logs and the return.
 
@@ -85,7 +82,7 @@ if (!cart) {
 
   return {
     success: true,
-    message: 'Item added to cart successfully',
+    message: "Item added to cart successfully",
   };
 }
 ```
@@ -95,4 +92,3 @@ We are checking for an existing cart. If it exists, we create a new object with 
 ## Test It Out
 
 Open up Prisma Studio with `npx prisma studio` and check the database. Before clicking the button, there should be nothing in the Cart table. After clicking the button, there should be a new row in the Cart table with the item you added.
-
