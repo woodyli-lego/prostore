@@ -9,7 +9,7 @@ const Footer = () => {
         {currentYear} {APP_NAME}. All rights Reserved
       </div>
     </footer>
-  )
-}
+  );
+};
 
 export default Footer;
