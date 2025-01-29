@@ -1,7 +1,7 @@
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Homepage = async () => {
-  await delay(500)
+  await delay(500);
   return <div>Homepage</div>;
 };
 

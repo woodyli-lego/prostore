@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button";
 import ModeToggle from "./mode-toggle";
 import { EllipsisVertical, ShoppingCart, UserIcon } from "lucide-react";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import Link from "next/link";
 
 const Menu = () => {
@@ -31,7 +37,10 @@ const Menu = () => {
           <SheetContent className="flex flex-col items-start">
             <SheetTitle>Menu</SheetTitle>
             <ModeToggle />
-            <Button asChild variant='ghost'>
+            <Button
+              asChild
+              variant="ghost"
+            >
               <Link href="/cart">
                 <ShoppingCart /> Cart
               </Link>
@@ -47,6 +56,6 @@ const Menu = () => {
       </nav>
     </div>
   );
-}
+};
 
 export default Menu;
