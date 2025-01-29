@@ -5,6 +5,5 @@ infra-start:
 
 infra-cleanup:
 	docker compose -f docker-compose.test.yml down
-	rm -rf ./docker/
 
 infra-restart: infra-cleanup infra-start
