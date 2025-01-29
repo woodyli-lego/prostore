@@ -10,10 +10,10 @@ CREATE TABLE "product" (
     "stock" INTEGER NOT NULL,
     "price" DECIMAL(12,2) NOT NULL DEFAULT 0,
     "rating" DECIMAL(3,2) NOT NULL DEFAULT 0,
-    "numReviews" INTEGER NOT NULL DEFAULT 0,
-    "isFeatured" BOOLEAN NOT NULL,
+    "num_reviews" INTEGER NOT NULL DEFAULT 0,
+    "is_featured" BOOLEAN NOT NULL,
     "banner" TEXT,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_at" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "product_pkey" PRIMARY KEY ("id")
 );
