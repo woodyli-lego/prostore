@@ -5,10 +5,10 @@ async function main() {
   const prisma = new PrismaClient();
   await prisma.product.deleteMany();
   await prisma.product.createMany({
-    data: sampleData.products
+    data: sampleData.products,
   });
 
-  console.log('database seeded successfully!')
+  console.log("database seeded successfully!");
 }
 
 main();
