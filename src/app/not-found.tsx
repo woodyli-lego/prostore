@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 const NotFoundPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center main-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <Image
         src='/images/logo.svg'
         width={48}
