@@ -1,9 +1,9 @@
-import NextAuth from "next-auth";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/db/prisma";
-import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { compareSync } from "bcrypt-ts-edge";
 import type { NextAuthConfig } from "next-auth";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export const config = {
   // 页面路由配置
@@ -53,6 +53,14 @@ export const config = {
     }),
   ],
   callbacks: {
+    // 添加这个 callback 是为了 debug 用。
+    async jwt({ token, user }: any) {
+      console.log("JWT token", token);
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
     async session({ session, user, trigger, token }: any) {
       // 把 jwt 中的 sub 字段设置为 session 中的 user id
       session.user.id = token.sub;
