@@ -20,12 +20,14 @@ export const config = {
   adapter: PrismaAdapter(prisma),
   // 认证 provider 配置
   providers: [
-    CredentialsProvider({ // 使用账户密码认证方式，用 email 做账户名
+    CredentialsProvider({
+      // 使用账户密码认证方式，用 email 做账户名
       credentials: {
         email: { type: "email" },
         password: { type: "password" },
       },
-      async authorize(credentials) {  // 授权验证逻辑
+      async authorize(credentials) {
+        // 授权验证逻辑
         if (credentials == null) return null;
 
         // 从数据库读取用户信息
@@ -53,17 +55,29 @@ export const config = {
     }),
   ],
   callbacks: {
-    // 添加这个 callback 是为了 debug 用。
-    async jwt({ token, user }: any) {
+    async jwt({ token, user, trigger, session }: any) {
       console.log("JWT token", token);
       if (user) {
         token.role = user.role;
+        if (user.name === "NO_NAME") {
+          token.name = user.email!.split("@");
+          await prisma.user.update({
+            where: {
+              id: user.id,
+            },
+            data: {
+              name: token.name,
+            },
+          });
+        }
       }
       return token;
     },
     async session({ session, user, trigger, token }: any) {
-      // 把 jwt 中的 sub 字段设置为 session 中的 user id
+      // 从 token 提取字段，设入 session.user
       session.user.id = token.sub;
+      session.user.role = token.role;
+      session.user.name = token.name;
 
       // 用户信息更新同时刷新 session 中的 user name
       if (trigger === "update") {
