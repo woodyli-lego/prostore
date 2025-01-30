@@ -12,4 +12,4 @@ sequenceDiagram
   Server->>Server: 解密 JWT 生成 session
   Server-->>-Browser: 返回 session 数据
   Note right of Browser: 前端使用 session 中的用户信息
-```    
+```

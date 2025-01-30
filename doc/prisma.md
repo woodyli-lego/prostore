@@ -10,4 +10,3 @@
 
 1. 在 `prisma/schema.prisma` 定义 model。
 2. 执行 `npx prisma generate`，在 `node_modules/@prisma` 生成客户端代码。
-3. 
