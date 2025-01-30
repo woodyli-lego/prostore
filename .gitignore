@@ -40,4 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-docker/**/data
+docker/**/data/
+premium-docs/
