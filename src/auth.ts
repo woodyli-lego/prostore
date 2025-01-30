@@ -14,7 +14,7 @@ export const config = {
   // 会话配置
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 3 * 24 * 60 * 60, // 1 day
   },
   // 数据库适配
   adapter: PrismaAdapter(prisma),
