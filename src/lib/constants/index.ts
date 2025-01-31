@@ -16,3 +16,5 @@ export const signUpDefaultValues = {
   password: "",
   confirmPassword: "",
 };
+
+export const sessionCartIdKey = `${APP_NAME}.session-cart-id`

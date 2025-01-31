@@ -4,6 +4,8 @@ import { compareSync } from "bcrypt-ts-edge";
 import type { NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { NextResponse } from "next/server";
+import { sessionCartIdKey } from "./lib/constants";
 
 export const config = {
   // 页面路由配置
@@ -55,6 +57,19 @@ export const config = {
     }),
   ],
   callbacks: {
+    async session({ session, user, trigger, token }: any) {
+      // 从 token 提取字段，设入 session.user
+      session.user.id = token.sub;
+      session.user.role = token.role;
+      session.user.name = token.name;
+
+      // 用户信息更新同时刷新 session 中的 user name
+      if (trigger === "update") {
+        session.user.name = user.name;
+      }
+
+      return session;
+    },
     async jwt({ token, user, trigger, session }: any) {
       console.log("JWT token", token);
       if (user) {
@@ -73,18 +88,25 @@ export const config = {
       }
       return token;
     },
-    async session({ session, user, trigger, token }: any) {
-      // 从 token 提取字段，设入 session.user
-      session.user.id = token.sub;
-      session.user.role = token.role;
-      session.user.name = token.name;
-
-      // 用户信息更新同时刷新 session 中的 user name
-      if (trigger === "update") {
-        session.user.name = user.name;
+    authorized({ request, auth }: any) {
+      // Check for session cart cookie
+      if (!request.cookies.get(sessionCartIdKey)) {
+        // Generate new session cart id cookie
+        const sessionCartId = crypto.randomUUID();
+        // Clone the request headers
+        const newRequestHeaders = new Headers(request.headers);
+        // Create new resposne with new headers
+        const response = NextResponse.next({
+          request: {
+            headers: newRequestHeaders,
+          },
+        });
+        // Set newly generated sessionCartId in response cookies
+        response.cookies.set(sessionCartIdKey, sessionCartId);
+        return response;
+      } else {
+        return true;
       }
-
-      return session;
     },
   },
 } satisfies NextAuthConfig;
