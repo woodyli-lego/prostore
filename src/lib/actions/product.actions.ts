@@ -15,7 +15,8 @@ export async function getLatestProducts() {
 
 // 根据 slug 获取商品
 export async function getProductBySlug(slug: string) {
-  return await prisma.product.findFirst({
+  const data = await prisma.product.findFirst({
     where: { slug: slug }
   });
+  return convertToPlainObject(data);
 }

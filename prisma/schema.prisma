@@ -46,6 +46,7 @@ model User {
   updatedAt     DateTime  @updatedAt @map("updated_at") @db.Timestamp(6)
   account       Account[]
   session       Session[]
+  cart          Cart[]
 
   @@map("users")
 }
@@ -92,4 +93,20 @@ model VerificationToken {
 
   @@id([identifier, token])
   @@map("verification_tokens")
+}
+
+model Cart {
+  id            String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId        String? @map("user_id") @db.Uuid
+  sessionCartId String  @map("session_cart_id")
+  items         Json[]  @default([]) @db.Json
+  itemsPrice Decimal @db.Decimal(12, 2) @map("items_price")
+  totalPrice Decimal @db.Decimal(12, 2) @map("total_price")
+  shippingPrice Decimal @db.Decimal(12, 2) @map("shipping_price")
+  taxPrice Decimal @db.Decimal(12, 2) @map("tax_price")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("carts")
 }
