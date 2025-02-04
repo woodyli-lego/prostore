@@ -71,7 +71,7 @@ export const config = {
       return session;
     },
     async jwt({ token, user, trigger, session }: any) {
-      console.log("JWT token", token);
+      // console.log("JWT token", token);
       if (user) {
         token.role = user.role;
         if (user.name === "NO_NAME") {

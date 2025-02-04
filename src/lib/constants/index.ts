@@ -6,8 +6,8 @@ export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhos
 export const LATEST_PRODUCTS_LIMIT = Number(process.env.LATEST_PRODUCT_LIMIT) || 4;
 
 export const signInDefaultValues = {
-  email: "",
-  password: "",
+  email: "user@example.com",
+  password: "123456",
 };
 
 export const signUpDefaultValues = {
@@ -17,4 +17,4 @@ export const signUpDefaultValues = {
   confirmPassword: "",
 };
 
-export const sessionCartIdKey = `${APP_NAME}.session-cart-id`
+export const sessionCartIdKey = `${APP_NAME.toLocaleLowerCase()}.session-cart-id`
