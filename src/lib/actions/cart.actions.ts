@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/db/prisma";
 import { cartItemSchema, insertCartSchema } from "../validators";
 import { revalidatePath } from "next/cache";
+import { Prisma } from "@prisma/client";
 
 // Calculate cart prices
 const calcPrice = (items: CartItem[]) => {
@@ -60,9 +61,35 @@ export async function addItemToCart(data: CartItem) {
         data: newCart,
       });
 
-      // Revalidate product page
-      revalidatePath(`/product/${product.slug}`);
+    } else {
+      // 检查 item 是否已经在 cart 中
+      const existItem = (cart.items as CartItem[]).find((x) => x.productId === item.productId);
+      if (existItem) {
+        // 如果存在了，修改 qty 即可
+        if (product.stock < existItem.qty + 1) {
+          throw new Error("Not enough stock");
+        }
+        (cart.items as CartItem[]).find((x) => x.productId === item.productId)!.qty =
+          existItem.qty + 1;
+      } else {
+        // 否则，把 item 加入 cart
+        if (product.stock < 1) {
+          throw new Error("Not enough stock");
+        }
+        cart.items.push(item);
+      }
+
+      await prisma.cart.update({
+        where: { id: cart.id },
+        data: {
+          items: cart.items as Prisma.CartUpdateitemsInput[],
+          ...calcPrice(cart.items as CartItem[]),
+        },
+      });
     }
+
+    // 重新生成 product page（以避免缓存问题）
+    revalidatePath(`/product/${product.slug}`);
 
     return {
       success: true,
