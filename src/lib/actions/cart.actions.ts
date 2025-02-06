@@ -45,9 +45,7 @@ export async function addItemToCart(data: CartItem) {
     const product = await prisma.product.findFirst({
       where: { id: item.productId },
     });
-    if (!product) {
-      throw new Error("Product not found");
-    }
+    if (!product) throw new Error("Product not found");
 
     if (!cart) {
       const newCart = insertCartSchema.parse({
@@ -127,4 +125,55 @@ export async function getMyCart() {
     shippingPrice: cart.shippingPrice.toString(),
     taxPrice: cart.taxPrice.toString(),
   });
+}
+
+export async function removeItemFromCart(productId:string) {
+  try {
+    // 从 cookie 获取 sessionCartId
+    const sessionCartId = (await cookies()).get(sessionCartIdKey)?.value;
+    if (!sessionCartId) throw new Error("Cart session not found");
+
+    // 从数据库读取 product
+    const product = await prisma.product.findFirst({
+      where: { id: productId },
+    });
+    if (!product) throw new Error("Product not found");
+
+    // 从数据库读取 user cart
+    const cart = await getMyCart();
+    if (!cart) throw new Error("Cart not found");
+
+    // 检查 item 是否已经在 cart 中
+    const exist = (cart.items as CartItem[]).find((x) => x.productId === productId);
+    if (!exist) throw new Error("Item not found");
+
+    if (exist.qty === 1) {
+      // 如果 qty 为 1，直接删除 item
+      cart.items = (cart.items as CartItem[]).filter((x) => x.productId !== productId);
+    } else {
+      // 否则，减少 qty
+      (cart.items as CartItem[]).find((x) => x.productId === productId)!.qty = exist.qty - 1;
+    }
+
+    // 存储更新后的 cart
+    await prisma.cart.update({
+      where: { id: cart.id },
+      data: {
+        items: cart.items as Prisma.CartUpdateitemsInput[],
+        ...calcPrice(cart.items as CartItem[]),
+      },
+    });
+
+    revalidatePath(`/product/${product.slug}`);
+
+    return {
+      success: true,
+      message: `${product.name} was removed from cart`,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    }
+  }
 }
